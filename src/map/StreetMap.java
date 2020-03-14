@@ -1,18 +1,20 @@
 package map;
 
-import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Reprezentuje jednu mapu, která obsahuje ulice.
  */
 public class StreetMap
 {
-	private List<Street> streetMap;
+	private List<Stop> stops;
+	private List<Street> streets;
 	
-	public StreetMap() 
+	public StreetMap(List<Stop> stops, List<Street> streets) 
 	{
-		this.streetMap = new ArrayList<>();
+		this.streets = streets;
+		this.stops = stops;
 	}
 	
   /**
@@ -21,9 +23,28 @@ public class StreetMap
    */
 	public void addStreet(Street s)
 	{
-		this.streetMap.add(s);
+		this.streets.add(s);
 	}
-
+  
+  /**
+ 	* Přidá ulici do mapy.
+ 	* @param s Objekt reprezentující ulici.
+ 	*/
+	public void addStop(Stop s)
+	{
+		this.stops.add(s);
+	}
+	
+	public List<Street> getStreets()
+	{
+		return this.streets;
+	}
+	
+	public List<Stop> getStops()
+	{
+		return this.stops;
+	}
+	
   /**
    * Vrátí objekt reprezentující ulici se zadaným id.
    * @param id Identifikátor ulice.
@@ -31,7 +52,7 @@ public class StreetMap
    */
 	public Street getStreet(String id)
 	{
-		for (Street CurrentStreet : this.streetMap) 
+		for (Street CurrentStreet : this.streets) 
 		{
 	        if (CurrentStreet.getId().equals(id)) 
 	        {

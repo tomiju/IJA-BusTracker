@@ -1,0 +1,72 @@
+stops:
+  -
+    &stop1
+    id: "Stop 1"
+    coordinates:
+      x: 475.0
+      y: 444.0
+  -
+    &stop2
+    id: "Stop 2"
+    coordinates:
+      x: 339.0
+      y: 689.0
+  -
+    &stop3
+    id: "Stop 3"
+    coordinates:
+      x: 600.0
+      y: 200.0
+  -
+    &stop4
+    id: "Stop4"
+    coordinates:
+      x: 242.0
+      y: 193.0
+  -
+    &stop5
+    id: "Stop5"
+    coordinates:
+      x: 700.0
+      y: 500.0
+  -
+    &stop6
+    id: "Stop6"
+    coordinates:
+      x: 860.0
+      y: 250.0
+  -
+    &stop7
+    id: "Stop7"
+    coordinates:
+      x: 600.0
+      y: 350.0
+  -
+    &stop8
+    id: "Stop8"
+    coordinates:
+      x: 600.0
+      y: 400.0
+streets:
+  -
+    &street1 name: "Street 1"
+    stops:
+      - *stop1
+      - *stop2
+    from:
+      x: 475.0
+      y: 444.0
+    to:
+      x: 339.0
+      y: 689.0
+  -
+    &street2 name: "Street 2"
+    stops:
+      - *stop1
+      - *stop4
+    from:
+      x: 475.0
+      y: 444.0
+    to:
+      x: 242.0
+      y: 193.0

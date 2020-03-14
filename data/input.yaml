@@ -1,5 +1,4 @@
----
-Line1:
+Map:
   Streets:
     "Street1":
       X_coord: 150
@@ -22,12 +21,6 @@ Line1:
       "Stop4":
         X_coord: 169
         Y_coord: 179
-  Vehicles:
-    "Vehicle1":
-      Start_Time: 2
----
-Line2:
-  Streets:
     "Street4":
       X_coord: 150
       Y_coord: 200
@@ -46,6 +39,28 @@ Line2:
       "Stop7":
         X_coord: 169
         Y_coord: 179
+---
+Line1:
+  Streets:
+    "Street1":
+      - "Stop1"
+    "Street2":
+      - "Stop2"
+    "Street3":
+      - "Stop3"
+      - "Stop4"
+  Vehicles:
+    "Vehicle1":
+      Start_Time: 2
+---
+Line2:
+  Streets:
+    "Street4":
+      - "Stop5"
+    "Street5":
+      - "Stop6"
+    "Street6":
+      - "Stop7"
   Vehicles:
     "Vehicle2":
       Start_Time: 2

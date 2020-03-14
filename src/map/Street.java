@@ -8,21 +8,29 @@ import java.util.List;
  * předpokládejte pouze souřadnice začátku a konce ulice.
  * Na ulici se mohou nacházet zastávky.
  */
+
+// TODO: výpočet, zda X,Y leží na přímce (na ulici)
 public class Street
 {
 	private Coordinate start, end;
 	private String name;
-	private List<Stop> stopList;
+	private List<Stop> stops;
 	private List<Coordinate> coordinateList;
+	private int busyness; // vytížení
+	private boolean opened; // otevřená / uzavřená ulice
 	
-	public Street(String name, Coordinate start, Coordinate end)
+	public Street(String name, Coordinate start, Coordinate end, List<Stop> stops)
 	{
-		this.coordinateList = new ArrayList<>();
 		this.name = name;
+		this.coordinateList = new ArrayList<>();
+		this.coordinateList.add(start);
+		this.stops = stops;
 		this.start = start;
 		this.end = end;
-		this.stopList = new ArrayList<>();
-		this.coordinateList.add(this.start);
+		this.busyness = 0;
+		this.opened = true;
+		
+		this.setStreetParameterToStop();
 	}
 	
   /**
@@ -51,7 +59,20 @@ public class Street
    */
 	public List<Stop> getStops()
 	{
-		return this.stopList;
+		return this.stops;
+	}
+	
+	public void setStreetParameterToStop()
+	{
+		for (Stop stop : this.stops) 
+		{
+	        stop.setStreet(this);
+		}
+	}
+	
+	public boolean isOpen()
+	{
+		return this.opened;
 	}
 
   /**
@@ -60,7 +81,10 @@ public class Street
    */
 	public void addStop(Stop stop)
 	{
-		this.stopList.add(stop);
+		this.stops.add(stop);
+		
+		this.coordinateList.add(stop.getCoordinate());
+		
 		stop.setStreet(this);
 	}
 }

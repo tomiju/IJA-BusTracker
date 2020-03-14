@@ -1,5 +1,7 @@
 package map;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * Reprezentuje zastávku. Zastávka má svůj unikátní identifikátor a dále souřadnice umístění a zná ulici, na které je umístěna.
@@ -7,6 +9,8 @@ package map;
  * přiřazeno umístění (tj. je bez souřadnic a bez znalosti ulice). Pro shodu objektů platí, že dvě zastávky jsou shodné, pokud
  * mají stejný identifikátor.
  */
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Stop
 {
 	private String stopID;
@@ -17,13 +21,6 @@ public class Stop
 	{
 		this.stopID = id;
 		this.stopCoordinate = coordinate;
-		this.stopStreet = null;
-	}
-	
-	public Stop(String id)
-	{
-		this.stopID = id;
-		this.stopStreet = null;
 	}
 	
   /**
@@ -45,21 +42,21 @@ public class Stop
 	}
 
   /**
-   * Nastaví ulici, na které je zastávka umístěna.
-   * @param s Ulice, na které je zastávka umístěna.
-   */
-	public void setStreet(Street s)
-	{
-		this.stopStreet = s;
-	}
-
-  /**
    * Vrátí ulici, na které je zastávka umístěna.
    * @return Ulice, na které je zastávka umístěna. Pokud zastávka existuje, ale dosud nemá umístění, vrací null.
    */
 	public Street getStreet()
 	{
 		return this.stopStreet;
+	}
+		
+  /**
+ 	* Nastaví ulici, na které je zastávka umístěna.
+	* @param s Ulice, na které je zastávka umístěna.
+	*/
+	public void setStreet(Street s)
+	{
+		this.stopStreet = s;
 	}
 	
 	@Override
