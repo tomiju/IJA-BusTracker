@@ -10,4 +10,11 @@ public class Timetable
 	{
 		this.entries = entries;
 	}
+	
+	public Timetable() {}
+	
+	public List<TimetableEntry> getEntries()
+	{
+		return this.entries;
+	}
 }

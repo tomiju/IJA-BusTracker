@@ -1,0 +1,39 @@
+stops:
+ -
+  &Stop1 id: "Stop1"
+  coordinate:
+    x: 5
+    y: 7
+  street:
+    &Street2 id: "Street2"
+    stops:
+     - *Stop1
+     -
+      &Stop2 id: "Stop2"
+      coordinate:
+        x: 55
+        y: 71
+      street: *Street2
+    coordinates:
+     -
+      x: 10
+      y: 20
+     -
+      x: 15
+      y: 25
+    open: true
+ - *Stop2
+streets:
+ -
+  &Street1 id: "Street1"
+  stops:
+   - *Stop1
+  coordinates:
+   -
+    x: 10
+    y: 20
+   -
+    x: 15
+    y: 25
+  open: true
+ - *Street2

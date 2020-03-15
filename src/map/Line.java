@@ -1,28 +1,33 @@
 package map;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Line 
 {
-	private String name;
+	private String id;
 	private Stop start, end; // možná stačí využít seznam - vzít první a poslední prvek
 	private List<Street> streets;
 	private List<Vehicle> vehicles;
 	
-	public Line(List<Street> streets, List<Vehicle> vehicles)
+	public Line(String id, List<Street> streets)
 	{
 		this.streets = streets;
-		this.vehicles = vehicles;
+		this.id = id;
 		
 		List<Stop> streetStops = this.streets.get(0).getStops();
 		this.start = streetStops.get(0);
 		this.end = streetStops.get(streetStops.size() - 1);
 	}
 	
-	public void setName(String name)
+	public Line() {}
+	
+	public void setId(String name)
 	{
-		this.name = name; 
+		this.id = name; 
 	}
 	
 	public void addStreet(Street street)
@@ -35,9 +40,9 @@ public class Line
 		this.vehicles.add(vehicle);
 	}
 	
-	public String getName()
+	public String getId()
 	{
-		return this.name;
+		return this.id;
 	}
 	
 	public Stop getStart()

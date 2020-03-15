@@ -17,6 +17,8 @@ public class StreetMap
 		this.stops = stops;
 	}
 	
+	public StreetMap() {}
+	
   /**
    * Přidá ulici do mapy.
    * @param s Objekt reprezentující ulici.

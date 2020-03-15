@@ -3,6 +3,9 @@ package map;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 /**
  * Reprezentuje jednu ulici v mapě. Ulice má svůj identifikátor (název) a je definována souřadnicemi. Pro 1. úkol
  * předpokládejte pouze souřadnice začátku a konce ulice.
@@ -10,28 +13,30 @@ import java.util.List;
  */
 
 // TODO: výpočet, zda X,Y leží na přímce (na ulici)
+
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Street
 {
-	private Coordinate start, end;
-	private String name;
+	private boolean open; // otevřená / uzavřená ulice
 	private List<Stop> stops;
-	private List<Coordinate> coordinateList;
+	private Coordinate start, end;
+	private String id;
 	private int busyness; // vytížení
-	private boolean opened; // otevřená / uzavřená ulice
+	
 	
 	public Street(String name, Coordinate start, Coordinate end, List<Stop> stops)
 	{
-		this.name = name;
-		this.coordinateList = new ArrayList<>();
-		this.coordinateList.add(start);
+		this.id = name;
 		this.stops = stops;
 		this.start = start;
 		this.end = end;
 		this.busyness = 0;
-		this.opened = true;
+		this.open = true;
 		
 		this.setStreetParameterToStop();
 	}
+	
+	public Street() {}
 	
   /**
    * Vrátí identifikátor ulice.
@@ -39,7 +44,7 @@ public class Street
    */
 	public String getId()
 	{
-		return this.name;
+		return this.id;
 	}
 
   /**
@@ -47,10 +52,16 @@ public class Street
    * @return Seznam souřadnic ulice.
    */
 
-	public List<Coordinate> getCoordinates()
+	public Coordinate getStart()
 	{
-		this.coordinateList.add(this.end);
-		return this.coordinateList;
+		
+		return this.start;
+	}
+	
+	public Coordinate getEnd()
+	{
+		
+		return this.end;
 	}
 
   /**
@@ -72,7 +83,7 @@ public class Street
 	
 	public boolean isOpen()
 	{
-		return this.opened;
+		return this.open;
 	}
 
   /**
@@ -82,8 +93,6 @@ public class Street
 	public void addStop(Stop stop)
 	{
 		this.stops.add(stop);
-		
-		this.coordinateList.add(stop.getCoordinate());
 		
 		stop.setStreet(this);
 	}

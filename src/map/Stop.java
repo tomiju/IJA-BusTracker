@@ -10,18 +10,21 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  * mají stejný identifikátor.
  */
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
+//@//JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Stop
 {
-	private String stopID;
-	private Coordinate stopCoordinate;
-	private Street stopStreet;
+	private String id;
+	private Coordinate coordinate;
+	private Street street;
 	
 	public Stop(String id, Coordinate coordinate)
 	{
-		this.stopID = id;
-		this.stopCoordinate = coordinate;
+		this.id = id;
+		this.coordinate = coordinate;
 	}
+	
+	public Stop() {}
 	
   /**
    * Vrátí identifikátor zastávky.
@@ -29,7 +32,7 @@ public class Stop
    */
 	public String getId()
 	{
-		return this.stopID;
+		return this.id;
 	}
 
   /**
@@ -38,16 +41,16 @@ public class Stop
    */
 	public Coordinate getCoordinate()
 	{
-		return this.stopCoordinate;
+		return this.coordinate;
 	}
 
   /**
    * Vrátí ulici, na které je zastávka umístěna.
    * @return Ulice, na které je zastávka umístěna. Pokud zastávka existuje, ale dosud nemá umístění, vrací null.
    */
-	public Street getStreet()
+	public Street onWhatStreet()
 	{
-		return this.stopStreet;
+		return this.street;
 	}
 		
   /**
@@ -56,7 +59,7 @@ public class Stop
 	*/
 	public void setStreet(Street s)
 	{
-		this.stopStreet = s;
+		this.street = s;
 	}
 	
 	@Override

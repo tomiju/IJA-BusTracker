@@ -7,12 +7,12 @@ package map;
  */
 public class Coordinate
 {
-	private int coordX, coordY;
+	private int x, y;
 	
 	public Coordinate(int X, int Y)
 	{
-		this.coordX = X;
-		this.coordY = Y;
+		this.x = X;
+		this.y = Y;
 	}
 	
 	public static Coordinate create(int X, int Y)
@@ -27,13 +27,15 @@ public class Coordinate
 		}
 	}
 	
+	public Coordinate() {}
+	
   /**
    * Vrací hodnotu souřadnice x.
    * @return Souřadnice x.
    */
 	public int getX()
 	{
-		return this.coordX;
+		return this.x;
 	}
 	
   /**
@@ -42,7 +44,7 @@ public class Coordinate
    */
 	public int getY()
 	{
-		return this.coordY;
+		return this.y;
 	}
 	
 	@Override

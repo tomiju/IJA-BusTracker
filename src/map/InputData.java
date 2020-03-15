@@ -6,8 +6,8 @@ public class InputData // pomocná třída pro zpracování input dat z YAML sou
 {
 	private List<Stop> stops;
 	private List<Street> streets;
-	private List<Vehicle> vehicles;
 	private List<Line> lines;
+	private List<Vehicle> vehicles;
 	
 	public InputData(List<Stop> stops, List<Street> streets, List<Vehicle> vehicles, List<Line> lines) 
 	{
