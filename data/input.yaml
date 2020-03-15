@@ -1,73 +1,69 @@
-Map:
-  Streets:
-    "Street1":
-      X_coord: 150
-      Y_coord: 200
-      "Stop1":
-        X_coord: 169
-        Y_coord: 179
-    "Street2":
-      X_coord: 300
-      Y_coord: 200
-      "Stop2":
-        X_coord: 169
-        Y_coord: 179
-    "Street3":
-      X_coord: 169
-      Y_coord: 211
-      "Stop3":
-        X_coord: 169
-        Y_coord: 179
-      "Stop4":
-        X_coord: 169
-        Y_coord: 179
-    "Street4":
-      X_coord: 150
-      Y_coord: 200
-      "Stop5":
-        X_coord: 169
-        Y_coord: 179
-    "Street5":
-      X_coord: 300
-      Y_coord: 200
-      "Stop6":
-        X_coord: 169
-        Y_coord: 179
-    "Street6":
-      X_coord: 169
-      Y_coord: 211
-      "Stop7":
-        X_coord: 169
-        Y_coord: 179
----
-Line1:
-  Streets:
-    "Street1":
-      - "Stop1"
-    "Street2":
-      - "Stop2"
-    "Street3":
-      - "Stop3"
-      - "Stop4"
-  Vehicles:
-    "Vehicle1":
-      Start_Time: 2
----
-Line2:
-  Streets:
-    "Street4":
-      - "Stop5"
-    "Street5":
-      - "Stop6"
-    "Street6":
-      - "Stop7"
-  Vehicles:
-    "Vehicle2":
-      Start_Time: 2
-    "Vehicle3":
-      Start_Time: 2
-    "Vehicle4":
-      Start_Time: 2
-    "Vehicle5":
-      Start_Time: 2
----
+stops:
+ -
+  &stop1 id: "stop1"
+  coordinate:
+    x: 5
+    y: 7
+ -
+  &stop2 id: "stop2"
+  coordinate:
+    x: 55
+    y: 71
+streets:
+ -
+  &street1 id: "street1"
+  open: true
+  stops:
+   - *stop1
+   - *stop2
+  start:
+    x: 10
+    y: 20
+  end:
+    x: 15
+    y: 25
+ -
+  &street2 id: "street2"
+  open: true
+  stops:
+   - *stop1
+   - *stop2
+  start:
+    x: 10
+    y: 20
+  end:
+    x: 15
+    y: 25
+lines:
+ -
+  &line1 id: "line1"
+  start: *stop1
+  end: *stop2
+  streets:
+   - *street1
+   - *street2
+  vehicles: null
+ - *line1
+vehicles:
+ -
+  line: *line1
+  timetable:
+    entries:
+     -
+      stop: *stop1
+      time: "00:10:00"
+     -
+      stop: *stop2
+      time: "00:12:00"
+  currentStreet: *street2
+ -
+  line: *line1
+  timetable:
+    entries:
+     -
+      stop: *stop1
+      time: "00:50:00"
+     -
+      stop: *stop2
+      time: "00:09:00"
+  currentStreet: *street2
