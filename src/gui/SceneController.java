@@ -9,6 +9,8 @@
 
 package gui;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
@@ -20,22 +22,30 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Line;
 import javafx.stage.Stage;
+import map.BusLine;
+import map.InputData;
+import map.Street;
 
 
 
 public class SceneController implements Initializable {
+	private static InputData data;
 	
 	@FXML
-    private Pane testPane;
+    private Pane map;
+	
+	@FXML
+	private ListView<String> lineList;
 	
 	@FXML
     private void handleButtonAction(ActionEvent event) 
 	{
         System.out.println("You clicked me!");
     }
+	
 	
 	// Funkce otevře úvodní okno - z tama vybereme vstup -> podle vstupu se nastaví instance třídy a po zavření okna se vykreslí mapa v hlavním okně
 	@Override
@@ -63,21 +73,56 @@ public class SceneController implements Initializable {
         iwController.setStage(owStage);
         iwController.setSceneController(this);
         owStage.showAndWait();
-
-        init();
-		
+        SceneController.data = iwController.getData(); // vstupní data
+        
+        this.lineList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                    String oldValue, String newValue) {
+            	
+            	System.out.println(newValue);
+            	for (BusLine line : gui.SceneController.data.getLines()) 
+        		{
+            		if (line != null)
+        			{
+            			if(line.getId() == newValue)
+                		{
+                			 line.setLineFocus(map, line.getStreets());
+                		}
+            			
+            			if(line.getId() == oldValue)
+            			{
+            				line.unsetLineFocus(map, line.getStreets());
+            			}
+        			}	
+        		}
+            }
+        });
+        
+        init();	
 	}
 	
 	public void init()
 	{
-		Line line = new Line(); 
-        
-	    //Setting the properties to a line 
-	    line.setStartX(100.0); 
-	    line.setStartY(150.0); 
-	    line.setEndX(500.0); 
-	    line.setEndY(150.0); 
-		testPane.getChildren().add(line);
+		for (Street street : SceneController.data.getStreets()) 
+		{
+			System.out.println(gui.SceneController.data.getLines().get(0).getId());
+			Drawable.drawStreets(street, map);
+		}
+		
+		for (BusLine line : SceneController.data.getLines()) 
+		{
+			if (line != null)
+			{
+				this.lineList.getItems().add(line.getId());
+			}
+		}
+		
+		if(this.lineList.getItems() != null)
+		{
+
+		}
+		
 	}
 
 }

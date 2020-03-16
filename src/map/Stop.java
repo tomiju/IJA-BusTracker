@@ -1,6 +1,7 @@
 package map;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
@@ -48,7 +49,8 @@ public class Stop
    * Vrátí ulici, na které je zastávka umístěna.
    * @return Ulice, na které je zastávka umístěna. Pokud zastávka existuje, ale dosud nemá umístění, vrací null.
    */
-	public Street onWhatStreet()
+	@JsonIgnore
+	public Street getStreet()
 	{
 		return this.street;
 	}

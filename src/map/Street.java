@@ -1,10 +1,15 @@
 package map;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import drawable.StreetView;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 
 /**
  * Reprezentuje jednu ulici v mapě. Ulice má svůj identifikátor (název) a je definována souřadnicemi. Pro 1. úkol
@@ -23,6 +28,9 @@ public class Street
 	private String id;
 	private int busyness; // vytížení
 	
+	@JsonIgnore
+	private StreetView streetView;
+	
 	
 	public Street(String name, Coordinate start, Coordinate end, List<Stop> stops)
 	{
@@ -32,6 +40,8 @@ public class Street
 		this.end = end;
 		this.busyness = 0;
 		this.open = true;
+		
+		this.streetView = new StreetView();
 		
 		this.setStreetParameterToStop();
 	}
@@ -95,5 +105,17 @@ public class Street
 		this.stops.add(stop);
 		
 		stop.setStreet(this);
+	}
+	
+	@JsonIgnore
+	public void setStreetView(StreetView view)
+	{
+		this.streetView = view;
+	}
+	
+	@JsonIgnore
+	public StreetView getStreetView()
+	{
+		return this.streetView;
 	}
 }

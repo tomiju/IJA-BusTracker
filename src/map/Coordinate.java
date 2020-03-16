@@ -7,9 +7,9 @@ package map;
  */
 public class Coordinate
 {
-	private int x, y;
+	private float x, y;
 	
-	public Coordinate(int X, int Y)
+	public Coordinate(float X, float Y)
 	{
 		this.x = X;
 		this.y = Y;
@@ -33,7 +33,7 @@ public class Coordinate
    * Vrací hodnotu souřadnice x.
    * @return Souřadnice x.
    */
-	public int getX()
+	public float getX()
 	{
 		return this.x;
 	}
@@ -42,7 +42,7 @@ public class Coordinate
    * Vrací hodnotu souřadnice y.
    * @return Souřadnice y.
    */
-	public int getY()
+	public float getY()
 	{
 		return this.y;
 	}

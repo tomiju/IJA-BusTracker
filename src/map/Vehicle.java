@@ -1,8 +1,13 @@
 package map;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Vehicle 
 {
-	private Line line;
+	private String id;
+	private BusLine line;
 	private Timetable timetable;
 	private Coordinate currentPosition;
 	private Street currentStreet;
@@ -10,15 +15,16 @@ public class Vehicle
 	
 	// aktuální ulice se dá dopočítat - aktuální koordináty -> v lince jsou všechny ulice po trase - spočítat na které přímce leží bod daný aktuálními koordináty
 	
-	public Vehicle(Timetable timetable, Line line)
+	public Vehicle(Timetable timetable, BusLine line, String id)
 	{
 		this.timetable = timetable;
 		this.line = line;
 		this.speed = 0;
+		this.id = id;
 		this.currentPosition = line.getStart().getCoordinate();
-		this.currentStreet = line.getStart().onWhatStreet(); // počáteční ulice
+		this.currentStreet = line.getStart().getStreet(); // počáteční ulice
 		
-		//this.addVehicleToLine();
+		this.addVehicleToLine();
 	}
 	
 	public Vehicle() {}
@@ -28,9 +34,14 @@ public class Vehicle
 		return this.timetable;
 	}
 	
-	public Line getLine()
+	public BusLine getLine()
 	{
 		return this.line;
+	}
+	
+	public String getId()
+	{
+		return this.id;
 	}
 	
 	public Coordinate currentPosition()
