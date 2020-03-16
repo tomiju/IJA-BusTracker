@@ -15,7 +15,7 @@ public class Coordinate
 		this.y = Y;
 	}
 	
-	public static Coordinate create(int X, int Y)
+	public static Coordinate create(float X, float Y)
 	{
 		if(X >= 0 && Y >= 0)
 		{

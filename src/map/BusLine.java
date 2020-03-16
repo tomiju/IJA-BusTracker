@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import drawable.StreetView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -24,10 +25,11 @@ public class BusLine
 		this.streets = streets;
 		this.id = id;
 		this.vehicles = new ArrayList<>();
-		
-		List<Stop> streetStops = this.streets.get(0).getStops();
-		this.start = streetStops.get(0);
-		this.end = streetStops.get(streetStops.size() - 1);
+	
+		/*Stop start1 = this.streets.get(0).getStops().get(0);
+		Stop end1 = this.streets.get(this.streets.size() - 1).getStops().get(this.streets.get(this.streets.size() - 1).getStops().size() - 1);
+		this.start = start1;
+		this.end = end1; //this.streets.get(this.streets.size() - 1).getStops().get(this.streets.get(this.streets.size() - 1).getStops().size() - 1);*/
 	}
 	
 	public BusLine() {}
@@ -35,6 +37,16 @@ public class BusLine
 	public void setId(String name)
 	{
 		this.id = name; 
+	}
+	
+	public void setStart(Stop start)
+	{
+		this.start = start;
+	}
+	
+	public void setEnd(Stop stop)
+	{
+		this.end = stop;
 	}
 	
 	public void addStreet(Street street)
@@ -67,6 +79,7 @@ public class BusLine
 		return this.streets;
 	}
 	
+	@JsonIgnore
 	public List<Vehicle> getVehicles()
 	{
 		return this.vehicles;
@@ -95,4 +108,5 @@ public class BusLine
 			map.getChildren().add(line);
 		}
 	}
+	
 }

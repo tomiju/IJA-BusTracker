@@ -22,10 +22,11 @@ import javafx.scene.shape.Line;
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Street
 {
+
+	private String id;
 	private boolean open; // otevřená / uzavřená ulice
 	private List<Stop> stops;
 	private Coordinate start, end;
-	private String id;
 	private int busyness; // vytížení
 	
 	@JsonIgnore
@@ -83,6 +84,12 @@ public class Street
 		return this.stops;
 	}
 	
+	@JsonIgnore
+	public boolean getStatus()
+	{
+		return this.open;
+	}
+	
 	public void setStreetParameterToStop()
 	{
 		for (Stop stop : this.stops) 
@@ -117,5 +124,11 @@ public class Street
 	public StreetView getStreetView()
 	{
 		return this.streetView;
+	}
+	
+	@JsonIgnore
+	public void setOpen(boolean status)
+	{
+		this.open = status;
 	}
 }

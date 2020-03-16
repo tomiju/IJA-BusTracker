@@ -32,14 +32,15 @@ public class Main extends Application
 	    primaryStage.setScene(scene);
 	    primaryStage.setTitle("Bus tracker");
 
-		root.setOnMouseClicked(new EventHandler<MouseEvent>() 
+		/*root.setOnMouseClicked(new EventHandler<MouseEvent>() 
 		{
 		  @Override
 		  public void handle(MouseEvent event) {
 		    System.out.println(event.getScreenX());
-		    System.out.println(event.getScreenY());
+		    System.out.println(event.getSource().toString());
 		  }
-		});
+		});*/
+	    
 	    primaryStage.show();
 
 	}

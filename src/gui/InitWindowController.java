@@ -101,21 +101,18 @@ public class InitWindowController implements Initializable {
 		            // vstup: D:\Install\OneDrive\School\ŠKOLA\FIT VUT - Brno\2. ročník\2. semestr\IJA\PROJEKTY\PROJEKT\IJA\src
 		     		this.data = mapper.readValue(file, InputData.class);
 		     		
-		     		System.out.println("test: ");
-		     		System.out.println(this.data.getLines().get(0).getId());
-		     		
+		     		/*System.out.println("test: ");
+		     		System.out.println(this.data.getVehicles().get(0).getId());
+		     		System.out.println(this.data.getLines().get(0).getStart().getId());
+		     		System.out.println(this.data.getVehicles().get(0).getLine().getStart().getCoordinate().getX());*/		     		
         	 } 
         	 catch (InvalidDefinitionException e)
         	 {
         		 System.out.println("Wrong input file.");
-        		 e.printStackTrace();
-        		 
-        	 }
-     		
+        		 e.printStackTrace();       		 
+        	 }     		
         }
-        this.stage.close();
-		
-		
+        this.stage.close();	
 	}
 	
 	/**

@@ -20,14 +20,17 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import map.BusLine;
 import map.InputData;
 import map.Street;
+import map.Vehicle;
 
 
 
@@ -41,11 +44,32 @@ public class SceneController implements Initializable {
 	private ListView<String> lineList;
 	
 	@FXML
-    private void handleButtonAction(ActionEvent event) 
-	{
-        System.out.println("You clicked me!");
-    }
+	private Group scroll;
 	
+	@FXML
+	private void onStackPaneScroll(ScrollEvent e) // zoom (změna scalingu u scrollpane)
+	{
+		if(e.isControlDown())
+		{
+			e.consume();
+			
+			double zoom = e.getDeltaY() > 0 ? 1.1 : 1 / 1.1;
+			
+			this.map.setScaleX(zoom * this.map.getScaleX());
+			this.map.setScaleY(zoom * this.map.getScaleY());
+			
+			this.scroll.layout();
+		}
+	}
+	
+	@FXML
+	private void handleFocusReset(ActionEvent event)
+	{
+		for (BusLine line : SceneController.data.getLines()) 
+		{
+			line.unsetLineFocus(map, line.getStreets());
+		}
+	}
 	
 	// Funkce otevře úvodní okno - z tama vybereme vstup -> podle vstupu se nastaví instance třídy a po zavření okna se vykreslí mapa v hlavním okně
 	@Override
@@ -80,7 +104,6 @@ public class SceneController implements Initializable {
             public void changed(ObservableValue<? extends String> observable,
                     String oldValue, String newValue) {
             	
-            	System.out.println(newValue);
             	for (BusLine line : gui.SceneController.data.getLines()) 
         		{
             		if (line != null)
@@ -106,7 +129,6 @@ public class SceneController implements Initializable {
 	{
 		for (Street street : SceneController.data.getStreets()) 
 		{
-			System.out.println(gui.SceneController.data.getLines().get(0).getId());
 			Drawable.drawStreets(street, map);
 		}
 		
@@ -118,11 +140,13 @@ public class SceneController implements Initializable {
 			}
 		}
 		
-		if(this.lineList.getItems() != null)
+		for (Vehicle vehicle : SceneController.data.getVehicles()) 
 		{
-
+			vehicle.setCurrentPosition(vehicle.getLine().getStreets().get(0).getStart()); // nastavení počáteční pozice auta
+			vehicle.setCurrentStreet(vehicle.getLine().getStart().getStreet()); // nastavení počáteční ulice
+			
+			Drawable.drawVehicles(vehicle, map);
 		}
-		
 	}
 
 }
