@@ -1,9 +1,12 @@
 package map;
 
-
 /**
- * Reprezentuje pozici (souřadnice) v mapě. Souřadnice je dvojice (x,y), počátek mapy je vždy na pozici (0,0).
- * Nelze mít pozici se zápornou souřadnicí.
+ * 
+ * Reprezentuje pozici (souřadnice) v mapě.
+ * Souřadnice je dvojice (x,y).
+ * @author Tomáš Julina (xjulin08)
+ * @author Tomáš Kantor (xkanto14)
+ *
  */
 public class Coordinate
 {
@@ -15,23 +18,11 @@ public class Coordinate
 		this.y = Y;
 	}
 	
-	public static Coordinate create(float X, float Y)
-	{
-		if(X >= 0 && Y >= 0)
-		{
-			return new Coordinate(X,Y);
-		}
-		else
-		{
-			return null;
-		}
-	}
-	
 	public Coordinate() {}
 	
   /**
    * Vrací hodnotu souřadnice x.
-   * @return Souřadnice x.
+   * @return float Souřadnice x.
    */
 	public float getX()
 	{
@@ -40,24 +31,10 @@ public class Coordinate
 	
   /**
    * Vrací hodnotu souřadnice y.
-   * @return Souřadnice y.
+   * @return float Souřadnice y.
    */
 	public float getY()
 	{
 		return this.y;
 	}
-	
-	@Override
-    public boolean equals(Object obj) 
-	{
-        if (obj == this) {
-            return true;
-        }
-        if (obj == null || obj.getClass() != this.getClass()) {
-            return false;
-        }
-
-       Coordinate coordinate = (Coordinate) obj;
-       return this.getX() == coordinate.getX() && this.getY() == coordinate.getY();
-    }
 }

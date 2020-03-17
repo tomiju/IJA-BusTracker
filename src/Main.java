@@ -28,7 +28,6 @@ public class Main extends Application
 		Parent root = FXMLLoader.load(getClass().getResource("gui/scene.fxml"));
 		
 	    Scene scene = new Scene(root, 1000, 700);
-	    //scene.getStylesheets().add("gui/mainScene.css");
 	    primaryStage.setScene(scene);
 	    primaryStage.setTitle("Bus tracker");
 

@@ -1,12 +1,3 @@
-
-/**
- * 
- * Ovládání scén
- * @author Tomáš Julina (xjulin08)
- * @author Tomáš Kantor (xkanto14)
- *
- */
-
 package gui;
 
 import javafx.beans.value.ChangeListener;
@@ -32,8 +23,13 @@ import map.InputData;
 import map.Street;
 import map.Vehicle;
 
-
-
+/**
+ * 
+ * Ovládání scén.
+ * @author Tomáš Julina (xjulin08)
+ * @author Tomáš Kantor (xkanto14)
+ *
+ */
 public class SceneController implements Initializable {
 	private static InputData data;
 	
@@ -46,8 +42,12 @@ public class SceneController implements Initializable {
 	@FXML
 	private Group scroll;
 	
+	/**
+     * Ovládá zoom, mění scale "mapy".
+     * @param e event
+     */
 	@FXML
-	private void onStackPaneScroll(ScrollEvent e) // zoom (změna scalingu u scrollpane)
+	private void onStackPaneScroll(ScrollEvent e)
 	{
 		if(e.isControlDown())
 		{
@@ -62,6 +62,10 @@ public class SceneController implements Initializable {
 		}
 	}
 	
+	/**
+     * Resetuje barvu ulice (zruší focus).
+     * @param event event
+     */
 	@FXML
 	private void handleFocusReset(ActionEvent event)
 	{
@@ -71,7 +75,11 @@ public class SceneController implements Initializable {
 		}
 	}
 	
-	// Funkce otevře úvodní okno - z tama vybereme vstup -> podle vstupu se nastaví instance třídy a po zavření okna se vykreslí mapa v hlavním okně
+	/**
+     * Konstruktor hlavního okna.
+     * @param location
+     * @param resources
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
 	{
@@ -95,7 +103,6 @@ public class SceneController implements Initializable {
         owStage.setTitle("Bus tracker");
         owStage.setScene(ow);
         iwController.setStage(owStage);
-        iwController.setSceneController(this);
         owStage.showAndWait();
         SceneController.data = iwController.getData(); // vstupní data
         
@@ -122,10 +129,15 @@ public class SceneController implements Initializable {
             }
         });
         
-        init();	
+        initMap();	
 	}
 	
-	public void init()
+	/**
+     * Vykreslí mapu a její prvky.
+     * @param location
+     * @param resources
+     */
+	public void initMap()
 	{
 		for (Street street : SceneController.data.getStreets()) 
 		{

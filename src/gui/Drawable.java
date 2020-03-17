@@ -1,12 +1,7 @@
 package gui;
 
-import java.util.List;
-
 import drawable.StreetView;
 import drawable.VehicleView;
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -16,8 +11,20 @@ import map.Stop;
 import map.Street;
 import map.Vehicle;
 
+/**
+ * 
+ * Vykreslování mapy
+ * @author Tomáš Julina (xjulin08)
+ * @author Tomáš Kantor (xkanto14)
+ *
+ */
 public class Drawable 
 {
+	/**
+     * Vykreslí ulici do mapy.
+     * @param street ulice
+     * @param map mapa
+     */
 	public static void drawStreets(Street street, Pane map)
 	{
 		Line line = new Line();
@@ -43,6 +50,11 @@ public class Drawable
 	    drawStops(street, map);
 	}
 	
+	/**
+     * Vykreslí ulici do mapy.
+     * @param street ulice
+     * @param map mapa
+     */
 	public static void drawStops(Street street, Pane map)
 	{
 		if (street.getStops() != null)
@@ -67,6 +79,11 @@ public class Drawable
 		}
 	}
 	
+	/**
+     * Vykreslí vozidlo do mapy.
+     * @param vehicle vozidlo
+     * @param map mapa
+     */
 	public static void drawVehicles(Vehicle vehicle, Pane map)
 	{
 			Circle circle = new Circle();
@@ -87,6 +104,11 @@ public class Drawable
 		    vehicle.setVehicle(new VehicleView(circle, text));
 	}
 	
+	/**
+     * Uzavře / otevře ulici (průjezdná/neprůjezdná).
+     * @param street ulice
+     * @param line grafická reprezentace ulice
+     */
 	public static void setStreetStatus(Street street, Line line)
 	{
 		if(street.getStatus())

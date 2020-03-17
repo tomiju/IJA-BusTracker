@@ -7,18 +7,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import drawable.StreetView;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-
-/**
- * Reprezentuje jednu ulici v mapě. Ulice má svůj identifikátor (název) a je definována souřadnicemi. Pro 1. úkol
- * předpokládejte pouze souřadnice začátku a konce ulice.
- * Na ulici se mohou nacházet zastávky.
- */
 
 // TODO: výpočet, zda X,Y leží na přímce (na ulici)
 
+/**
+ * 
+ * Třída reprezentující ulici.
+ * Ulice má své ID, má proměnnou ukazující, zda je otevřená, či ne, obsahuje seznam zastávek a souřadnice začátku a konce, dále pak také úroveň vytížení.
+ * @author Tomáš Julina (xjulin08)
+ * @author Tomáš Kantor (xkanto14)
+ *
+ */
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Street
 {
@@ -51,27 +50,28 @@ public class Street
 	
   /**
    * Vrátí identifikátor ulice.
-   * @return Identifikátor ulice.
+   * @return String Identifikátor ulice
    */
 	public String getId()
 	{
 		return this.id;
 	}
-
-  /**
-   * Vrátí seznam souřadnic definujících ulici. První v seznamu je vždy počátek a poslední v seznamu konec ulice.
-   * @return Seznam souřadnic ulice.
-   */
-
+	
+	/**
+	 * Vrátí počáteční souřadnice ulice.
+	 * @return Coordinate souřadnice ulice
+	 */
 	public Coordinate getStart()
-	{
-		
+	{	
 		return this.start;
 	}
 	
+	/**
+	 * Vrátí konečné souřadnice ulice.
+	 * @return Coordinate souřadnice ulice
+	 */
 	public Coordinate getEnd()
 	{
-		
 		return this.end;
 	}
 
@@ -84,12 +84,29 @@ public class Street
 		return this.stops;
 	}
 	
+	/**
+	 * Vrátí status ulice.
+	 * @return boolean status ulice (open/closed)
+	 */
 	@JsonIgnore
 	public boolean getStatus()
 	{
 		return this.open;
 	}
 	
+	/**
+	 * Vrátí proměnnou reprezentující "zahlcenost" ulice
+	 * @return int stupeň zahlcení ulice
+	 */
+	@JsonIgnore
+	public int getBusyness()
+	{
+		return this.busyness;
+	}
+	
+	/**
+	 * Nastaví zastávkám ulici, na které leží.
+	 */
 	public void setStreetParameterToStop()
 	{
 		for (Stop stop : this.stops) 
@@ -98,6 +115,9 @@ public class Street
 		}
 	}
 	
+	/**
+	 * Zjistí, status ulice.
+	 */
 	public boolean isOpen()
 	{
 		return this.open;
@@ -114,18 +134,30 @@ public class Street
 		stop.setStreet(this);
 	}
 	
+	/**
+	 * Nastaví proměnnou obsahující grafickou reprezentaci ulice.
+	 * @param StreetView objekt obsahující grafickou reprezentaci ulice
+	 */
 	@JsonIgnore
 	public void setStreetView(StreetView view)
 	{
 		this.streetView = view;
 	}
 	
+	/**
+	 * Vrátí proměnnou obsahující grafickou reprezentaci ulice.
+	 * @return StreetView objekt obsahující grafickou reprezentaci ulice
+	 */
 	@JsonIgnore
 	public StreetView getStreetView()
 	{
 		return this.streetView;
 	}
 	
+	/**
+	 * Nastaví status ulice
+	 * @param status status
+	 */
 	@JsonIgnore
 	public void setOpen(boolean status)
 	{
