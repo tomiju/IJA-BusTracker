@@ -15,8 +15,10 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import map.BusLine;
 import map.InputData;
@@ -41,6 +43,15 @@ public class SceneController implements Initializable {
 	
 	@FXML
 	private Group scroll;
+	
+	@FXML
+	private Text status;
+	
+	@FXML
+	private void displayPosition(MouseEvent event)
+	{
+		status.setText("X = " + event.getX() + "    Y = " + event.getY());
+	}
 	
 	/**
      * Ovládá zoom, mění scale "mapy".
@@ -85,12 +96,14 @@ public class SceneController implements Initializable {
 	{
 		Stage owStage = new Stage();
         FXMLLoader owLoader = new FXMLLoader();
+        owLoader.setController(new InitWindowController());
+        owLoader.setLocation(getClass().getResource("../initWindow.fxml"));
         Parent opWindow = null;
         Scene ow = null;
 
         try 
         {
-        	opWindow = owLoader.load(getClass().getResource("initWindow.fxml").openStream());
+        	opWindow = owLoader.load();
             ow = new Scene(opWindow);
         } 
         catch (IOException e) 
@@ -129,7 +142,8 @@ public class SceneController implements Initializable {
             }
         });
         
-        initMap();	
+        initMap();
+        movement();
 	}
 	
 	/**
@@ -158,6 +172,14 @@ public class SceneController implements Initializable {
 			vehicle.setCurrentStreet(vehicle.getLine().getStart().getStreet()); // nastavení počáteční ulice
 			
 			Drawable.drawVehicles(vehicle, map);
+		}
+	}
+	
+	public void movement()
+	{
+		for (Vehicle vehicle : SceneController.data.getVehicles()) 
+		{
+			vehicle.drive();
 		}
 	}
 

@@ -6,6 +6,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import map.Stop;
 import map.Street;
@@ -37,6 +40,10 @@ public class Drawable
 	   
 	    Text text = new Text(street.getStart().getX(),street.getStart().getY(), street.getId());
 	    
+	    Text coordinateStart = new Text(street.getStart().getX(),street.getStart().getY() + 25, "");
+	    coordinateStart.setText("x: ".concat(String.valueOf(street.getStart().getX())).concat("\ny: ").concat(String.valueOf(street.getEnd().getY())));
+	    coordinateStart.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 7));
+	    
 	    text.xProperty().bind(line.startXProperty().add(line.getEndX()).divide(2).add(7));
 	    text.yProperty().bind(line.startYProperty().add(line.getEndY()).divide(2));
 	    
@@ -44,6 +51,7 @@ public class Drawable
 	    
 	    map.getChildren().add(line);
 	    map.getChildren().add(text);
+	    map.getChildren().add(coordinateStart);
 	    
 	    street.setStreetView(new StreetView(line, text));
 	    

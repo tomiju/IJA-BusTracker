@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="IJA" basedir="." default="build">
+
+    <!-- variables -->
+    <property name="build.dir"       value="build"/>
+    <property name="doc.dir"         value="doc"/>
+    <property name="data.dir"    value="data"/>
+    <property name="lib.dir"         value="lib"/>
+    <property name="src.dir"         value="src"/>
+    <property name="jar.dir"        value="dest"/>
+    <property name="jar_name"        value="ija-app"/>
+
+    <property name="script_libs"     value="get-libs.sh"/>
+
+    <property name="main-class"      value="gui.Main"/>
+    <property name="classpath" location="lib/jfxrt.jar;lib/jackson-annotations-2.10.3.jar;lib/jackson-core-2.10.3.jar;lib/jackson-databind-2.10.3.jar;lib/jackson-dataformat-yaml-2.10.3.jar;lib/jackson-datatype-jsr310-2.10.3.jar;lib/snakeyaml-1.26.jar;"/>
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
+    </path>
+
+    <path id="ija.classpath">
+       <pathelement location="build"/>
+       <pathelement location="./lib/jackson-annotations-2.10.3.jar"/>
+       <pathelement location="./lib/jackson-core-2.10.3.jar"/>
+       <pathelement location="./lib/jackson-databind-2.10.3.jar"/>
+       <pathelement location="./lib/jackson-dataformat-yaml-2.10.3.jar"/>
+       <pathelement location="./lib/jackson-datatype-jsr310-2.10.3.jar"/>
+       <pathelement location="./lib/snakeyaml-1.26.jar"/>
+       <pathelement location="./lib/jfxrt.jar"/>
+   </path>
+
+
+    <!-- create necessary directories -->
+    <target name="dir">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${doc.dir}"/>
+    </target>
+
+    <!-- create documentation -->
+    <target name="doc">
+        <javadoc sourcepath="${src.dir}" destdir="${doc.dir}">
+          <classpath>
+		        <fileset dir="${lib.dir}">
+		            <include name="jackson-annotations-2.10.3.jar"/>
+                <include name="jackson-core-2.10.3.jar"/>
+                <include name="jackson-databind-2.10.3.jar"/>
+                <include name="jackson-dataformat-yaml-2.10.3.jar"/>
+                <include name="jackson-datatype-jsr310-2.10.3.jar"/>
+                <include name="jfxrt.jar"/>
+                <include name="snakeyaml-1.26.jar"/>
+	        	</fileset>
+	    	</classpath>
+        </javadoc>
+    </target>
+
+    <!-- remove doc content -->
+    <target name="clean-doc">
+        <delete includeEmptyDirs="true">
+            <fileset dir="${doc.dir}">
+                <include name="*/**"/>
+            </fileset>
+        </delete>
+    </target>
+
+    <!-- remove content of directories -->
+    <target name="clean" depends="clean-doc">
+        <delete includeEmptyDirs="true">
+            <fileset dir="${build.dir}">
+                <include name="*/**"/>
+            </fileset>
+        </delete>
+    </target>
+
+    <!-- compile and generate a java archiv -->
+    <target name="compile" depends="doc">
+      <copy includeemptydirs="false" todir="build">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.xtend"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        <javac source="1.8" target="1.8" destdir="${build.dir}" includeantruntime="true">
+          <classpath refid="ija.classpath"/>
+          <src path="src"/>
+        </javac>
+        <jar destfile="${jar.dir}/${jar_name}.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <!-- run the program -->
+    <target name="run">
+        <!---<java jar="${jar.dir}/${jar_name}.jar" fork="true"/>-->
+        <java classname="gui.Main" failonerror="true" fork="yes">
+            <classpath refid="ija.classpath"/>
+        </java>
+    </target>
+
+</project>

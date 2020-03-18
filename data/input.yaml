@@ -36,11 +36,11 @@ streets:
   open: true
   stops:
   start:
-    x: 482.707
-    y: 477.707
-  end:
     x: 642.707
     y: 280.707
+  end:
+    x: 482.707
+    y: 477.707
  -
   &street3 id: "Street3"
   open: true

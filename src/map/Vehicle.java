@@ -1,10 +1,19 @@
 package map;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import drawable.VehicleView;
+import gui.Drawable;
+import gui.SceneController;
+import javafx.animation.PathTransition;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polyline;
+import javafx.util.Duration;
 
 /**
  * 
@@ -154,5 +163,51 @@ public class Vehicle
 	public void addVehicleToLine()
 	{
 		this.line.addVehicle(this);
+	}
+	
+	public void drive() // TODO: cesta po zastávku - podle časového údaje - (argument nové zastávky?)
+	{
+		//double[] coords = new double[this.line.getStreets().size()];
+		List<Double> coords = new ArrayList<Double>();
+		
+		List<Double> coords2 = new ArrayList<Double>();
+		//int i = this.line.getStreets().size();
+		
+		for (Street street : this.line.getStreets())
+		{
+			coords.add((double)street.getStart().getX());
+			coords.add((double)street.getStart().getY());
+			
+			coords.add((double)street.getEnd().getX());
+			coords.add((double)street.getEnd().getY());
+			
+			coords2.add((double)street.getStart().getX() + 35);
+			coords2.add((double)street.getStart().getY());
+			
+			coords2.add((double)street.getEnd().getX() + 35);
+			coords2.add((double)street.getEnd().getY());
+		}
+		
+		Polyline pathVehicle = new Polyline();
+		pathVehicle.getPoints().addAll(coords);
+		
+		Polyline pathName = new Polyline();
+		pathName.getPoints().addAll(coords2);
+		
+		PathTransition transition = new PathTransition();
+		transition.setNode(vehicleView.getCircle());
+		transition.setDuration(Duration.seconds(5));
+		transition.setPath(pathVehicle);
+		transition.setCycleCount(PathTransition.INDEFINITE);
+		transition.play();
+		
+		PathTransition transition2 = new PathTransition();
+		transition2.setNode(vehicleView.getText());
+		transition2.setDuration(Duration.seconds(5));
+		transition2.setPath(pathName);
+		transition2.setCycleCount(PathTransition.INDEFINITE);
+		transition2.play();
+		
+		//polyline.getPoints().addall
 	}
 }
