@@ -10,9 +10,9 @@ package map;
  */
 public class Coordinate
 {
-	private float x, y;
+	private double x, y;
 	
-	public Coordinate(float X, float Y)
+	public Coordinate(double X, double Y)
 	{
 		this.x = X;
 		this.y = Y;
@@ -22,19 +22,29 @@ public class Coordinate
 	
   /**
    * Vrací hodnotu souřadnice x.
-   * @return float Souřadnice x.
+   * @return double Souřadnice x.
    */
-	public float getX()
+	public double getX()
 	{
 		return this.x;
 	}
 	
   /**
    * Vrací hodnotu souřadnice y.
-   * @return float Souřadnice y.
+   * @return double Souřadnice y.
    */
-	public float getY()
+	public double getY()
 	{
 		return this.y;
+	}
+	
+	public void setX(float x)
+	{
+		this.x = x;
+	}
+	
+	public void setY(float y)
+	{
+		this.y = y;
 	}
 }

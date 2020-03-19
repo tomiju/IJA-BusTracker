@@ -87,10 +87,10 @@ vehicles:
     entries:
      -
       stop: *stop1
-      time: "00:10:00"
+      time: "00:20:00"
      -
       stop: *stop2
-      time: "00:12:00"
+      time: "00:22:00"
  - 
   &vehicle2 id: "Vehicle2"
   line: *line1

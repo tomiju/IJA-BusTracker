@@ -6,7 +6,11 @@ import javafx.event.ActionEvent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +19,6 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -34,6 +37,7 @@ import map.Vehicle;
  */
 public class SceneController implements Initializable {
 	private static InputData data;
+	private LocalTime localTime = LocalTime.of(23, 59, 0, 0);
 	
 	@FXML
     private Pane map;
@@ -45,13 +49,7 @@ public class SceneController implements Initializable {
 	private Group scroll;
 	
 	@FXML
-	private Text status;
-	
-	@FXML
-	private void displayPosition(MouseEvent event)
-	{
-		status.setText("X = " + event.getX() + "    Y = " + event.getY());
-	}
+	private Text txtTimer;
 	
 	/**
      * Ovládá zoom, mění scale "mapy".
@@ -140,10 +138,9 @@ public class SceneController implements Initializable {
         			}	
         		}
             }
-        });
-        
+        });        
         initMap();
-        movement();
+        drive();
 	}
 	
 	/**
@@ -175,12 +172,30 @@ public class SceneController implements Initializable {
 		}
 	}
 	
-	public void movement()
+	public void drive()
 	{
+
+		Timer timer = new Timer();
+		
 		for (Vehicle vehicle : SceneController.data.getVehicles()) 
 		{
-			vehicle.drive();
+			System.out.println(vehicle.getId());
 		}
+		timer.scheduleAtFixedRate(new TimerTask() {
+			public void run()
+			{
+				localTime = localTime.plusMinutes(1);
+				txtTimer.setText(localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+				System.out.println(txtTimer.getText());
+				
+				for (Vehicle vehicle : SceneController.data.getVehicles()) 
+				{
+					vehicle.drive(txtTimer.getText());
+				}
+			}
+		}, 0, (int)1000);   
+		
+		
 	}
 
 }
