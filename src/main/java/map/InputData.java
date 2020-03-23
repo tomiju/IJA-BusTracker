@@ -4,13 +4,13 @@ import java.util.List;
 
 /**
  * 
- * Vstupní data ze souboru.
- * Obsahuje seznam zastávek, ulic, linek a vozidel.
- * @author Tomáš Julina (xjulin08)
- * @author Tomáš Kantor (xkanto14)
+ * Vstupni data ze souboru.
+ * Obsahuje seznam zastavek, ulic, linek a vozidel.
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
  *
  */
-public class InputData // pomocná třída pro zpracování input dat z YAML souboru
+public class InputData // pomocna trida pro zpracovani input dat z YAML souboru
 {
 	private List<Stop> stops;
 	private List<Street> streets;
@@ -28,7 +28,7 @@ public class InputData // pomocná třída pro zpracování input dat z YAML sou
 	public InputData() {}
 	
 	/**
-     * Získá seznam ulic.
+     * Ziska seznam ulic.
      * @return List<Street> seznam ulic
      */
 	public List<Street> getStreets()
@@ -37,7 +37,7 @@ public class InputData // pomocná třída pro zpracování input dat z YAML sou
 	}
 	
 	/**
-     * Získá seznam zastávek.
+     * Ziska seznam zastavek.
      * @return List<Stop> seznam zastávek
      */
 	public List<Stop> getStops()
@@ -46,7 +46,7 @@ public class InputData // pomocná třída pro zpracování input dat z YAML sou
 	}
 	
 	/**
-     * Získá seznam vozidle.
+     * Ziska seznam vozidel.
      * @return List<Vehicle> seznam vozidel
      */
 	public List<Vehicle> getVehicles()
@@ -55,7 +55,7 @@ public class InputData // pomocná třída pro zpracování input dat z YAML sou
 	}
 	
 	/**
-     * Získá seznam linek.
+     * Ziska seznam linek.
      * @return List<BusLine> seznam linek
      */
 	public List<BusLine> getLines()

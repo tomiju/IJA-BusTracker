@@ -2,10 +2,10 @@ package map;
 
 /**
  * 
- * Reprezentuje pozici (souřadnice) v mapě.
- * Souřadnice je dvojice (x,y).
- * @author Tomáš Julina (xjulin08)
- * @author Tomáš Kantor (xkanto14)
+ * Reprezentuje pozici (souradnice) v mape.
+ * Souradnice je dvojice (x,y).
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
  *
  */
 public class Coordinate
@@ -21,8 +21,8 @@ public class Coordinate
 	public Coordinate() {}
 	
   /**
-   * Vrací hodnotu souřadnice x.
-   * @return double Souřadnice x.
+   * Vraci hodnotu souradnice x.
+   * @return double Souradnice x.
    */
 	public double getX()
 	{
@@ -30,8 +30,8 @@ public class Coordinate
 	}
 	
   /**
-   * Vrací hodnotu souřadnice y.
-   * @return double Souřadnice y.
+   * Vraci hodnotu souradnice y.
+   * @return double Souradnice y.
    */
 	public double getY()
 	{

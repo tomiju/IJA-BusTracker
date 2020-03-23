@@ -16,15 +16,15 @@ import map.Vehicle;
 
 /**
  * 
- * Vykreslování mapy
- * @author Tomáš Julina (xjulin08)
- * @author Tomáš Kantor (xkanto14)
+ * Vykreslovani mapy
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
  *
  */
 public class Drawable 
 {
 	/**
-     * Vykreslí ulici do mapy.
+     * Vykresli ulici do mapy.
      * @param street ulice
      * @param map mapa
      */
@@ -41,7 +41,7 @@ public class Drawable
 	    Text text = new Text(street.getStart().getX(),street.getStart().getY(), street.getId());
 	    
 	    Text coordinateStart = new Text(street.getStart().getX(),street.getStart().getY() + 25, "");
-	    coordinateStart.setText("x: ".concat(String.valueOf(street.getStart().getX())).concat("\ny: ").concat(String.valueOf(street.getEnd().getY())));
+	    coordinateStart.setText("x: ".concat(String.valueOf(street.getStart().getX())).concat("\ny: ").concat(String.valueOf(street.getStart().getY())));
 	    coordinateStart.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 7));
 	    
 	    text.xProperty().bind(line.startXProperty().add(line.getEndX()).divide(2).add(7));
@@ -59,7 +59,7 @@ public class Drawable
 	}
 	
 	/**
-     * Vykreslí ulici do mapy.
+     * Vykresli ulici do mapy.
      * @param street ulice
      * @param map mapa
      */
@@ -88,7 +88,7 @@ public class Drawable
 	}
 	
 	/**
-     * Vykreslí vozidlo do mapy.
+     * Vykresli vozidlo do mapy.
      * @param vehicle vozidlo
      * @param map mapa
      */
@@ -113,9 +113,9 @@ public class Drawable
 	}
 	
 	/**
-     * Uzavře / otevře ulici (průjezdná/neprůjezdná).
+     * Uzavre / otevre ulici (prujezdná/neprujezdná).
      * @param street ulice
-     * @param line grafická reprezentace ulice
+     * @param line graficka reprezentace ulice
      */
 	public static void setStreetStatus(Street street, Line line)
 	{

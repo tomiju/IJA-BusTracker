@@ -3,6 +3,7 @@ package gui;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,20 +20,22 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import map.BusLine;
 import map.InputData;
+import map.Stop;
 import map.Street;
 import map.Vehicle;
 
 /**
  * 
- * Ovládání scén.
- * @author Tomáš Julina (xjulin08)
- * @author Tomáš Kantor (xkanto14)
+ * Ovladani scen.
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
  *
  */
 public class SceneController implements Initializable {
@@ -52,7 +55,7 @@ public class SceneController implements Initializable {
 	private Text txtTimer;
 	
 	/**
-     * Ovládá zoom, mění scale "mapy".
+     * Ovlada zoom, meni scale "mapy".
      * @param e event
      */
 	@FXML
@@ -71,8 +74,24 @@ public class SceneController implements Initializable {
 		}
 	}
 	
+	// opetovne resetuje focus na click
+	@FXML 
+	public void handleMouseClick(MouseEvent arg0) 
+	{
+	    for (BusLine line : gui.SceneController.data.getLines()) 
+		{
+    		if (line != null)
+			{
+    			if(line.getId() == this.lineList.getSelectionModel().getSelectedItem())
+        		{
+        			 line.setLineFocus(map);
+        		}
+			}	
+		}
+	}
+	
 	/**
-     * Resetuje barvu ulice (zruší focus).
+     * Resetuje barvu ulice (zrusi focus).
      * @param event event
      */
 	@FXML
@@ -80,7 +99,7 @@ public class SceneController implements Initializable {
 	{
 		for (BusLine line : SceneController.data.getLines()) 
 		{
-			line.unsetLineFocus(map, line.getStreets());
+			line.unsetLineFocus(map);
 		}
 	}
 	
@@ -95,7 +114,7 @@ public class SceneController implements Initializable {
 		Stage owStage = new Stage();
         FXMLLoader owLoader = new FXMLLoader();
         owLoader.setController(new InitWindowController());
-        owLoader.setLocation(getClass().getResource("/initWindow.fxml")); // TODO: Při odevzdání jen "/initWindow.fxml" + jiná struktura souborů
+        owLoader.setLocation(getClass().getResource("/initWindow.fxml")); // TODO: Pri odevzdani jen "/initWindow.fxml" + jina struktura souboru
         Parent opWindow = null;
         Scene ow = null;
 
@@ -115,7 +134,7 @@ public class SceneController implements Initializable {
         owStage.setScene(ow);
         iwController.setStage(owStage);
         owStage.showAndWait();
-        SceneController.data = iwController.getData(); // vstupní data
+        SceneController.data = iwController.getData(); // vstupni data
         
         this.lineList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -126,31 +145,40 @@ public class SceneController implements Initializable {
         		{
             		if (line != null)
         			{
-            			if(line.getId() == newValue)
-                		{
-                			 line.setLineFocus(map, line.getStreets());
-                		}
-            			
             			if(line.getId() == oldValue)
             			{
-            				line.unsetLineFocus(map, line.getStreets());
+            				line.unsetLineFocus(map);
             			}
+            			if(line.getId() == newValue)
+                		{
+                			 line.setLineFocus(map);
+                		}
         			}	
         		}
             }
-        });        
+        });
+        
+        /*this.lineList.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("clicked on " + this.lineList.getSelectionModel().getSelectedItem());
+            }
+        });*/
+        
         initMap();
         drive();
 	}
 	
 	/**
-     * Vykreslí mapu a její prvky.
+     * Vykresli mapu a jeji prvky.
      */
 	public void initMap()
 	{
 		for (Street street : SceneController.data.getStreets()) 
 		{
 			Drawable.drawStreets(street, map);
+			street.setStreetParameterToStop();
 		}
 		
 		for (BusLine line : SceneController.data.getLines()) 
@@ -165,27 +193,21 @@ public class SceneController implements Initializable {
 		{
 			vehicle.setCurrentPosition(vehicle.getLine().getStreets().get(0).getStart()); // nastavení počáteční pozice auta
 			vehicle.setCurrentStreet(vehicle.getLine().getStart().getStreet()); // nastavení počáteční ulice
+			vehicle.addVehicleToLine();
 			
 			Drawable.drawVehicles(vehicle, map);
 		}
 	}
 	
-	public void drive()
+	public void drive() // TODO: rychlost simulace + reset simulace
 	{
-
 		Timer timer = new Timer();
-		
-		/*for (Vehicle vehicle : SceneController.data.getVehicles()) 
-		{
-			System.out.println(vehicle.getId());
-		}*/
 		
 		timer.scheduleAtFixedRate(new TimerTask() {
 			public void run()
 			{
 				localTime = localTime.plusMinutes(1);
 				txtTimer.setText(localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
-				//System.out.println(txtTimer.getText());
 				
 				for (Vehicle vehicle : SceneController.data.getVehicles()) 
 				{
@@ -193,8 +215,6 @@ public class SceneController implements Initializable {
 				}
 			}
 		}, 0, (int)1000);   
-		
-		
 	}
 
 }

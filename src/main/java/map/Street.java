@@ -12,10 +12,10 @@ import drawable.StreetView;
 
 /**
  * 
- * Třída reprezentující ulici.
- * Ulice má své ID, má proměnnou ukazující, zda je otevřená, či ne, obsahuje seznam zastávek a souřadnice začátku a konce, dále pak také úroveň vytížení.
- * @author Tomáš Julina (xjulin08)
- * @author Tomáš Kantor (xkanto14)
+ * Trida reprezentujici ulici.
+ * Ulice ma sve ID, ma promennou ukazujici, zda je otevrena, ci ne, obsahuje seznam zastavek a souradnice zacatku a konce, dale pak take uroven vytizeni.
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
  *
  */
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
@@ -23,14 +23,13 @@ public class Street
 {
 
 	private String id;
-	private boolean open; // otevřená / uzavřená ulice
+	private boolean open; // otevrená / uzavrena ulice
 	private List<Stop> stops;
 	private Coordinate start, end;
-	private int busyness; // vytížení
+	private int busyness; // vytizeni
 	
 	@JsonIgnore
 	private StreetView streetView;
-	
 	
 	public Street(String name, Coordinate start, Coordinate end, List<Stop> stops)
 	{
@@ -42,15 +41,13 @@ public class Street
 		this.open = true;
 		
 		this.streetView = new StreetView();
-		
-		this.setStreetParameterToStop();
 	}
 	
 	public Street() {}
 	
   /**
-   * Vrátí identifikátor ulice.
-   * @return String Identifikátor ulice
+   * Vrati identifikator ulice.
+   * @return String Identifikator ulice
    */
 	public String getId()
 	{
@@ -58,8 +55,8 @@ public class Street
 	}
 	
 	/**
-	 * Vrátí počáteční souřadnice ulice.
-	 * @return Coordinate souřadnice ulice
+	 * Vrati pocatecni souradnice ulice.
+	 * @return Coordinate souradnice ulice
 	 */
 	public Coordinate getStart()
 	{	
@@ -67,8 +64,8 @@ public class Street
 	}
 	
 	/**
-	 * Vrátí konečné souřadnice ulice.
-	 * @return Coordinate souřadnice ulice
+	 * Vrati konecne souradnice ulice.
+	 * @return Coordinate souradnice ulice
 	 */
 	public Coordinate getEnd()
 	{
@@ -76,8 +73,8 @@ public class Street
 	}
 
   /**
-   * Vrátí seznam zastávek na ulici.
-   * @return Seznam zastávek na ulici. Pokud ulize nemá žádnou zastávku, je seznam prázdný.
+   * Vrati seznam zastavek na ulici.
+   * @return Seznam zastavek na ulici. Pokud ulize nema zadnou zastavku, je seznam prazdny.
    */
 	public List<Stop> getStops()
 	{
@@ -85,7 +82,7 @@ public class Street
 	}
 	
 	/**
-	 * Vrátí status ulice.
+	 * Vrati status ulice.
 	 * @return boolean status ulice (open/closed)
 	 */
 	@JsonIgnore
@@ -95,8 +92,8 @@ public class Street
 	}
 	
 	/**
-	 * Vrátí proměnnou reprezentující "zahlcenost" ulice
-	 * @return int stupeň zahlcení ulice
+	 * Vrati promennou reprezentujici "zahlcenost" ulice
+	 * @return int stupen zahlceni ulice
 	 */
 	@JsonIgnore
 	public int getBusyness()
@@ -105,18 +102,21 @@ public class Street
 	}
 	
 	/**
-	 * Nastaví zastávkám ulici, na které leží.
+	 * Nastavi zastavkam ulici, na ktere lezi.
 	 */
 	public void setStreetParameterToStop()
 	{
-		for (Stop stop : this.stops) 
+		if (this.stops != null)
 		{
-	        stop.setStreet(this);
+			for (Stop stop : this.stops) 
+			{
+				stop.setStreet(this);
+			}
 		}
 	}
 	
 	/**
-	 * Zjistí, status ulice.
+	 * Zjisti, status ulice.
 	 */
 	public boolean isOpen()
 	{
@@ -124,8 +124,8 @@ public class Street
 	}
 
   /**
-   * Přidá do seznamu zastávek novou zastávku.
-   * @param stop Nově přidávaná zastávka.
+   * Prida do seznamu zastavek novou zastavku.
+   * @param stop Nove pridavana zastavka.
    */
 	public void addStop(Stop stop)
 	{
@@ -135,8 +135,8 @@ public class Street
 	}
 	
 	/**
-	 * Nastaví proměnnou obsahující grafickou reprezentaci ulice.
-	 * @param view Objekt obsahující grafickou reprezentaci ulice.
+	 * Nastavi promennou obsahujici grafickou reprezentaci ulice.
+	 * @param view Objekt obsahujici grafickou reprezentaci ulice.
 	 */
 	@JsonIgnore
 	public void setStreetView(StreetView view)
@@ -145,8 +145,8 @@ public class Street
 	}
 	
 	/**
-	 * Vrátí proměnnou obsahující grafickou reprezentaci ulice.
-	 * @return StreetView Objekt obsahující grafickou reprezentaci ulice.
+	 * Vrati promennou obsahujici grafickou reprezentaci ulice.
+	 * @return StreetView Objekt obsahujici grafickou reprezentaci ulice.
 	 */
 	@JsonIgnore
 	public StreetView getStreetView()
@@ -155,7 +155,7 @@ public class Street
 	}
 	
 	/**
-	 * Nastaví status ulice
+	 * Nastavi status ulice
 	 * @param status status
 	 */
 	@JsonIgnore

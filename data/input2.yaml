@@ -1,0 +1,996 @@
+stops:
+ -
+  &stop1 id: "Stop1"
+  coordinate:
+    x: -173.0
+    y: -201.0
+ -
+  &stop2 id: "Stop2"
+  coordinate:
+    x: -104.0
+    y: -45.0
+ -
+  &stop3 id: "Stop3"
+  coordinate:
+    x: 97.0
+    y: -4.0
+ -
+  &stop4 id: "Stop4"
+  coordinate:
+    x: 337.0
+    y: 105.0
+ -
+  &stop5 id: "Stop5"
+  coordinate:
+    x: 437.0
+    y: 176.0
+ -
+  &stop6 id: "Stop6"
+  coordinate:
+    x: 621.0
+    y: 354.0
+ -
+  &stop7 id: "Stop7"
+  coordinate:
+    x: 591.0
+    y: -210.0
+ -
+  &stop8 id: "Stop8"
+  coordinate:
+    x: 464.0
+    y: -95.0
+ -
+  &stop12 id: "Stop12"
+  coordinate:
+    x: 199.0
+    y: 90.0
+ -
+  &stop13 id: "Stop13"
+  coordinate:
+    x: 18.0
+    y: 195.0
+ -
+  &stop14 id: "Stop14"
+  coordinate:
+    x: -156.0
+    y: 162.0
+ -
+  &stop15 id: "Stop15"
+  coordinate:
+    x: 275.0
+    y: -187.0
+ -
+  &stop16 id: "Stop16"
+  coordinate:
+    x: 298.0
+    y: -30.0
+ -
+  &stop17 id: "Stop17"
+  coordinate:
+    x: 199.0
+    y: 187.0
+ -
+  &stop18 id: "Stop18"
+  coordinate:
+    x: 223.0
+    y: 377.0
+ -
+streets:
+ -
+  &street1 id: "Street1"
+  open: true
+  stops:
+   - *stop1
+  start:
+    x: -239.0
+    y: -225.0
+  end:
+    x: -165.0
+    y: -195.0
+ -
+  &street2 id: "Street2"
+  open: true
+  stops:
+  start:
+    x: -165.0
+    y: -195.0
+  end:
+    x: -60.0
+    y: -121.0
+ -
+  &street3 id: "Street3"
+  open: true
+  stops:
+   - *stop2
+  start:
+    x: -59.29
+    y: -120.29
+  end:
+    x: -111.0
+    y: -31.0
+ -
+  &street4 id: "Street4"
+  open: true
+  stops:
+  start:
+    x: -110.0
+    y: -32.0
+  end:
+    x: 60.2
+    y: -4.2
+ -
+  &street5 id: "Street5"
+  open: true
+  stops:
+   - *stop3
+  start:
+    x: 60.0
+    y: -3.0
+  end:
+    x: 235.0
+    y: -3.0
+ -
+  &street6 id: "Street6"
+  open: true
+  stops:
+  start:
+    x: 235.2
+    y: -2.2
+  end:
+    x: 237.5
+    y: 92.5
+ -
+  &street7 id: "Street7"
+  open: true
+  stops:
+   - *stop12
+  start:
+    x: 237.0
+    y: 92.0
+  end:
+    x: 58.0
+    y: 92.0
+ -
+  &street8 id: "Street8"
+  open: true
+  stops:
+  start:
+    x: 57.0
+    y: 90.0
+  end:
+    x: 59.5
+    y: -3.5
+ -
+  &street9 id: "Street9"
+  open: true
+  stops:
+   - *stop7
+  start:
+    x: 704.0
+    y: -227.0
+  end:
+    x: 579.0
+    y: -205.0
+ -
+  &street10 id: "Street10"
+  open: true
+  stops:
+  start:
+    x: 578.0
+    y: -205.0
+  end:
+    x: 620.0
+    y: -142.0
+ -
+  &street11 id: "Street11"
+  open: true
+  stops:
+   - *stop8
+  start:
+    x: 619.0
+    y: -141.0
+  end:
+    x: 438.0
+    y: -87.0
+ -
+  &street12 id: "Street12"
+  open: true
+  stops:
+   - *stop16
+  start:
+    x: 439.0
+    y: -87.0
+  end:
+    x: 236.0
+    y: -3.0
+ -
+  &street13 id: "Street13"
+  open: true
+  stops:
+   - *stop4
+  start:
+    x: 237.5
+    y: 92.5
+  end:
+    x: 568.0
+    y: 140.0
+ -
+  &street14 id: "Street14"
+  open: true
+  stops:
+   - *stop5
+  start:
+    x: 569.0
+    y: 140.0
+  end:
+    x: 386.0
+    y: 187.0
+ -
+  &street15 id: "Street15"
+  open: true
+  stops:
+  start:
+    x: 386.0
+    y: 188.0
+  end:
+    x: 405.3
+    y: 371.7
+ -
+  &street16 id: "Street16"
+  open: true
+  stops:
+   - *stop6
+  start:
+    x: 406.0
+    y: 371.0
+  end:
+    x: 678.0
+    y: 346.0
+ -
+  &street17 id: "Street17"
+  open: true
+  stops:
+   - *stop17
+  start:
+    x: 237.0
+    y: 92.0
+  end:
+    x: 125.29
+    y: 354.29
+ -
+  &street18 id: "Street18"
+  open: true
+  stops:
+   - *stop18
+  start:
+    x: 126.0
+    y: 355.0
+  end:
+    x: 281.0
+    y: 390.0
+ -
+  &street19 id: "Street19"
+  open: true
+  stops:
+  start:
+    x: 283.0
+    y: 390.0
+  end:
+    x: 408.0
+    y: 371.0
+ -
+  &street20 id: "Street20"
+  open: true
+  stops:
+   - *stop13
+  start:
+    x: 59.0
+    y: 91.0
+  end:
+    x: -10.0
+    y: 260.0
+ -
+  &street21 id: "Street21"
+  open: true
+  stops:
+  start:
+    x: -10.0
+    y: 260.0
+  end:
+    x: -113.0
+    y: 158.0
+ -
+  &street22 id: "Street22"
+  open: true
+  stops:
+   - *stop14
+  start:
+    x: -113.0
+    y: 158.0
+  end:
+    x: -199.0
+    y: 166.0
+ -
+  &street25 id: "Street25"
+  open: true
+  stops:
+   - *stop15
+  start:
+    x: 251.0
+    y: -200.0
+  end:
+    x: 437.0
+    y: -86.0
+lines:
+ -
+  &line1 id: "Line1"
+  start: *stop1
+  end: *stop6
+  streets:
+   - *street1
+   - *street2
+   - *street3
+   - *street4
+   - *street5
+   - *street6
+   - *street13
+   - *street14
+   - *street15
+   - *street16
+ -
+  &line2 id: "Line2"
+  start: *stop7
+  end: *stop14
+  streets:
+   - *street9
+   - *street10
+   - *street11
+   - *street12
+   - *street6
+   - *street7
+   - *street20
+   - *street21
+   - *street22
+ -
+  &line3 id: "Line3"
+  start: *stop15
+  end: *stop6
+  streets:
+   - *street25
+   - *street12
+   - *street6
+   - *street17
+   - *street18
+   - *street19
+   - *street16
+vehicles:
+ - 
+  &vehicle1 id: "Vehicle1"
+  line: *line1
+  timetable:
+    entries:
+     -
+      stop: *stop1
+      time: "00:10:00"
+     -
+      stop: *stop2
+      time: "00:22:00"
+     -
+      stop: *stop3
+      time: "00:28:00"
+     -
+      stop: *stop4
+      time: "00:32:00"
+     -
+      stop: *stop5
+      time: "00:37:00"
+     -
+      stop: *stop6
+      time: "00:45:00"
+ - 
+  &vehicle2 id: "Vehicle2"
+  line: *line1
+  timetable:
+    entries:
+     -
+      stop: *stop1
+      time: "00:15:00"
+     -
+      stop: *stop2
+      time: "00:27:00"
+     -
+      stop: *stop3
+      time: "00:32:00"
+     -
+      stop: *stop4
+      time: "00:37:00"
+     -
+      stop: *stop5
+      time: "00:42:00"
+     -
+      stop: *stop6
+      time: "00:50:00"
+ - 
+  &vehicle3 id: "Vehicle3"
+  line: *line1
+  timetable:
+    entries:
+     -
+      stop: *stop1
+      time: "00:20:00"
+     -
+      stop: *stop2
+      time: "00:32:00"
+     -
+      stop: *stop3
+      time: "00:37:00"
+     -
+      stop: *stop4
+      time: "00:42:00"
+     -
+      stop: *stop5
+      time: "00:47:00"
+     -
+      stop: *stop6
+      time: "00:55:00"
+ - 
+  &vehicle4 id: "Vehicle4"
+  line: *line1
+  timetable:
+    entries:
+     -
+      stop: *stop1
+      time: "00:25:00"
+     -
+      stop: *stop2
+      time: "00:37:00"
+     -
+      stop: *stop3
+      time: "00:42:00"
+     -
+      stop: *stop4
+      time: "00:47:00"
+     -
+      stop: *stop5
+      time: "00:52:00"
+     -
+      stop: *stop6
+      time: "01:00:00"
+ - 
+  &vehicle5 id: "Vehicle5"
+  line: *line1
+  timetable:
+    entries:
+     -
+      stop: *stop1
+      time: "00:30:00"
+     -
+      stop: *stop2
+      time: "00:42:00"
+     -
+      stop: *stop3
+      time: "00:47:00"
+     -
+      stop: *stop4
+      time: "00:52:00"
+     -
+      stop: *stop5
+      time: "00:57:00"
+     -
+      stop: *stop6
+      time: "01:05:00"
+ - 
+  &vehicle6 id: "Vehicle6"
+  line: *line1
+  timetable:
+    entries:
+     -
+      stop: *stop1
+      time: "00:35:00"
+     -
+      stop: *stop2
+      time: "00:47:00"
+     -
+      stop: *stop3
+      time: "00:52:00"
+     -
+      stop: *stop4
+      time: "00:57:00"
+     -
+      stop: *stop5
+      time: "01:02:00"
+     -
+      stop: *stop6
+      time: "01:10:00"
+ - 
+  &vehicle7 id: "Vehicle7"
+  line: *line1
+  timetable:
+    entries:
+     -
+      stop: *stop1
+      time: "00:40:00"
+     -
+      stop: *stop2
+      time: "00:52:00"
+     -
+      stop: *stop3
+      time: "00:57:00"
+     -
+      stop: *stop4
+      time: "01:02:00"
+     -
+      stop: *stop5
+      time: "01:07:00"
+     -
+      stop: *stop6
+      time: "01:15:00"
+ - 
+  &vehicle8 id: "Vehicle8"
+  line: *line1
+  timetable:
+    entries:
+     -
+      stop: *stop1
+      time: "00:45:00"
+     -
+      stop: *stop2
+      time: "00:57:00"
+     -
+      stop: *stop3
+      time: "01:02:00"
+     -
+      stop: *stop4
+      time: "01:07:00"
+     -
+      stop: *stop5
+      time: "01:12:00"
+     -
+      stop: *stop6
+      time: "01:15:00"
+ - 
+  &vehicle9 id: "Vehicle9"
+  line: *line1
+  timetable:
+    entries:
+     -
+      stop: *stop1
+      time: "00:50:00"
+     -
+      stop: *stop2
+      time: "01:02:00"
+     -
+      stop: *stop3
+      time: "01:07:00"
+     -
+      stop: *stop4
+      time: "01:12:00"
+     -
+      stop: *stop5
+      time: "01:17:00"
+     -
+      stop: *stop6
+      time: "01:20:00"
+ - 
+  &vehicle10 id: "Vehicle10"
+  line: *line1
+  timetable:
+    entries:
+     -
+      stop: *stop1
+      time: "00:55:00"
+     -
+      stop: *stop2
+      time: "01:07:00"
+     -
+      stop: *stop3
+      time: "01:12:00"
+     -
+      stop: *stop4
+      time: "01:17:00"
+     -
+      stop: *stop5
+      time: "01:22:00"
+     -
+      stop: *stop6
+      time: "01:25:00"
+ - 
+  &vehicle11 id: "Vehicle11"
+  line: *line2
+  timetable:
+    entries:
+     -
+      stop: *stop7
+      time: "00:20:00"
+     -
+      stop: *stop8
+      time: "00:25:00"
+     -
+      stop: *stop12
+      time: "00:42:00"
+     -
+      stop: *stop13
+      time: "00:46:00"
+     -
+      stop: *stop14
+      time: "00:52:00"
+ - 
+  &vehicle12 id: "Vehicle12"
+  line: *line2
+  timetable:
+    entries:
+     -
+      stop: *stop7
+      time: "00:25:00"
+     -
+      stop: *stop8
+      time: "00:30:00"
+     -
+      stop: *stop12
+      time: "00:47:00"
+     -
+      stop: *stop13
+      time: "00:51:00"
+     -
+      stop: *stop14
+      time: "00:57:00"
+ - 
+  &vehicle13 id: "Vehicle13"
+  line: *line2
+  timetable:
+    entries:
+     -
+      stop: *stop7
+      time: "00:30:00"
+     -
+      stop: *stop8
+      time: "00:35:00"
+     -
+      stop: *stop12
+      time: "00:52:00"
+     -
+      stop: *stop13
+      time: "00:56:00"
+     -
+      stop: *stop14
+      time: "01:02:00"
+ - 
+  &vehicle14 id: "Vehicle14"
+  line: *line2
+  timetable:
+    entries:
+     -
+      stop: *stop7
+      time: "00:35:00"
+     -
+      stop: *stop8
+      time: "00:40:00"
+     -
+      stop: *stop12
+      time: "00:57:00"
+     -
+      stop: *stop13
+      time: "01:01:00"
+     -
+      stop: *stop14
+      time: "01:07:00"
+ - 
+  &vehicle15 id: "Vehicle15"
+  line: *line2
+  timetable:
+    entries:
+     -
+      stop: *stop7
+      time: "00:40:00"
+     -
+      stop: *stop8
+      time: "00:45:00"
+     -
+      stop: *stop12
+      time: "01:02:00"
+     -
+      stop: *stop13
+      time: "01:06:00"
+     -
+      stop: *stop14
+      time: "01:12:00"
+ - 
+  &vehicle16 id: "Vehicle16"
+  line: *line2
+  timetable:
+    entries:
+     -
+      stop: *stop7
+      time: "00:45:00"
+     -
+      stop: *stop8
+      time: "00:50:00"
+     -
+      stop: *stop12
+      time: "01:07:00"
+     -
+      stop: *stop13
+      time: "01:11:00"
+     -
+      stop: *stop14
+      time: "01:17:00"
+ - 
+  &vehicle17 id: "Vehicle17"
+  line: *line2
+  timetable:
+    entries:
+     -
+      stop: *stop7
+      time: "00:50:00"
+     -
+      stop: *stop8
+      time: "00:55:00"
+     -
+      stop: *stop12
+      time: "01:12:00"
+     -
+      stop: *stop13
+      time: "01:16:00"
+     -
+      stop: *stop14
+      time: "01:22:00"
+ - 
+  &vehicle18 id: "Vehicle18"
+  line: *line2
+  timetable:
+    entries:
+     -
+      stop: *stop7
+      time: "00:55:00"
+     -
+      stop: *stop8
+      time: "01:00:00"
+     -
+      stop: *stop12
+      time: "01:17:00"
+     -
+      stop: *stop13
+      time: "01:21:00"
+     -
+      stop: *stop14
+      time: "01:27:00"
+ - 
+  &vehicle19 id: "Vehicle19"
+  line: *line2
+  timetable:
+    entries:
+     -
+      stop: *stop7
+      time: "01:00:00"
+     -
+      stop: *stop8
+      time: "01:05:00"
+     -
+      stop: *stop12
+      time: "01:22:00"
+     -
+      stop: *stop13
+      time: "01:26:00"
+     -
+      stop: *stop14
+      time: "01:32:00"
+ -
+  &vehicle20 id: "Vehicle20"
+  line: *line2
+  timetable:
+    entries:
+     -
+      stop: *stop7
+      time: "01:05:00"
+     -
+      stop: *stop8
+      time: "01:10:00"
+     -
+      stop: *stop12
+      time: "01:27:00"
+     -
+      stop: *stop13
+      time: "01:31:00"
+     -
+      stop: *stop14
+      time: "01:37:00"
+ - 
+  &vehicle21 id: "Vehicle21"
+  line: *line3
+  timetable:
+    entries:
+     -
+      stop: *stop15
+      time: "00:10:00"
+     -
+      stop: *stop16
+      time: "00:17:00"
+     -
+      stop: *stop17
+      time: "00:23:00"
+     -
+      stop: *stop18
+      time: "00:28:00"
+     -
+      stop: *stop6
+      time: "00:35:00"
+ - 
+  &vehicle22 id: "Vehicle22"
+  line: *line3
+  timetable:
+    entries:
+     -
+      stop: *stop15
+      time: "00:15:00"
+     -
+      stop: *stop16
+      time: "00:22:00"
+     -
+      stop: *stop17
+      time: "00:28:00"
+     -
+      stop: *stop18
+      time: "00:32:00"
+     -
+      stop: *stop6
+      time: "00:40:00"
+ - 
+  &vehicle23 id: "Vehicle23"
+  line: *line3
+  timetable:
+    entries:
+     -
+      stop: *stop15
+      time: "00:20:00"
+     -
+      stop: *stop16
+      time: "00:27:00"
+     -
+      stop: *stop17
+      time: "00:32:00"
+     -
+      stop: *stop18
+      time: "00:37:00"
+     -
+      stop: *stop6
+      time: "00:45:00"
+ -
+  &vehicle24 id: "Vehicle24"
+  line: *line3
+  timetable:
+    entries:
+     -
+      stop: *stop15
+      time: "00:25:00"
+     -
+      stop: *stop16
+      time: "00:32:00"
+     -
+      stop: *stop17
+      time: "00:37:00"
+     -
+      stop: *stop18
+      time: "00:42:00"
+     -
+      stop: *stop6
+      time: "00:50:00"
+ - 
+  &vehicle25 id: "Vehicle25"
+  line: *line3
+  timetable:
+    entries:
+     -
+      stop: *stop15
+      time: "00:30:00"
+     -
+      stop: *stop16
+      time: "00:37:00"
+     -
+      stop: *stop17
+      time: "00:42:00"
+     -
+      stop: *stop18
+      time: "00:47:00"
+     -
+      stop: *stop6
+      time: "00:55:00"
+ - 
+  &vehicle26 id: "Vehicle26"
+  line: *line3
+  timetable:
+    entries:
+     -
+      stop: *stop15
+      time: "00:35:00"
+     -
+      stop: *stop16
+      time: "00:42:00"
+     -
+      stop: *stop17
+      time: "00:47:00"
+     -
+      stop: *stop18
+      time: "00:52:00"
+     -
+      stop: *stop6
+      time: "01:00:00"
+ - 
+  &vehicle27 id: "Vehicle27"
+  line: *line3
+  timetable:
+    entries:
+     -
+      stop: *stop15
+      time: "00:40:00"
+     -
+      stop: *stop16
+      time: "00:47:00"
+     -
+      stop: *stop17
+      time: "00:52:00"
+     -
+      stop: *stop18
+      time: "00:57:00"
+     -
+      stop: *stop6
+      time: "01:05:00"
+ - 
+  &vehicle28 id: "Vehicle28"
+  line: *line3
+  timetable:
+    entries:
+     -
+      stop: *stop15
+      time: "00:45:00"
+     -
+      stop: *stop16
+      time: "00:52:00"
+     -
+      stop: *stop17
+      time: "00:57:00"
+     -
+      stop: *stop18
+      time: "01:02:00"
+     -
+      stop: *stop6
+      time: "01:10:00"
+ - 
+  &vehicle29 id: "Vehicle29"
+  line: *line3
+  timetable:
+    entries:
+     -
+      stop: *stop15
+      time: "00:50:00"
+     -
+      stop: *stop16
+      time: "00:57:00"
+     -
+      stop: *stop17
+      time: "01:02:00"
+     -
+      stop: *stop18
+      time: "01:07:00"
+     -
+      stop: *stop6
+      time: "01:15:00"
+ - 
+  &vehicle30 id: "Vehicle30"
+  line: *line3
+  timetable:
+    entries:
+     -
+      stop: *stop15
+      time: "00:55:00"
+     -
+      stop: *stop16
+      time: "01:02:00"
+     -
+      stop: *stop17
+      time: "01:07:00"
+     -
+      stop: *stop18
+      time: "01:12:00"
+     -
+      stop: *stop6
+      time: "01:20:00"

@@ -23,9 +23,9 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 
 /**
  * 
- * Ovládání úvodní scény
- * @author Tomáš Julina (xjulin08)
- * @author Tomáš Kantor (xkanto14)
+ * Ovladani uvodni sceny
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
  *
  */
 public class InitWindowController implements Initializable {
@@ -64,7 +64,7 @@ public class InitWindowController implements Initializable {
 	}
 	
 	/**
-     * Konstruktor úvodního okna.
+     * Konstruktor uvodniho okna.
      * @param location
      * @param resources
      */
@@ -72,7 +72,7 @@ public class InitWindowController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {}
 
     /**
-     * Nastaví stage.
+     * Nastavi stage.
      * @param stage stage
      */
     public void setStage(Stage stage)
@@ -81,7 +81,8 @@ public class InitWindowController implements Initializable {
     }
     
     /**
-     * Načte data ze souboru.
+     * Nacte data ze souboru.
+     * @return InputData zpracované vstupni data
      */
     public InputData getData()
     {

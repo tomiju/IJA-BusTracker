@@ -1,21 +1,20 @@
 package map;
 
 import java.util.List;
-import java.util.ListIterator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * 
- * Třída reprezentující jízdní řád.
- * Jízdní řád se skládá z jednotlivých zápisů.
- * @author Tomáš Julina (xjulin08)
- * @author Tomáš Kantor (xkanto14)
+ * Trida reprezentujici jizdni rad.
+ * Jizdni rad se sklada z jednotlivych zapisu.
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
  *
  */
 public class Timetable 
 {
-	private List<TimetableEntry> entries; // list se zastávkami a časy, kdy na nich jsem
+	private List<TimetableEntry> entries; // list se zastavkami a casy, kdy na nich jsem
 	
 	@JsonIgnore
 	private int index = 0;
@@ -31,7 +30,7 @@ public class Timetable
 	public Timetable() {}
 	
 	/**
-	 * Vrátí seznam zápisů (obsah jízdního řádu)
+	 * Vrátí seznam zápisů (obsah jízdního řádu).
 	 * @return List<TimetableEntry> seznam zápisů
 	 */
 	public List<TimetableEntry> getEntries()
@@ -39,16 +38,20 @@ public class Timetable
 		return this.entries;
 	}
 	
+	/**
+	 * Vrati zaznam nasledujici zastavky.
+	 * @return TimetableEntry zaznam nasledujici zastavky
+	 */
 	@JsonIgnore
 	public TimetableEntry nextStop()
 	{
 		this.index++;
 
-		 if (this.index >= entries.size()) 
-		 {
-			 this.index = 0;
-		 }
+		if (this.index >= entries.size()) 
+		{
+			this.index = 0;
+		}
 
-		    return (next = entries.get(this.index));
+		return (next = entries.get(this.index));
 	}
 }

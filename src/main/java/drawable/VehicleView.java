@@ -5,9 +5,9 @@ import javafx.scene.text.Text;
 
 /**
  * 
- * Objekt reprezentující vozdilo v mapě (vykreslené)
- * @author Tomáš Julina (xjulin08)
- * @author Tomáš Kantor (xkanto14)
+ * Objekt reprezentujici vozdilo v mape (vykreslene)
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
  *
  */
 public class VehicleView 
@@ -22,7 +22,7 @@ public class VehicleView
 	}
 	
 	/**
-     * Nastaví grafickou reprezentaci vozidla.
+     * Nastavi grafickou reprezentaci vozidla.
      * @param circle vozidlo
      */
 	public void setCircle(Circle circle)
@@ -31,7 +31,7 @@ public class VehicleView
 	}
 	
 	/**
-     * Nastaví název vozidla.
+     * Nastavi nazev vozidla.
      * @param text
      */
 	public void setText(Text text)
@@ -40,7 +40,7 @@ public class VehicleView
 	}
 	
 	/**
-     * Získá objekt reprezentující vozidlo.
+     * Ziska objekt reprezentujici vozidlo.
      * @return Circle objekt
      */
 	public Circle getCircle()
@@ -49,8 +49,8 @@ public class VehicleView
 	}
 	
 	/**
-     * Získá název vozidla.,
-     * @return Text název vozidla
+     * Ziska nazev vozidla.,
+     * @return Text nazev vozidla
      */
 	public Text getText()
 	{

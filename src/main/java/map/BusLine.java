@@ -9,14 +9,15 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
 /**
  * 
- * Reprezentace jedné autobusové linky.
- * Linka má své ID, má počáteční a konečnou zastávku a obsahuje seznam vozidel a ulic, ze kterých se skládá.
- * @author Tomáš Julina (xjulin08)
- * @author Tomáš Kantor (xkanto14)
+ * Reprezentace jedne autobusove linky.
+ * Linka ma sve ID, ma pocatecni a konecnou zastavku a obsahuje seznam vozidel a ulic, ze kterych se sklada.
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
  *
  */
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
@@ -34,11 +35,13 @@ public class BusLine
 		this.vehicles = new ArrayList<>();
 	}
 	
-	public BusLine() {}
+	public BusLine() {
+		this.vehicles = new ArrayList<>();
+	}
 	
 	/**
-     * Nastaví název linky.
-     * @param name název
+     * Nastavi nazev linky.
+     * @param name nazev
      */
 	public void setId(String name)
 	{
@@ -46,7 +49,7 @@ public class BusLine
 	}
 	
 	/**
-     * Nastaví začátek linky (počáteční zastávku).
+     * Nastavi zacatek linky (pocatecni zastavku).
      * @param start start
      */
 	public void setStart(Stop start)
@@ -55,8 +58,8 @@ public class BusLine
 	}
 	
 	/**
-     * Nastaví konečnou stanici.
-     * @param stop konečná
+     * Nastavi konecnou stanici.
+     * @param stop konecna zastavka
      */
 	public void setEnd(Stop stop)
 	{
@@ -64,7 +67,7 @@ public class BusLine
 	}
 	
 	/**
-     * Přidá ulici do linky.
+     * Prida ulici do linky.
      * @param street ulice
      */
 	public void addStreet(Street street)
@@ -73,7 +76,7 @@ public class BusLine
 	}
 	
 	/**
-     * Přidá vozidlo patřící dané lince.
+     * Prida vozidlo patrici dane lince.
      * @param vehicle vozidlo
      */
 	public void addVehicle(Vehicle vehicle)
@@ -82,8 +85,8 @@ public class BusLine
 	}
 	
 	/**
-     * Získá název linky.
-     * @return String název linky
+     * Ziska nazev linky.
+     * @return String nazev linky
      */
 	public String getId()
 	{
@@ -91,8 +94,8 @@ public class BusLine
 	}
 	
 	/**
-     * Získá počáteční zastávku
-     * @return Stop počáteční zastávka
+     * Ziska pocatecni zastavku
+     * @return Stop pocatecni zastavka
      */
 	public Stop getStart()
 	{
@@ -100,8 +103,8 @@ public class BusLine
 	}
 	
 	/**
-     * Získá konečnou zastávku.
-     * @return Stop konečná zastávka
+     * Ziska konecnou zastavku.
+     * @return Stop konecna zastavka
      */
 	public Stop getEnd()
 	{
@@ -109,7 +112,7 @@ public class BusLine
 	}
 	
 	/**
-     * Získá seznam ulic.
+     * Ziska seznam ulic.
      * @return List<Street> seznam ulic
      */
 	public List<Street> getStreets()
@@ -118,7 +121,7 @@ public class BusLine
 	}
 	
 	/**
-     * Získá seznam vozidel.
+     * Ziska seznam vozidel.
      * @return List<Vehicle> seznam vozidel
      */
 	@JsonIgnore
@@ -128,36 +131,42 @@ public class BusLine
 	}
 	
 	/**
-     * Nastaví "focus" (zvýrazní) celou linku.
+     * Nastavi "focus" (zvyrazni) na celou linku.
      * @param map mapa
-     * @param streets ulice patřící lince
      */
 	@JsonIgnore
-	public void setLineFocus(Pane map, List<Street> streets)
+	public void setLineFocus(Pane map)
 	{
-		for (Street street : streets) 
+		for (Street street : this.streets) 
 		{
 			Line line = street.getStreetView().getLine();
-			line.setStroke(Color.BLUE);
-			map.getChildren().remove(line);
-			map.getChildren().add(line);
+			line.setStroke(Color.GREEN);
+		}
+		
+		for (Vehicle vehicle : this.vehicles)
+		{
+			Circle circle = vehicle.getVehicleView().getCircle();
+			circle.setFill(Color.GREEN);
 		}
 	}
 	
 	/**
-     * Zruší "focus" (zvýrazní) celou linku.
+     * Zrusi "focus" lince.
      * @param map mapa
-     * @param streets ulice patřící lince
      */
 	@JsonIgnore
-	public void unsetLineFocus(Pane map, List<Street> streets)
+	public void unsetLineFocus(Pane map)
 	{
-		for (Street street : streets) 
+		for (Street street : this.streets) 
 		{
 			Line line = street.getStreetView().getLine();
 			line.setStroke(Color.BLACK);
-			map.getChildren().remove(line);
-			map.getChildren().add(line);
+		}
+		
+		for (Vehicle vehicle : this.vehicles)
+		{
+			Circle circle = vehicle.getVehicleView().getCircle();
+			circle.setFill(Color.BLUE);
 		}
 	}
 	

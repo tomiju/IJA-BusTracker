@@ -3,9 +3,9 @@ package gui;
 
 /**
  * 
- * Vytvoření okna a scény
- * @author Tomáš Julina (xjulin08)
- * @author Tomáš Kantor (xkanto14)
+ * Vytvoreni okna a sceny
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
  *
  */
 
@@ -30,10 +30,10 @@ public class Main extends Application
 	{
 		FXMLLoader loader = new FXMLLoader();
         loader.setController(new SceneController());
-        loader.setLocation(getClass().getResource("/scene.fxml")); // TODO: Při odevzdání jen "/initWindow.fxml" + jiná struktura souborů
+        loader.setLocation(getClass().getResource("/scene.fxml"));
 		Parent root = loader.load();
 		
-	    Scene scene = new Scene(root, 1000, 700);
+	    Scene scene = new Scene(root, 1280, 800);
 	    primaryStage.setScene(scene);
 	    primaryStage.setTitle("Bus tracker");
 	    

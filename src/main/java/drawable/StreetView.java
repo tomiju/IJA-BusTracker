@@ -5,9 +5,9 @@ import javafx.scene.text.Text;
 
 /**
  * 
- * Objekt reprezentující ulici v mapě (vykreslená)
- * @author Tomáš Julina (xjulin08)
- * @author Tomáš Kantor (xkanto14)
+ * Objekt reprezentujici ulici v mape (vykreslena)
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
  *
  */
 public class StreetView 
@@ -22,11 +22,10 @@ public class StreetView
 	}
 	
 	public StreetView() {}
-	
-	
+		
 	/**
-     * Získá objekt reprezentující ulici.
-     * @return Line grafická reprezentace ulice.
+     * Ziska objekt reprezentujici ulici.
+     * @return Line graficka reprezentace ulice.
      */
 	public Line getLine()
 	{
@@ -34,8 +33,8 @@ public class StreetView
 	}
 	
 	/**
-     * Získá název ulice.
-     * @return Text název ulice.
+     * Ziska nazev ulice.
+     * @return Text nazev ulice.
      */
 	public Text getName()
 	{

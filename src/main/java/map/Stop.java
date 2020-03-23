@@ -7,10 +7,10 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * 
- * Třída reprezentující zastávku.
- * Zastávka má své ID, souřadnice umíštění a zná také ulici, na které je umístěna.
- * @author Tomáš Julina (xjulin08)
- * @author Tomáš Kantor (xkanto14)
+ * Trida reprezentujici zastavku.
+ * Zastavka ma sve ID, souradnice umisteni a zna take ulici, na ktere je umistena.
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
  *
  */
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
@@ -29,8 +29,8 @@ public class Stop
 	public Stop() {}
 	
   /**
- 	* Nastaví ulici, na které je zastávka umístěna.
-	* @param s Ulice, na které je zastávka umístěna
+ 	* Nastavi ulici, na ktere je zastavka umistena.
+	* @param s Ulice, na ktereje zastavka umistena
 	*/
 	public void setStreet(Street s)
 	{
@@ -38,8 +38,8 @@ public class Stop
 	}
 	
   /**
-   * Vrátí identifikátor zastávky.
-   * @return String Identifikátor zastávky.
+   * Vrati identifikator zastavky.
+   * @return String Identifikator zastavky.
    */
 	public String getId()
 	{
@@ -47,8 +47,8 @@ public class Stop
 	}
 
   /**
-   * Vrátí pozici zastávky.
-   * @return Pozice zastávky
+   * Vrati pozici zastavky.
+   * @return Pozice zastavky
    */
 	public Coordinate getCoordinate()
 	{
@@ -56,8 +56,8 @@ public class Stop
 	}
 
   /**
-   * Vrátí ulici, na které je zastávka umístěna.
-   * @return Ulice, na které je zastávka umístěna. Pokud zastávka existuje, ale dosud nemá umístění, vrací null.
+   * Vrati ulici, na ktere je zastavka umistena.
+   * @return Ulice, na ktere je zastavka umistena. Pokud zastavka existuje, ale dosud nemá umisteni, vraci null.
    */
 	@JsonIgnore
 	public Street getStreet()
