@@ -1,5 +1,6 @@
 package gui;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -383,6 +384,11 @@ public class SceneController implements Initializable {
 
 	}
 	
+	public String getCurrentVehicleId()
+	{
+		return txtVehicleName.getText();
+	}
+	
 	/**
 	 * Spusti animaci pohybu vozidel
 	 */
@@ -401,6 +407,13 @@ public class SceneController implements Initializable {
 				for (Vehicle vehicle : SceneController.data.getVehicles()) 
 				{
 					vehicle.drive(txtTimer.getText(), timeSpeed);
+					
+					Platform.runLater(() -> { // automaticka aktualizace nasledujici zastavky (pro nakliknute vozidlo)
+						if (getCurrentVehicleId() == vehicle.getId())
+						{
+							showVehicleInfo(vehicle);
+						}
+		            });
 				}
 			}
 		}, 0, (int)(1000 / timeSpeed));   
