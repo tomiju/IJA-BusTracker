@@ -8,8 +8,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import drawable.StreetView;
 
-// TODO: výpočet, zda X,Y leží na přímce (na ulici)
-
 /**
  * 
  * Trida reprezentujici ulici.
@@ -23,7 +21,7 @@ public class Street
 {
 
 	private String id;
-	private boolean open; // otevrená / uzavrena ulice
+	private boolean open = true; // otevrená / uzavrena ulice
 	private List<Stop> stops;
 	private Coordinate start, end;
 	private int busyness; // vytizeni
@@ -38,7 +36,6 @@ public class Street
 		this.start = start;
 		this.end = end;
 		this.busyness = 0;
-		this.open = true;
 		
 		this.streetView = new StreetView();
 	}

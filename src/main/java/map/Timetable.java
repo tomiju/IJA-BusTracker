@@ -54,4 +54,13 @@ public class Timetable
 
 		return (next = entries.get(this.index));
 	}
+	
+	/**
+	 * Pomocna funkce pro restart simulace
+	 */
+	public void resetIndex()
+	{
+		this.index = 0;
+		this.next = null;
+	}
 }

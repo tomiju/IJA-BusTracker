@@ -36,6 +36,7 @@ public class Main extends Application
 	    Scene scene = new Scene(root, 1280, 800);
 	    primaryStage.setScene(scene);
 	    primaryStage.setTitle("Bus tracker");
+	    primaryStage.setResizable(false);
 	    
 	    primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 	        @Override

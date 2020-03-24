@@ -28,7 +28,6 @@ public class Vehicle
 	private Timetable timetable;
 	private Coordinate currentPosition;
 	private Street currentStreet;
-	//private int speed;
 	
 	private VehicleView vehicleView;
 	private TimetableEntry firstEntry;
@@ -46,7 +45,6 @@ public class Vehicle
 		this.timetable = timetable;
 		this.line = line;
 		this.vehiclePath = new ArrayList<Coordinate>();
-		//this.speed = 0;
 		this.id = id;
 	}
 	
@@ -70,6 +68,8 @@ public class Vehicle
 	public void setFirstEntry(Timetable timetable)
 	{
 		this.firstEntry = timetable.getEntries().get(0);
+		
+		this.previousStop = this.firstEntry;
 		
 		this.nextStopTime = Integer.parseInt(this.firstEntry.getTime().substring(3,5)) + (Integer.parseInt(this.firstEntry.getTime().substring(0,2)) * 60);
 	
@@ -230,7 +230,7 @@ public class Vehicle
 	 * Animace / prubeh cesty + vypocet trasy (aby vozidla jela podle jizdniho radu).
 	 * @param time aktualni globalni cas
 	 */
-	public void drive(String time)
+	public void drive(String time, int timeSpeed)
 	{
 		String hoursTmp = time.substring(0,2);
 		int inputTime = (Integer.parseInt(time.substring(3,5)) + (Integer.parseInt(hoursTmp) * 60));
@@ -277,13 +277,13 @@ public class Vehicle
 			
 			PathTransition transition = new PathTransition();
 			transition.setNode(this.vehicleView.getCircle());
-			transition.setDuration(Duration.seconds(this.nextStopTime));
+			transition.setDuration(Duration.seconds(this.nextStopTime/timeSpeed));
 			transition.setPath(pathVehicle);
 			transition.play();
 			
 			PathTransition transition2 = new PathTransition();
 			transition2.setNode(this.vehicleView.getText());
-			transition2.setDuration(Duration.seconds(this.nextStopTime));
+			transition2.setDuration(Duration.seconds(this.nextStopTime/timeSpeed));
 			transition2.setPath(pathName);
 			transition2.play();
 		}
@@ -322,7 +322,6 @@ public class Vehicle
 			this.previousStop = this.nextStop;
 			this.nextStop = this.timetable.nextStop();
 			
-			
 			Polyline pathVehicle = new Polyline();
 			pathVehicle.getPoints().addAll(coords);
 			
@@ -331,15 +330,42 @@ public class Vehicle
 			
 			PathTransition transition = new PathTransition();
 			transition.setNode(this.vehicleView.getCircle());
-			transition.setDuration(Duration.seconds(this.nextStopTime));
+			transition.setDuration(Duration.seconds(this.nextStopTime/timeSpeed));
 			transition.setPath(pathVehicle);
 			transition.play();
 			
 			PathTransition transition2 = new PathTransition();
 			transition2.setNode(this.vehicleView.getText());
-			transition2.setDuration(Duration.seconds(this.nextStopTime));
+			transition2.setDuration(Duration.seconds(this.nextStopTime/timeSpeed));
 			transition2.setPath(pathName);
 			transition2.play();
 		}
+	}
+	
+	/**
+	 * Pomocná funkce pro restart simulace.
+	 */
+	public void resetIndex()
+	{
+		this.index = 0;
+	}
+	
+	/**
+	 * Pomocná funkce pro restart simulace.
+	 */
+	public void resetVehiclePath()
+	{
+		this.vehiclePath = new ArrayList<Coordinate>();
+	}
+	
+	
+	/**
+	 * Vrati aktualne projetou zastavku.
+	 * @return String nazev aktualni zastavky
+	 */
+	@JsonIgnore
+	public String getCurrentStopId()
+	{
+		return this.previousStop.getStop().getId().concat("\n"+this.previousStop.getTime());
 	}
 }

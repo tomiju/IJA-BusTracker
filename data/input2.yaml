@@ -40,37 +40,37 @@ stops:
     x: 464.0
     y: -95.0
  -
-  &stop12 id: "Stop12"
+  &stop9 id: "Stop9"
   coordinate:
     x: 199.0
     y: 90.0
  -
-  &stop13 id: "Stop13"
+  &stop10 id: "Stop10"
   coordinate:
     x: 18.0
     y: 195.0
  -
-  &stop14 id: "Stop14"
+  &stop11 id: "Stop11"
   coordinate:
     x: -156.0
     y: 162.0
  -
-  &stop15 id: "Stop15"
+  &stop12 id: "Stop12"
   coordinate:
     x: 275.0
     y: -187.0
  -
-  &stop16 id: "Stop16"
+  &stop13 id: "Stop13"
   coordinate:
     x: 298.0
     y: -30.0
  -
-  &stop17 id: "Stop17"
+  &stop14 id: "Stop14"
   coordinate:
     x: 199.0
     y: 187.0
  -
-  &stop18 id: "Stop18"
+  &stop15 id: "Stop15"
   coordinate:
     x: 223.0
     y: 377.0
@@ -143,7 +143,7 @@ streets:
   &street7 id: "Street7"
   open: true
   stops:
-   - *stop12
+   - *stop9
   start:
     x: 237.0
     y: 92.0
@@ -196,7 +196,7 @@ streets:
   &street12 id: "Street12"
   open: true
   stops:
-   - *stop16
+   - *stop13
   start:
     x: 439.0
     y: -87.0
@@ -250,7 +250,7 @@ streets:
   &street17 id: "Street17"
   open: true
   stops:
-   - *stop17
+   - *stop14
   start:
     x: 237.0
     y: 92.0
@@ -261,7 +261,7 @@ streets:
   &street18 id: "Street18"
   open: true
   stops:
-   - *stop18
+   - *stop15
   start:
     x: 126.0
     y: 355.0
@@ -282,7 +282,7 @@ streets:
   &street20 id: "Street20"
   open: true
   stops:
-   - *stop13
+   - *stop10
   start:
     x: 59.0
     y: 91.0
@@ -303,7 +303,7 @@ streets:
   &street22 id: "Street22"
   open: true
   stops:
-   - *stop14
+   - *stop11
   start:
     x: -113.0
     y: 158.0
@@ -314,7 +314,7 @@ streets:
   &street25 id: "Street25"
   open: true
   stops:
-   - *stop15
+   - *stop12
   start:
     x: 251.0
     y: -200.0
@@ -340,7 +340,7 @@ lines:
  -
   &line2 id: "Line2"
   start: *stop7
-  end: *stop14
+  end: *stop11
   streets:
    - *street9
    - *street10
@@ -353,7 +353,7 @@ lines:
    - *street22
  -
   &line3 id: "Line3"
-  start: *stop15
+  start: *stop12
   end: *stop6
   streets:
    - *street25
@@ -606,13 +606,13 @@ vehicles:
       stop: *stop8
       time: "00:25:00"
      -
-      stop: *stop12
+      stop: *stop9
       time: "00:42:00"
      -
-      stop: *stop13
+      stop: *stop10
       time: "00:46:00"
      -
-      stop: *stop14
+      stop: *stop11
       time: "00:52:00"
  - 
   &vehicle12 id: "Vehicle12"
@@ -626,13 +626,13 @@ vehicles:
       stop: *stop8
       time: "00:30:00"
      -
-      stop: *stop12
+      stop: *stop9
       time: "00:47:00"
      -
-      stop: *stop13
+      stop: *stop10
       time: "00:51:00"
      -
-      stop: *stop14
+      stop: *stop11
       time: "00:57:00"
  - 
   &vehicle13 id: "Vehicle13"
@@ -646,13 +646,13 @@ vehicles:
       stop: *stop8
       time: "00:35:00"
      -
-      stop: *stop12
+      stop: *stop9
       time: "00:52:00"
      -
-      stop: *stop13
+      stop: *stop10
       time: "00:56:00"
      -
-      stop: *stop14
+      stop: *stop11
       time: "01:02:00"
  - 
   &vehicle14 id: "Vehicle14"
@@ -666,13 +666,13 @@ vehicles:
       stop: *stop8
       time: "00:40:00"
      -
-      stop: *stop12
+      stop: *stop9
       time: "00:57:00"
      -
-      stop: *stop13
+      stop: *stop10
       time: "01:01:00"
      -
-      stop: *stop14
+      stop: *stop11
       time: "01:07:00"
  - 
   &vehicle15 id: "Vehicle15"
@@ -686,13 +686,13 @@ vehicles:
       stop: *stop8
       time: "00:45:00"
      -
-      stop: *stop12
+      stop: *stop9
       time: "01:02:00"
      -
-      stop: *stop13
+      stop: *stop10
       time: "01:06:00"
      -
-      stop: *stop14
+      stop: *stop11
       time: "01:12:00"
  - 
   &vehicle16 id: "Vehicle16"
@@ -706,13 +706,13 @@ vehicles:
       stop: *stop8
       time: "00:50:00"
      -
-      stop: *stop12
+      stop: *stop9
       time: "01:07:00"
      -
-      stop: *stop13
+      stop: *stop10
       time: "01:11:00"
      -
-      stop: *stop14
+      stop: *stop11
       time: "01:17:00"
  - 
   &vehicle17 id: "Vehicle17"
@@ -726,13 +726,13 @@ vehicles:
       stop: *stop8
       time: "00:55:00"
      -
-      stop: *stop12
+      stop: *stop9
       time: "01:12:00"
      -
-      stop: *stop13
+      stop: *stop10
       time: "01:16:00"
      -
-      stop: *stop14
+      stop: *stop11
       time: "01:22:00"
  - 
   &vehicle18 id: "Vehicle18"
@@ -746,13 +746,13 @@ vehicles:
       stop: *stop8
       time: "01:00:00"
      -
-      stop: *stop12
+      stop: *stop9
       time: "01:17:00"
      -
-      stop: *stop13
+      stop: *stop10
       time: "01:21:00"
      -
-      stop: *stop14
+      stop: *stop11
       time: "01:27:00"
  - 
   &vehicle19 id: "Vehicle19"
@@ -766,13 +766,13 @@ vehicles:
       stop: *stop8
       time: "01:05:00"
      -
-      stop: *stop12
+      stop: *stop9
       time: "01:22:00"
      -
-      stop: *stop13
+      stop: *stop10
       time: "01:26:00"
      -
-      stop: *stop14
+      stop: *stop11
       time: "01:32:00"
  -
   &vehicle20 id: "Vehicle20"
@@ -786,13 +786,13 @@ vehicles:
       stop: *stop8
       time: "01:10:00"
      -
-      stop: *stop12
+      stop: *stop9
       time: "01:27:00"
      -
-      stop: *stop13
+      stop: *stop10
       time: "01:31:00"
      -
-      stop: *stop14
+      stop: *stop11
       time: "01:37:00"
  - 
   &vehicle21 id: "Vehicle21"
@@ -800,16 +800,16 @@ vehicles:
   timetable:
     entries:
      -
-      stop: *stop15
+      stop: *stop12
       time: "00:10:00"
      -
-      stop: *stop16
+      stop: *stop13
       time: "00:17:00"
      -
-      stop: *stop17
+      stop: *stop14
       time: "00:23:00"
      -
-      stop: *stop18
+      stop: *stop15
       time: "00:28:00"
      -
       stop: *stop6
@@ -820,16 +820,16 @@ vehicles:
   timetable:
     entries:
      -
-      stop: *stop15
+      stop: *stop12
       time: "00:15:00"
      -
-      stop: *stop16
+      stop: *stop13
       time: "00:22:00"
      -
-      stop: *stop17
+      stop: *stop14
       time: "00:28:00"
      -
-      stop: *stop18
+      stop: *stop15
       time: "00:32:00"
      -
       stop: *stop6
@@ -840,16 +840,16 @@ vehicles:
   timetable:
     entries:
      -
-      stop: *stop15
+      stop: *stop12
       time: "00:20:00"
      -
-      stop: *stop16
+      stop: *stop13
       time: "00:27:00"
      -
-      stop: *stop17
+      stop: *stop14
       time: "00:32:00"
      -
-      stop: *stop18
+      stop: *stop15
       time: "00:37:00"
      -
       stop: *stop6
@@ -860,16 +860,16 @@ vehicles:
   timetable:
     entries:
      -
-      stop: *stop15
+      stop: *stop12
       time: "00:25:00"
      -
-      stop: *stop16
+      stop: *stop13
       time: "00:32:00"
      -
-      stop: *stop17
+      stop: *stop14
       time: "00:37:00"
      -
-      stop: *stop18
+      stop: *stop15
       time: "00:42:00"
      -
       stop: *stop6
@@ -880,16 +880,16 @@ vehicles:
   timetable:
     entries:
      -
-      stop: *stop15
+      stop: *stop12
       time: "00:30:00"
      -
-      stop: *stop16
+      stop: *stop13
       time: "00:37:00"
      -
-      stop: *stop17
+      stop: *stop14
       time: "00:42:00"
      -
-      stop: *stop18
+      stop: *stop15
       time: "00:47:00"
      -
       stop: *stop6
@@ -900,16 +900,16 @@ vehicles:
   timetable:
     entries:
      -
-      stop: *stop15
+      stop: *stop12
       time: "00:35:00"
      -
-      stop: *stop16
+      stop: *stop13
       time: "00:42:00"
      -
-      stop: *stop17
+      stop: *stop14
       time: "00:47:00"
      -
-      stop: *stop18
+      stop: *stop15
       time: "00:52:00"
      -
       stop: *stop6
@@ -920,16 +920,16 @@ vehicles:
   timetable:
     entries:
      -
-      stop: *stop15
+      stop: *stop12
       time: "00:40:00"
      -
-      stop: *stop16
+      stop: *stop13
       time: "00:47:00"
      -
-      stop: *stop17
+      stop: *stop14
       time: "00:52:00"
      -
-      stop: *stop18
+      stop: *stop15
       time: "00:57:00"
      -
       stop: *stop6
@@ -940,16 +940,16 @@ vehicles:
   timetable:
     entries:
      -
-      stop: *stop15
+      stop: *stop12
       time: "00:45:00"
      -
-      stop: *stop16
+      stop: *stop13
       time: "00:52:00"
      -
-      stop: *stop17
+      stop: *stop14
       time: "00:57:00"
      -
-      stop: *stop18
+      stop: *stop15
       time: "01:02:00"
      -
       stop: *stop6
@@ -960,16 +960,16 @@ vehicles:
   timetable:
     entries:
      -
-      stop: *stop15
+      stop: *stop12
       time: "00:50:00"
      -
-      stop: *stop16
+      stop: *stop13
       time: "00:57:00"
      -
-      stop: *stop17
+      stop: *stop14
       time: "01:02:00"
      -
-      stop: *stop18
+      stop: *stop15
       time: "01:07:00"
      -
       stop: *stop6
@@ -980,16 +980,16 @@ vehicles:
   timetable:
     entries:
      -
-      stop: *stop15
+      stop: *stop12
       time: "00:55:00"
      -
-      stop: *stop16
+      stop: *stop13
       time: "01:02:00"
      -
-      stop: *stop17
+      stop: *stop14
       time: "01:07:00"
      -
-      stop: *stop18
+      stop: *stop15
       time: "01:12:00"
      -
       stop: *stop6

@@ -3,7 +3,6 @@ package gui;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,8 +26,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import map.BusLine;
 import map.InputData;
-import map.Stop;
 import map.Street;
+import map.TimetableEntry;
 import map.Vehicle;
 
 /**
@@ -41,6 +40,8 @@ import map.Vehicle;
 public class SceneController implements Initializable {
 	private static InputData data;
 	private LocalTime localTime = LocalTime.of(23, 59, 0, 0);
+	private int timeSpeed = 1;
+	private Timer mainClock;
 	
 	@FXML
     private Pane map;
@@ -49,10 +50,126 @@ public class SceneController implements Initializable {
 	private ListView<String> lineList;
 	
 	@FXML
+	private ListView<String> streetList;
+	
+	@FXML
+	private ListView<String> vehicleList;
+	
+	@FXML
 	private Group scroll;
 	
 	@FXML
 	private Text txtTimer;
+	
+	@FXML
+	private Text txtVehicleName;
+	
+	@FXML
+	private Button btnReset;
+	
+	@FXML
+	private TextField txtTimeSpeed;
+	
+	@FXML
+	private Button btnSaveTimeSpeed;
+	
+	/**
+	 * Zmeni rychlost simulace.
+	 * @param event event
+	 */
+	@FXML
+	private void handleSimulationSpeedBtn(ActionEvent event)
+	{
+		if (txtTimeSpeed.getText() != "0")
+		{
+			if(txtTimeSpeed.getText() == "")
+			{
+				timeSpeed = 1;
+			}
+			else
+			{	
+				if (Integer.parseInt(txtTimeSpeed.getText()) >= 1 && Integer.parseInt(txtTimeSpeed.getText()) <= 5)
+				{
+					System.out.println("test: " + txtTimeSpeed.getText()) ;
+					timeSpeed = Integer.parseInt(txtTimeSpeed.getText());
+				}
+				else
+				{
+					timeSpeed = 1;
+				}	
+			}
+		}
+		else
+		{
+			timeSpeed = 1;
+		}
+	}
+	
+	/**
+	 * Zmeni rychlost simulace.
+	 * @param ae event
+	 */
+	@FXML
+	private void onEnter(ActionEvent ae)
+	{
+		if (txtTimeSpeed.getText() != "0")
+		{
+			if(txtTimeSpeed.getText() == "")
+			{
+				timeSpeed = 1;
+			}
+			else
+			{	
+				if (Integer.parseInt(txtTimeSpeed.getText()) >= 1 && Integer.parseInt(txtTimeSpeed.getText()) <= 5)
+				{
+					System.out.println("test: " + txtTimeSpeed.getText()) ;
+					timeSpeed = Integer.parseInt(txtTimeSpeed.getText());
+				}
+				else
+				{
+					timeSpeed = 1;
+				}	
+			}
+		}
+		else
+		{
+			timeSpeed = 1;
+		}
+	}
+	
+	/**
+	 * Restartuje simulaci.
+	 * @param event event
+	 */
+	@FXML
+	private void handleSimulationReset(ActionEvent event)
+	{
+		this.mainClock.cancel();
+		
+		for (Vehicle vehicle : SceneController.data.getVehicles()) 
+		{			
+			vehicle.setCurrentPosition(vehicle.getLine().getStreets().get(0).getStart()); // nastavení počáteční pozice auta
+			vehicle.setCurrentStreet(vehicle.getLine().getStart().getStreet()); // nastavení počáteční ulice
+
+		    vehicle.getVehicleView().getCircle().setCenterX(vehicle.getCurrentPosition().getX());
+		    vehicle.getVehicleView().getCircle().setCenterY(vehicle.getCurrentPosition().getY());
+			
+			vehicle.getVehicleView().getText().xProperty().bind(vehicle.getVehicleView().getCircle().centerXProperty().add(7));
+			vehicle.getVehicleView().getText().yProperty().bind(vehicle.getVehicleView().getCircle().centerYProperty());
+
+		    vehicle.resetIndex();
+		    vehicle.getTimetable().resetIndex();
+		    vehicle.resetVehiclePath();
+		    
+		    this.localTime = LocalTime.of(23, 59, 0, 0);
+			this.txtTimer.setText(localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));	
+		}
+				
+		vehicleList.getItems().clear();	
+		txtVehicleName.setText("");
+		
+		drive();
+	}
 	
 	/**
      * Ovlada zoom, meni scale "mapy".
@@ -74,7 +191,10 @@ public class SceneController implements Initializable {
 		}
 	}
 	
-	// opetovne resetuje focus na click
+	/**
+	 * Resetuje zvyraznenou linku.
+	 * @param arg0 event
+	 */
 	@FXML 
 	public void handleMouseClick(MouseEvent arg0) 
 	{
@@ -100,7 +220,19 @@ public class SceneController implements Initializable {
 		for (BusLine line : SceneController.data.getLines()) 
 		{
 			line.unsetLineFocus(map);
+			
+			for (Street street : line.getStreets())
+			{
+				if (street != null)
+				{
+					streetList.getItems().remove(street.getId());
+				}
+			}
 		}
+		
+		vehicleList.getItems().clear();
+		
+		txtVehicleName.setText("");
 	}
 	
 	/**
@@ -117,6 +249,8 @@ public class SceneController implements Initializable {
         owLoader.setLocation(getClass().getResource("/initWindow.fxml")); // TODO: Pri odevzdani jen "/initWindow.fxml" + jina struktura souboru
         Parent opWindow = null;
         Scene ow = null;
+        
+        timeSpeed = 1;
 
         try 
         {
@@ -132,6 +266,7 @@ public class SceneController implements Initializable {
 
         owStage.setTitle("Bus tracker");
         owStage.setScene(ow);
+        owStage.setResizable(false);
         iwController.setStage(owStage);
         owStage.showAndWait();
         SceneController.data = iwController.getData(); // vstupni data
@@ -148,23 +283,43 @@ public class SceneController implements Initializable {
             			if(line.getId() == oldValue)
             			{
             				line.unsetLineFocus(map);
+            				
+            				for (Street street : line.getStreets())
+                			{
+                				if (street != null)
+                				{
+                					streetList.getItems().remove(street.getId());
+                				}
+                			}
             			}
+            			
             			if(line.getId() == newValue)
                 		{
                 			 line.setLineFocus(map);
+                			 
+                			 for (Street street : line.getStreets())
+                 			{
+                 				if (street != null)
+                 				{
+                 					streetList.getItems().add(street.getId());
+                 				}
+                 			}
                 		}
-        			}	
+        			}
         		}
             }
         });
         
-        /*this.lineList.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
+        // kontroluje vstup u nastaveni rychlosti simulace - jen cisla
+        txtTimeSpeed.textProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void handle(MouseEvent event) {
-                System.out.println("clicked on " + this.lineList.getSelectionModel().getSelectedItem());
+            public void changed(ObservableValue<? extends String> observable, String oldValue, 
+                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                	txtTimeSpeed.setText(newValue.replaceAll("[^\\d]", ""));
+                }
             }
-        });*/
+        });
         
         initMap();
         drive();
@@ -186,7 +341,7 @@ public class SceneController implements Initializable {
 			if (line != null)
 			{
 				this.lineList.getItems().add(line.getId());
-			}
+			}	
 		}
 		
 		for (Vehicle vehicle : SceneController.data.getVehicles()) 
@@ -194,27 +349,61 @@ public class SceneController implements Initializable {
 			vehicle.setCurrentPosition(vehicle.getLine().getStreets().get(0).getStart()); // nastavení počáteční pozice auta
 			vehicle.setCurrentStreet(vehicle.getLine().getStart().getStreet()); // nastavení počáteční ulice
 			vehicle.addVehicleToLine();
-			
 			Drawable.drawVehicles(vehicle, map);
+			
+			vehicle.getVehicleView().getCircle().setOnMouseClicked(e -> showVehicleInfo(vehicle)); // TODO: info o spoji
+			vehicle.getVehicleView().getText().setOnMouseClicked(e -> showVehicleInfo(vehicle));
 		}
 	}
 	
-	public void drive() // TODO: rychlost simulace + reset simulace
+	/**
+	 * Zobrazí informace o nakliknutem vozidle
+	 * @param vehicle aktivni vozidlo
+	 */
+	public void showVehicleInfo(Vehicle vehicle)
+	{
+		vehicleList.getItems().clear();
+		
+		txtVehicleName.setText(vehicle.getId());
+		
+		for(TimetableEntry entry : vehicle.getTimetable().getEntries())
+		{
+			vehicleList.getItems().add(entry.getStop().getId().concat("\n" + entry.getTime()));
+		}
+		
+		int pomIndex = 0;
+		for	(String item : vehicleList.getItems())
+		{
+			if(item.equals(vehicle.getCurrentStopId()))
+			{
+				vehicleList.getSelectionModel().select(pomIndex);
+			}
+			pomIndex++;
+		}
+
+	}
+	
+	/**
+	 * Spusti animaci pohybu vozidel
+	 */
+	public void drive()
 	{
 		Timer timer = new Timer();
+		
+		this.mainClock = timer;
 		
 		timer.scheduleAtFixedRate(new TimerTask() {
 			public void run()
 			{
 				localTime = localTime.plusMinutes(1);
 				txtTimer.setText(localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
-				
+						
 				for (Vehicle vehicle : SceneController.data.getVehicles()) 
 				{
-					vehicle.drive(txtTimer.getText());
+					vehicle.drive(txtTimer.getText(), timeSpeed);
 				}
 			}
-		}, 0, (int)1000);   
+		}, 0, (int)(1000 / timeSpeed));   
 	}
 
 }

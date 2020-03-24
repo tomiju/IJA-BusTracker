@@ -139,8 +139,11 @@ public class BusLine
 	{
 		for (Street street : this.streets) 
 		{
-			Line line = street.getStreetView().getLine();
-			line.setStroke(Color.GREEN);
+			if (street.isOpen())
+			{
+				Line line = street.getStreetView().getLine();
+				line.setStroke(Color.GREEN);
+			}
 		}
 		
 		for (Vehicle vehicle : this.vehicles)
@@ -159,8 +162,11 @@ public class BusLine
 	{
 		for (Street street : this.streets) 
 		{
-			Line line = street.getStreetView().getLine();
-			line.setStroke(Color.BLACK);
+			if (street.isOpen())
+			{
+				Line line = street.getStreetView().getLine();
+				line.setStroke(Color.BLACK);
+			}
 		}
 		
 		for (Vehicle vehicle : this.vehicles)
