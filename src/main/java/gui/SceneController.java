@@ -74,6 +74,34 @@ public class SceneController implements Initializable {
 	@FXML
 	private Button btnSaveTimeSpeed;
 	
+	@FXML
+	private Button btnPause;
+	
+	/**
+	 * Pozastaví/spustí simulaci
+	 * @param event event
+	 */
+	@FXML
+	private void pauseSimulation(ActionEvent event)
+	{
+		if (btnPause.getText().equals("Pause"))
+		{
+			for (Vehicle vehicle : SceneController.data.getVehicles()) 
+			{
+				vehicle.pauseVehicle();
+			}
+			btnPause.setText("Resume");
+		}
+		else
+		{
+			for (Vehicle vehicle : SceneController.data.getVehicles()) 
+			{
+				vehicle.resumeVehicle();
+			}
+			btnPause.setText("Pause");
+		}
+	}
+	
 	/**
 	 * Zmeni rychlost simulace.
 	 * @param event event
@@ -91,7 +119,7 @@ public class SceneController implements Initializable {
 			{	
 				if (Integer.parseInt(txtTimeSpeed.getText()) >= 1 && Integer.parseInt(txtTimeSpeed.getText()) <= 5)
 				{
-					System.out.println("test: " + txtTimeSpeed.getText()) ;
+					System.out.println("speed: " + txtTimeSpeed.getText()) ;
 					timeSpeed = Integer.parseInt(txtTimeSpeed.getText());
 				}
 				else
@@ -123,7 +151,7 @@ public class SceneController implements Initializable {
 			{	
 				if (Integer.parseInt(txtTimeSpeed.getText()) >= 1 && Integer.parseInt(txtTimeSpeed.getText()) <= 5)
 				{
-					System.out.println("test: " + txtTimeSpeed.getText()) ;
+					System.out.println("speed: " + txtTimeSpeed.getText()) ;
 					timeSpeed = Integer.parseInt(txtTimeSpeed.getText());
 				}
 				else
@@ -147,10 +175,14 @@ public class SceneController implements Initializable {
 	{
 		this.mainClock.cancel();
 		
+		btnPause.setText("Pause");
+		
 		for (Vehicle vehicle : SceneController.data.getVehicles()) 
-		{			
-			vehicle.setCurrentPosition(vehicle.getLine().getStreets().get(0).getStart()); // nastavení počáteční pozice auta
-			vehicle.setCurrentStreet(vehicle.getLine().getStart().getStreet()); // nastavení počáteční ulice
+		{	
+			vehicle.cancelVehicle();
+			
+			vehicle.setCurrentPosition(vehicle.getLine().getStreets().get(0).getStart()); // nastaveni pocatecni pozice auta
+			vehicle.setCurrentStreet(vehicle.getLine().getStart().getStreet()); // nastaveni pocatecni ulice
 
 		    vehicle.getVehicleView().getCircle().setCenterX(vehicle.getCurrentPosition().getX());
 		    vehicle.getVehicleView().getCircle().setCenterY(vehicle.getCurrentPosition().getY());
@@ -231,15 +263,17 @@ public class SceneController implements Initializable {
 			}
 		}
 		
+	    this.lineList.getSelectionModel().clearSelection();
+		
 		vehicleList.getItems().clear();
 		
 		txtVehicleName.setText("");
 	}
 	
 	/**
-     * Konstruktor hlavního okna.
-     * @param location
-     * @param resources
+     * Konstruktor hlavniho okna.
+     * @param location location
+     * @param resources resources
      */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
@@ -347,8 +381,8 @@ public class SceneController implements Initializable {
 		
 		for (Vehicle vehicle : SceneController.data.getVehicles()) 
 		{
-			vehicle.setCurrentPosition(vehicle.getLine().getStreets().get(0).getStart()); // nastavení počáteční pozice auta
-			vehicle.setCurrentStreet(vehicle.getLine().getStart().getStreet()); // nastavení počáteční ulice
+			vehicle.setCurrentPosition(vehicle.getLine().getStreets().get(0).getStart()); // nastaveni pocatecni pozice auta
+			vehicle.setCurrentStreet(vehicle.getLine().getStart().getStreet()); // nastaveni pocatecni ulice
 			vehicle.addVehicleToLine();
 			Drawable.drawVehicles(vehicle, map);
 			
@@ -358,7 +392,7 @@ public class SceneController implements Initializable {
 	}
 	
 	/**
-	 * Zobrazí informace o nakliknutem vozidle
+	 * Zobrazi informace o nakliknutem vozidle
 	 * @param vehicle aktivni vozidlo
 	 */
 	public void showVehicleInfo(Vehicle vehicle)
@@ -384,6 +418,10 @@ public class SceneController implements Initializable {
 
 	}
 	
+	/**
+	 * Vrati jmeno aktualne nakliknuteho vozidla
+	 * @return String jmeno aktualne nakliknuteho vozidla
+	 */
 	public String getCurrentVehicleId()
 	{
 		return txtVehicleName.getText();
@@ -401,19 +439,22 @@ public class SceneController implements Initializable {
 		timer.scheduleAtFixedRate(new TimerTask() {
 			public void run()
 			{
-				localTime = localTime.plusMinutes(1);
-				txtTimer.setText(localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+				if(btnPause.getText().equals("Pause"))
+				{				
+					localTime = localTime.plusMinutes(1);
+					txtTimer.setText(localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+							
+					for (Vehicle vehicle : SceneController.data.getVehicles()) 
+					{
+						vehicle.drive(txtTimer.getText(), timeSpeed);
 						
-				for (Vehicle vehicle : SceneController.data.getVehicles()) 
-				{
-					vehicle.drive(txtTimer.getText(), timeSpeed);
-					
-					Platform.runLater(() -> { // automaticka aktualizace nasledujici zastavky (pro nakliknute vozidlo)
-						if (getCurrentVehicleId() == vehicle.getId())
-						{
-							showVehicleInfo(vehicle);
-						}
-		            });
+						Platform.runLater(() -> { // automaticka aktualizace nasledujici zastavky (pro nakliknute vozidlo)
+							if (getCurrentVehicleId() == vehicle.getId())
+							{
+								showVehicleInfo(vehicle);
+							}
+			            });
+					}
 				}
 			}
 		}, 0, (int)(1000 / timeSpeed));   

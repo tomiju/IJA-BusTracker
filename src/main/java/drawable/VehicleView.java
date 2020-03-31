@@ -32,7 +32,7 @@ public class VehicleView
 	
 	/**
      * Nastavi nazev vozidla.
-     * @param text
+     * @param text nazev
      */
 	public void setText(Text text)
 	{

@@ -113,7 +113,7 @@ public class BusLine
 	
 	/**
      * Ziska seznam ulic.
-     * @return List<Street> seznam ulic
+     * @return List seznam ulic
      */
 	public List<Street> getStreets()
 	{
@@ -122,7 +122,7 @@ public class BusLine
 	
 	/**
      * Ziska seznam vozidel.
-     * @return List<Vehicle> seznam vozidel
+     * @return List seznam vozidel
      */
 	@JsonIgnore
 	public List<Vehicle> getVehicles()

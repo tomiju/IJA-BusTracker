@@ -29,7 +29,7 @@ public class InputData // pomocna trida pro zpracovani input dat z YAML souboru
 	
 	/**
      * Ziska seznam ulic.
-     * @return List<Street> seznam ulic
+     * @return List seznam ulic
      */
 	public List<Street> getStreets()
 	{
@@ -38,7 +38,7 @@ public class InputData // pomocna trida pro zpracovani input dat z YAML souboru
 	
 	/**
      * Ziska seznam zastavek.
-     * @return List<Stop> seznam zastávek
+     * @return List seznam zastavek
      */
 	public List<Stop> getStops()
 	{
@@ -47,7 +47,7 @@ public class InputData // pomocna trida pro zpracovani input dat z YAML souboru
 	
 	/**
      * Ziska seznam vozidel.
-     * @return List<Vehicle> seznam vozidel
+     * @return List seznam vozidel
      */
 	public List<Vehicle> getVehicles()
 	{
@@ -56,7 +56,7 @@ public class InputData // pomocna trida pro zpracovani input dat z YAML souboru
 	
 	/**
      * Ziska seznam linek.
-     * @return List<BusLine> seznam linek
+     * @return List seznam linek
      */
 	public List<BusLine> getLines()
 	{

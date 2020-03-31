@@ -52,7 +52,7 @@ public class InitWindowController implements Initializable {
 		         mapper.registerModule(new JavaTimeModule());
 		         mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		             
-		     	this.data = mapper.readValue(file, InputData.class); // TODO: dá to do try - ošetřit špatný formát vstupu     		
+		     	this.data = mapper.readValue(file, InputData.class); // TODO: dat to do try - osetrit spatny format vstupu     		
         	 } 
         	 catch (InvalidDefinitionException e)
         	 {
@@ -65,8 +65,8 @@ public class InitWindowController implements Initializable {
 	
 	/**
      * Konstruktor uvodniho okna.
-     * @param location
-     * @param resources
+     * @param location location
+     * @param resources resources
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {}
@@ -82,7 +82,7 @@ public class InitWindowController implements Initializable {
     
     /**
      * Nacte data ze souboru.
-     * @return InputData zpracované vstupni data
+     * @return InputData zpracovane vstupni data
      */
     public InputData getData()
     {

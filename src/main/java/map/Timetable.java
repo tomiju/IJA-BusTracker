@@ -30,8 +30,8 @@ public class Timetable
 	public Timetable() {}
 	
 	/**
-	 * Vrátí seznam zápisů (obsah jízdního řádu).
-	 * @return List<TimetableEntry> seznam zápisů
+	 * Vrati seznam zapisu (obsah jizdniho radu).
+	 * @return List seznam zapisu
 	 */
 	public List<TimetableEntry> getEntries()
 	{
@@ -50,6 +50,23 @@ public class Timetable
 		if (this.index >= entries.size()) 
 		{
 			this.index = 0;
+		}
+
+		return (next = entries.get(this.index));
+	}
+
+	/**
+	 * Vrati zaznam nasledujici zastavky.
+	 * @return TimetableEntry zaznam nasledujici zastavky
+	 */
+	@JsonIgnore
+	public TimetableEntry previousStop()
+	{
+		this.index--;
+
+		if (this.index < 0) 
+		{
+			this.index = entries.size() - 1;
 		}
 
 		return (next = entries.get(this.index));

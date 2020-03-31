@@ -30,7 +30,7 @@ public class Stop
 	
   /**
  	* Nastavi ulici, na ktere je zastavka umistena.
-	* @param s Ulice, na ktereje zastavka umistena
+	* @param s Ulice, na ktere je zastavka umistena
 	*/
 	public void setStreet(Street s)
 	{
@@ -57,7 +57,7 @@ public class Stop
 
   /**
    * Vrati ulici, na ktere je zastavka umistena.
-   * @return Ulice, na ktere je zastavka umistena. Pokud zastavka existuje, ale dosud nemá umisteni, vraci null.
+   * @return Ulice, na ktere je zastavka umistena. Pokud zastavka existuje, ale dosud nema umisteni, vraci null.
    */
 	@JsonIgnore
 	public Street getStreet()

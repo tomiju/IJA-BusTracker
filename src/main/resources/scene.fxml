@@ -51,14 +51,20 @@
                   </HBox>
                </children>
             </VBox>
-            <HBox prefHeight="32.0" prefWidth="183.0">
+            <HBox prefHeight="41.0" prefWidth="183.0">
+               <children>
+                  <Separator prefHeight="18.0" prefWidth="49.0" visible="false" />
+                  <Button fx:id="btnPause" mnemonicParsing="false" onAction="#pauseSimulation" text="Pause" />
+               </children>
+            </HBox>
+            <HBox prefHeight="39.0" prefWidth="183.0">
                <children>
                   <ToggleButton fx:id="btnEditMode" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Edit mode" />
                   <Separator prefHeight="26.0" prefWidth="28.0" visible="false" />
                   <TextField fx:id="txtTimeSpeed" onAction="#onEnter" prefHeight="26.0" prefWidth="69.0" promptText="speed 1-5" />
                </children>
             </HBox>
-            <HBox prefHeight="22.0" prefWidth="183.0">
+            <HBox prefHeight="39.0" prefWidth="183.0">
                <children>
                   <Label prefHeight="25.0" prefWidth="38.0" text=" Lines:" />
                   <Button fx:id="focusReset" mnemonicParsing="false" onAction="#handleFocusReset" text="Clear" />
@@ -73,9 +79,9 @@
             <ListView fx:id="lineList" editable="true" onMouseClicked="#handleMouseClick" prefHeight="292.0" prefWidth="183.0" />
             <HBox prefHeight="18.0" prefWidth="183.0">
                <children>
-                  <Label prefHeight="17.0" prefWidth="86.0" text=" Streets:" />
+                  <Label prefHeight="17.0" prefWidth="63.0" text=" Streets:" />
                   <Label prefHeight="17.0" prefWidth="45.0" text=" Vehicle:" />
-                  <Text fx:id="txtVehicleName" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="52.13671875" />
+                  <Text fx:id="txtVehicleName" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="74.13671875" />
                </children>
             </HBox>
             <HBox prefHeight="394.0" prefWidth="183.0">

@@ -106,7 +106,7 @@ public class Drawable
 	}
 	
 	/**
-     * Uzavre / otevre ulici (prujezdná/neprujezdná).
+     * Uzavre / otevre ulici (prujezdna/neprujezdna).
      * @param street ulice
      * @param line graficka reprezentace ulice
      */

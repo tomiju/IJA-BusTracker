@@ -21,7 +21,7 @@ public class Street
 {
 
 	private String id;
-	private boolean open = true; // otevrená / uzavrena ulice
+	private boolean open = true; // otevrena / uzavrena ulice
 	private List<Stop> stops;
 	private Coordinate start, end;
 	private int busyness; // vytizeni
@@ -114,6 +114,7 @@ public class Street
 	
 	/**
 	 * Zjisti, status ulice.
+	 * @return status ulice
 	 */
 	public boolean isOpen()
 	{
