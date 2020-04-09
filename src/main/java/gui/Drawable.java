@@ -40,8 +40,8 @@ public class Drawable
 	    text.xProperty().bind(line.startXProperty().add(line.getEndX()).divide(2).add(7));
 	    text.yProperty().bind(line.startYProperty().add(line.getEndY()).divide(2).add(-10));
 	    
-	    text.setOnMouseClicked(e -> setStreetStatus(street, line));
-	    line.setOnMouseClicked(e -> setStreetStatus(street, line));
+	    //text.setOnMouseClicked(e -> setStreetStatus(street, line));
+	    //line.setOnMouseClicked(e -> setStreetStatus(street, line));
 	    
 	    map.getChildren().add(line);
 	    map.getChildren().add(text);
@@ -106,21 +106,43 @@ public class Drawable
 	}
 	
 	/**
+	 * Zvyrazni novou trasu (umozni naklikavat v edit mode)
+	 * @param street
+	 * @param line
+	 * @param editMode
+	 */
+	public static void setNewPath(Street street, Line line, boolean editMode)
+	{
+		if (editMode)
+		{
+			if(street.getStatus())
+			{ 
+				// TODO: menit "path" pro animaci -> podle naklikavani ukladat jmena ulic do nejakeho seznamu, ten potom pouzit pro kazdou linku
+				// a zvlast pro kazde vozidlo sestavit novou cestu
+				line.setStroke(Color.BLUE);
+			}
+		}
+	}
+	
+	/**
      * Uzavre / otevre ulici (prujezdna/neprujezdna).
      * @param street ulice
      * @param line graficka reprezentace ulice
      */
-	public static void setStreetStatus(Street street, Line line)
+	public static void setStreetStatus(Street street, Line line, boolean editMode)
 	{
-		if(street.getStatus())
+		if (editMode)
 		{
-			street.setOpen(false);
-			line.setStroke(Color.RED);
-		}
-		else
-		{
-			street.setOpen(true);
-			line.setStroke(Color.BLACK);
+			if(street.getStatus())
+			{
+				street.setOpen(false);
+				line.setStroke(Color.RED);
+			}
+			else
+			{
+				street.setOpen(true);
+				line.setStroke(Color.BLACK);
+			}
 		}
 	}
 }

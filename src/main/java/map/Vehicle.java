@@ -240,138 +240,147 @@ public class Vehicle
 	 */
 	public void drive(String time, int timeSpeed)
 	{
-		String hoursTmp = time.substring(0,2);
-		int inputTime = (Integer.parseInt(time.substring(3,5)) + (Integer.parseInt(hoursTmp) * 60));
-		
-		List<Double> coords = new ArrayList<Double>();
-		
-		List<Double> coords2 = new ArrayList<Double>();
-				
-		if (inputTime == 0)
-		{	
-			this.computeFullPath();
+		if(!this.getLine().isEdited())
+		{
+			String hoursTmp = time.substring(0,2);
+			int inputTime = (Integer.parseInt(time.substring(3,5)) + (Integer.parseInt(hoursTmp) * 60));
 			
-			this.setFirstEntry(this.timetable);
-			double nextStopX = (double)this.firstEntry.getStop().getCoordinate().getX();
-			double nextStopY = (double)this.firstEntry.getStop().getCoordinate().getY();
+			List<Double> coords = new ArrayList<Double>();
 			
-			coords.add(this.currentPosition.getX());
-			coords.add(this.currentPosition.getY());
-			coords2.add(this.currentPosition.getX() + 35);
-			coords2.add(this.currentPosition.getY());
-			
-			for (; this.index < this.vehiclePath.size(); this.index++) 
-			{
-				if (this.vehiclePath.get(this.index).getX() == nextStopX && this.vehiclePath.get(this.index).getY() == nextStopY)
-				{
-					break;
-				}
-				
-				coords.add(this.vehiclePath.get(this.index).getX());
-				coords.add(this.vehiclePath.get(this.index).getY());
-				coords2.add(this.vehiclePath.get(this.index).getX() + 35);
-				coords2.add(this.vehiclePath.get(this.index).getY());
-			}
-			
-			coords.add(nextStopX);
-			coords.add(nextStopY);
-			coords2.add(nextStopX + 35);
-			coords2.add(nextStopY);
-			
-			this.setCurrentPosition(this.firstEntry.getStop().getCoordinate());
-			this.previousStop = this.firstEntry;
-			this.nextStop = this.timetable.nextStop();
+			List<Double> coords2 = new ArrayList<Double>();
 					
-			Polyline pathVehicle = new Polyline();
-			pathVehicle.getPoints().addAll(coords);
-			
-			Polyline pathName = new Polyline();
-			pathName.getPoints().addAll(coords2);
-			
-			PathTransition transition = new PathTransition();
-			transition.setNode(this.vehicleView.getCircle());
-			transition.setDuration(Duration.millis(this.nextStopTime/timeSpeed*1000));
-			transition.setPath(pathVehicle);
-			transition.play();
-			
-			PathTransition transition2 = new PathTransition();
-			transition2.setNode(this.vehicleView.getText());
-			transition2.setDuration(Duration.millis(this.nextStopTime/timeSpeed*1000));
-			transition2.setPath(pathName);
-			transition2.play();
-			
-			this.transitionVehicle = transition;
-			this.transitionText = transition2;
-		}
-		else if (this.endTime == inputTime)
-		{
-			this.transitionVehicle.stop();
-			this.transitionText.stop();
-			System.out.println(this.getId() + " finished travelling.");
-			this.ended = true;
-			
-			this.getVehicleView().getCircle().setVisible(false);
-			this.getVehicleView().getText().setVisible(false);
-			
-			return;
-		}
-		else if (inputTime == Integer.parseInt(this.previousStop.getTime().substring(3,5)) + (Integer.parseInt(this.previousStop.getTime().substring(0,2)) * 60) || inputTime == Integer.parseInt(this.firstEntry.getTime().substring(3,5)) + (Integer.parseInt(this.firstEntry.getTime().substring(0,2)) * 60))
-		{
-			this.nextStopTime = Integer.parseInt(this.nextStop.getTime().substring(3,5)) + (Integer.parseInt(this.nextStop.getTime().substring(0,2)) * 60) - this.previousStopTime;
-			
-			double nextStopX = (double)this.nextStop.getStop().getCoordinate().getX();
-			double nextStopY = (double)this.nextStop.getStop().getCoordinate().getY();
-			
-			coords.add(this.currentPosition.getX());
-			coords.add(this.currentPosition.getY());
-			coords2.add(this.currentPosition.getX() + 35);
-			coords2.add(this.currentPosition.getY());
-			
-			for (; this.index < this.vehiclePath.size(); this.index++) 
-			{
-				if (this.vehiclePath.get(this.index).getX() == nextStopX && this.vehiclePath.get(this.index).getY() == nextStopY)
+			if (inputTime == 0)
+			{	
+				this.computeFullPath();
+				
+				this.setFirstEntry(this.timetable);
+				double nextStopX = (double)this.firstEntry.getStop().getCoordinate().getX();
+				double nextStopY = (double)this.firstEntry.getStop().getCoordinate().getY();
+				
+				coords.add(this.currentPosition.getX());
+				coords.add(this.currentPosition.getY());
+				coords2.add(this.currentPosition.getX() + 35);
+				coords2.add(this.currentPosition.getY());
+				
+				for (; this.index < this.vehiclePath.size(); this.index++) 
 				{
-					break;
+					if (this.vehiclePath.get(this.index).getX() == nextStopX && this.vehiclePath.get(this.index).getY() == nextStopY)
+					{
+						break;
+					}
+					
+					coords.add(this.vehiclePath.get(this.index).getX());
+					coords.add(this.vehiclePath.get(this.index).getY());
+					coords2.add(this.vehiclePath.get(this.index).getX() + 35);
+					coords2.add(this.vehiclePath.get(this.index).getY());
 				}
 				
-				coords.add(this.vehiclePath.get(this.index).getX());
-				coords.add(this.vehiclePath.get(this.index).getY());
-				coords2.add(this.vehiclePath.get(this.index).getX() + 35);
-				coords2.add(this.vehiclePath.get(this.index).getY());
+				coords.add(nextStopX);
+				coords.add(nextStopY);
+				coords2.add(nextStopX + 35);
+				coords2.add(nextStopY);
+				
+				this.setCurrentPosition(this.firstEntry.getStop().getCoordinate());
+				this.previousStop = this.firstEntry;
+				this.nextStop = this.timetable.nextStop();
+						
+				Polyline pathVehicle = new Polyline();
+				pathVehicle.getPoints().addAll(coords);
+				
+				Polyline pathName = new Polyline();
+				pathName.getPoints().addAll(coords2);
+				
+				PathTransition transition = new PathTransition();
+				transition.setNode(this.vehicleView.getCircle());
+				transition.setDuration(Duration.millis(this.nextStopTime/timeSpeed*1000));
+				transition.setPath(pathVehicle);
+				transition.play();
+				
+				PathTransition transition2 = new PathTransition();
+				transition2.setNode(this.vehicleView.getText());
+				transition2.setDuration(Duration.millis(this.nextStopTime/timeSpeed*1000));
+				transition2.setPath(pathName);
+				transition2.play();
+				
+				this.transitionVehicle = transition;
+				this.transitionText = transition2;
 			}
-			
-			coords.add(nextStopX);
-			coords.add(nextStopY);
-			coords2.add(nextStopX + 35);
-			coords2.add(nextStopY);
-			
-			this.setCurrentPosition(this.nextStop.getStop().getCoordinate());
-			
-			this.previousStopTime = Integer.parseInt(this.nextStop.getTime().substring(3,5)) + (Integer.parseInt(this.nextStop.getTime().substring(0,2)) * 60);
-			this.previousStop = this.nextStop;
-			this.nextStop = this.timetable.nextStop();
-			
-			Polyline pathVehicle = new Polyline();
-			pathVehicle.getPoints().addAll(coords);
-			
-			Polyline pathName = new Polyline();
-			pathName.getPoints().addAll(coords2);
-			
-			PathTransition transition = new PathTransition();
-			transition.setNode(this.vehicleView.getCircle());
-			transition.setDuration(Duration.millis(this.nextStopTime/timeSpeed*1000));
-			transition.setPath(pathVehicle);
-			transition.play();
-			
-			PathTransition transition2 = new PathTransition();
-			transition2.setNode(this.vehicleView.getText());
-			transition2.setDuration(Duration.millis(this.nextStopTime/timeSpeed*1000));
-			transition2.setPath(pathName);
-			transition2.play();
-			
-			this.transitionVehicle = transition;
-			this.transitionText = transition2;
+			else if (this.endTime == inputTime)
+			{
+				this.transitionVehicle.stop();
+				this.transitionText.stop();
+				System.out.println(this.getId() + " finished travelling.");
+				this.ended = true;
+				
+				this.getVehicleView().getCircle().setVisible(false);
+				this.getVehicleView().getText().setVisible(false);
+				
+				return;
+			}
+			else if (inputTime == Integer.parseInt(this.previousStop.getTime().substring(3,5)) + (Integer.parseInt(this.previousStop.getTime().substring(0,2)) * 60) || inputTime == Integer.parseInt(this.firstEntry.getTime().substring(3,5)) + (Integer.parseInt(this.firstEntry.getTime().substring(0,2)) * 60))
+			{
+				this.nextStopTime = Integer.parseInt(this.nextStop.getTime().substring(3,5)) + (Integer.parseInt(this.nextStop.getTime().substring(0,2)) * 60) - this.previousStopTime;
+				
+				double nextStopX = (double)this.nextStop.getStop().getCoordinate().getX();
+				double nextStopY = (double)this.nextStop.getStop().getCoordinate().getY();
+				
+				coords.add(this.currentPosition.getX());
+				coords.add(this.currentPosition.getY());
+				coords2.add(this.currentPosition.getX() + 35);
+				coords2.add(this.currentPosition.getY());
+				
+				for (; this.index < this.vehiclePath.size(); this.index++) 
+				{
+					if (this.vehiclePath.get(this.index).getX() == nextStopX && this.vehiclePath.get(this.index).getY() == nextStopY)
+					{
+						break;
+					}
+					
+					coords.add(this.vehiclePath.get(this.index).getX());
+					coords.add(this.vehiclePath.get(this.index).getY());
+					coords2.add(this.vehiclePath.get(this.index).getX() + 35);
+					coords2.add(this.vehiclePath.get(this.index).getY());
+				}
+				
+				coords.add(nextStopX);
+				coords.add(nextStopY);
+				coords2.add(nextStopX + 35);
+				coords2.add(nextStopY);
+				
+				this.setCurrentPosition(this.nextStop.getStop().getCoordinate());
+				
+				this.previousStopTime = Integer.parseInt(this.nextStop.getTime().substring(3,5)) + (Integer.parseInt(this.nextStop.getTime().substring(0,2)) * 60);
+				this.previousStop = this.nextStop;
+				this.nextStop = this.timetable.nextStop();
+				
+				Polyline pathVehicle = new Polyline();
+				pathVehicle.getPoints().addAll(coords);
+				
+				Polyline pathName = new Polyline();
+				pathName.getPoints().addAll(coords2);
+				
+				PathTransition transition = new PathTransition();
+				transition.setNode(this.vehicleView.getCircle());
+				transition.setDuration(Duration.millis(this.nextStopTime/timeSpeed*1000));
+				transition.setPath(pathVehicle);
+				transition.play();
+				
+				PathTransition transition2 = new PathTransition();
+				transition2.setNode(this.vehicleView.getText());
+				transition2.setDuration(Duration.millis(this.nextStopTime/timeSpeed*1000));
+				transition2.setPath(pathName);
+				transition2.play();
+				
+				this.transitionVehicle = transition;
+				this.transitionText = transition2;
+			}
 		}
+		else
+		{
+			//todo jiný výpočet cesty
+			System.out.println("Trasa je editována");
+		}
+		
 	}
 	
 	/**

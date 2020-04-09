@@ -28,6 +28,8 @@ public class BusLine
 	private List<Street> streets;
 	private List<Vehicle> vehicles;
 	
+	private boolean edited = false;
+	
 	public BusLine(String id, List<Street> streets)
 	{
 		this.streets = streets;
@@ -64,6 +66,14 @@ public class BusLine
 	public void setEnd(Stop stop)
 	{
 		this.end = stop;
+	}
+	
+	/**
+	 * Nastavi aktualni linku jako editovanou
+	 */
+	public void setEdited()
+	{
+		this.edited = true;
 	}
 	
 	/**
@@ -128,6 +138,16 @@ public class BusLine
 	public List<Vehicle> getVehicles()
 	{
 		return this.vehicles;
+	}
+	
+	/**
+	 * Zjisti, zda aktualni linka byla editovana - kvuli uzavirce cesty
+	 * @return boolean stav linky
+	 */
+	@JsonIgnore
+	public boolean isEdited()
+	{
+		return this.edited;
 	}
 	
 	/**
