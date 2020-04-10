@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,7 +26,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import map.BusLine;
@@ -42,6 +43,7 @@ import map.Vehicle;
  */
 public class SceneController implements Initializable {
 	private static InputData data;
+	private List<BusLine> dataBackup = new ArrayList<BusLine>();
 	private LocalTime localTime = LocalTime.of(23, 59, 0, 0);
 	private int timeSpeed = 1;
 	private Timer mainClock;
@@ -68,6 +70,9 @@ public class SceneController implements Initializable {
 	private Text txtVehicleName;
 	
 	@FXML
+	private Label lblVehicleList;
+	
+	@FXML
 	private Button btnReset;
 	
 	@FXML
@@ -89,20 +94,26 @@ public class SceneController implements Initializable {
 	private Button focusReset;
 	
 	/**
-	 * Funkce se postara o zapnuti edit mode - pozastavi simulaci a prepne mod
+	 * Funkce se postara o zapnuti edit mode - pozastavi simulaci a prepne mod.
 	 * @param event event
 	 */
 	@FXML
 	private void handleEditMode(ActionEvent event)
 	{
-		// TODO: pred editem si nekde zalohovat puvodni trasu kvuli restartu!!!!!!!!!!!!!!!!!!!!!!!
+		// TODO: pred vypnutim editacniho modu zkontrolovat, ze vsechny linky, kterych se uzavreni ulice tykalo maji novou trasu (bez uzavrene ulice) - jinak
+		// vyskoci okno s upozornenim a vypsanymi linkami, ktere potrebuji editovat!
 		if(btnEditMode.isSelected())
 		{
 			lblEditMode.setVisible(true);
+			lblVehicleList.setVisible(false);
+			txtVehicleName.setText("New Path:");
 			
 			for (Vehicle vehicle : SceneController.data.getVehicles()) 
 			{
 				vehicle.pauseVehicle();
+
+				vehicle.getVehicleView().getCircle().setMouseTransparent(true);
+				vehicle.getVehicleView().getText().setMouseTransparent(true);
 			}
 			
 			btnPause.setText("Resume");
@@ -110,8 +121,7 @@ public class SceneController implements Initializable {
 			focusReset.setMouseTransparent(true);
 			btnSaveTimeSpeed.setMouseTransparent(true);
 			txtTimeSpeed.setMouseTransparent(true);
-			
-			
+					
 			for (BusLine line : SceneController.data.getLines()) 
 			{
 				line.unsetLineFocus(map);
@@ -129,16 +139,19 @@ public class SceneController implements Initializable {
 		    this.streetList.getSelectionModel().clearSelection();
 			
 			vehicleList.getItems().clear();
-			
-			txtVehicleName.setText("");
 		}
 		else
 		{
 			lblEditMode.setVisible(false);
+			lblVehicleList.setVisible(true);
 			
 			for (Vehicle vehicle : SceneController.data.getVehicles()) 
 			{
 				vehicle.resumeVehicle();
+				
+
+				vehicle.getVehicleView().getCircle().setMouseTransparent(false);
+				vehicle.getVehicleView().getText().setMouseTransparent(false);
 			}
 			
 			btnPause.setText("Pause");
@@ -280,6 +293,34 @@ public class SceneController implements Initializable {
 			btnEditMode.setSelected(false);
 			lblEditMode.setVisible(false);
 			
+			btnPause.setMouseTransparent(false);
+			focusReset.setMouseTransparent(false);
+			btnSaveTimeSpeed.setMouseTransparent(false);
+			txtTimeSpeed.setMouseTransparent(false);
+			
+			for (BusLine line: SceneController.data.getLines())
+			{
+				line.setEdit(false);
+				
+				for (BusLine backupLine : this.dataBackup)
+				{
+					
+					if (backupLine.getId() == line.getId())
+					{
+						/*System.out.println("lol: " + backupLine.getId());
+						for(Street street1 : line.getStreets())
+						{
+							System.out.println("Old: " + street1.getId());
+						}*/
+						line.resetSimulation(backupLine.getStreets());
+						/*for(Street street1 : backupLine.getStreets())
+						{
+							System.out.println("Backup: " + street1.getId());
+						}*/
+					}
+				}
+			}
+			
 			for (Vehicle vehicle : SceneController.data.getVehicles()) 
 			{	
 				vehicle.cancelVehicle();
@@ -316,7 +357,10 @@ public class SceneController implements Initializable {
 			vehicleList.getItems().clear();	
 			txtVehicleName.setText("");
 			
-		    this.lineList.getSelectionModel().clearSelection();
+			if (!this.lineList.getSelectionModel().isEmpty()) // error s indexem -1 kdyz se pokousim resetovat focus prazdneho seznamu!!!
+		    {
+				this.lineList.getSelectionModel().clearSelection();
+		    }
 		    
 		    if (!this.streetList.getSelectionModel().isEmpty()) // error s indexem -1 kdyz se pokousim resetovat focus prazdneho seznamu!!!
 		    {
@@ -430,7 +474,22 @@ public class SceneController implements Initializable {
         owStage.setResizable(false);
         iwController.setStage(owStage);
         owStage.showAndWait();
+        
         SceneController.data = iwController.getData(); // vstupni data
+        
+        // vytvori hlubokou kopii stavu linek pred editaci (nutne pro restart editace)
+        this.dataBackup = new ArrayList<BusLine>();
+        for (BusLine line : SceneController.data.getLines())
+        {
+        	try 
+        	{
+				this.dataBackup.add((BusLine)line.clone());
+			} 
+        	catch (CloneNotSupportedException e) 
+        	{
+				e.printStackTrace();
+			}
+        }
         
         this.lineList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() { // naplneni seznamu jmeny ulic
             @Override
@@ -439,6 +498,7 @@ public class SceneController implements Initializable {
             	
             	if(!btnEditMode.isSelected())
             	{
+            		streetList.getItems().clear();
             		for (BusLine line : gui.SceneController.data.getLines()) 
             		{
                 		if (line != null)
@@ -475,6 +535,9 @@ public class SceneController implements Initializable {
             	{
             		System.out.println("TODO: edit mode #DEBUG (line 449, SceneController)"); // # DEBUG
             		
+            		streetList.getItems().clear();
+            		vehicleList.getItems().clear();
+            		
             		for (Street street : gui.SceneController.data.getStreets())
             		{
     					street.getStreetView().getLine().setMouseTransparent(false); // jde editovat trasa
@@ -496,22 +559,13 @@ public class SceneController implements Initializable {
                 						street.getStreetView().getLine().setStroke(Color.BLACK);
                 					}
                 				}
-                				
-                				for (Street street : line.getStreets())
-                    			{
-                					
-                    				if (street != null)
-                    				{                     					
-                    					streetList.getItems().remove(street.getId());
-                    				}
-                    			}
                 			}
                 			
                 			if(line.getId() == newValue)
                     		{
                     			 line.setLineFocus(map);
                     			 
-                    			 for (Street street : line.getStreets())
+                    			for (Street street : line.getStreets())
                      			{
                      				if (street != null)
                      				{
@@ -538,12 +592,12 @@ public class SceneController implements Initializable {
             		{
             			if (street.getId() == newValue)
             			{
-            				Drawable.setStreetStatus(street, street.getStreetView().getLine(), btnEditMode.isSelected());
+            				Drawable.setStreetStatus(street, street.getStreetView().getLine(), btnEditMode.isSelected(), gui.SceneController.data.getLines());
             			}
             			
             			if(oldValue == newValue) // opetovne kliknuti ulici otevre
             			{
-            				Drawable.setStreetStatus(street, street.getStreetView().getLine(), btnEditMode.isSelected());
+            				Drawable.setStreetStatus(street, street.getStreetView().getLine(), btnEditMode.isSelected(), gui.SceneController.data.getLines());
             			}
             		}
             	}
@@ -576,11 +630,10 @@ public class SceneController implements Initializable {
 			Drawable.drawStreets(street, map);
 			street.setStreetParameterToStop();
 			
-			// TODO: toto bude pro naklikávání trasy! uzavření ulice přes "list ulic"
-			street.getStreetView().getName().setOnMouseClicked(e -> Drawable.setNewPath(street, street.getStreetView().getLine(), btnEditMode.isSelected()));
-	        street.getStreetView().getLine().setOnMouseClicked(e -> Drawable.setNewPath(street, street.getStreetView().getLine(), btnEditMode.isSelected()));
+			street.getStreetView().getName().setOnMouseClicked(e -> Drawable.setNewPath(street, street.getStreetView().getLine(), btnEditMode.isSelected(), vehicleList, this.lineList.getSelectionModel().getSelectedItem(), SceneController.data.getLines()));
+	        street.getStreetView().getLine().setOnMouseClicked(e -> Drawable.setNewPath(street, street.getStreetView().getLine(), btnEditMode.isSelected(), vehicleList, this.lineList.getSelectionModel().getSelectedItem(), SceneController.data.getLines()));
 	        
-	        street.getStreetView().getLine().setMouseTransparent(true);
+	        street.getStreetView().getLine().setMouseTransparent(true); // nejde editovat mimo editacni mod
 	        street.getStreetView().getName().setMouseTransparent(true);
 		}
 		
@@ -599,7 +652,7 @@ public class SceneController implements Initializable {
 			vehicle.addVehicleToLine();
 			Drawable.drawVehicles(vehicle, map);
 			
-			vehicle.getVehicleView().getCircle().setOnMouseClicked(e -> showVehicleInfo(vehicle)); // TODO: info o spoji
+			vehicle.getVehicleView().getCircle().setOnMouseClicked(e -> showVehicleInfo(vehicle));
 			vehicle.getVehicleView().getText().setOnMouseClicked(e -> showVehicleInfo(vehicle));
 		}
 	}

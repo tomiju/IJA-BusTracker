@@ -10,7 +10,7 @@ import java.util.List;
  * @author Tomas Kantor (xkanto14)
  *
  */
-public class InputData // pomocna trida pro zpracovani input dat z YAML souboru
+public class InputData implements Cloneable // pomocna trida pro zpracovani input dat z YAML souboru
 {
 	private List<Stop> stops;
 	private List<Street> streets;

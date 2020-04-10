@@ -33,7 +33,6 @@ public class InitWindowController implements Initializable {
 	private Stage stage;
 	private InputData data;
 	
-	
 	@FXML
 	private void loadFile(ActionEvent event) throws JsonGenerationException, JsonMappingException, IOException //TODO
 	{
@@ -52,7 +51,7 @@ public class InitWindowController implements Initializable {
 		         mapper.registerModule(new JavaTimeModule());
 		         mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		             
-		     	this.data = mapper.readValue(file, InputData.class); // TODO: dat to do try - osetrit spatny format vstupu     		
+		     	this.data = mapper.readValue(file, InputData.class); // TODO: dat to do try - osetrit spatny format vstupu  
         	 } 
         	 catch (InvalidDefinitionException e)
         	 {
@@ -88,5 +87,4 @@ public class InitWindowController implements Initializable {
     {
     	return this.data;
     }
-    
 }

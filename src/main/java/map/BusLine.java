@@ -21,7 +21,7 @@ import javafx.scene.shape.Line;
  *
  */
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
-public class BusLine 
+public class BusLine implements Cloneable
 {
 	private String id;
 	private Stop start, end;
@@ -71,9 +71,26 @@ public class BusLine
 	/**
 	 * Nastavi aktualni linku jako editovanou
 	 */
-	public void setEdited()
+	public void setEdit(boolean isEdited)
 	{
-		this.edited = true;
+		this.edited = isEdited;
+	}
+	
+	/**
+	 * Vymaze seznam ulic v pripade, ze se musi linka editovat
+	 */
+	public void resetStreetsForEditing()
+	{
+		this.streets = new ArrayList<Street>();
+	}
+	
+	/**
+	 * Nahraje puvodni stav ulic
+	 * @param backupStreets puvodni ulice
+	 */
+	public void resetSimulation(List<Street> backupStreets)
+	{
+		this.streets = backupStreets;
 	}
 	
 	/**
@@ -194,6 +211,16 @@ public class BusLine
 			Circle circle = vehicle.getVehicleView().getCircle();
 			circle.setFill(Color.BLUE);
 		}
+	}
+	
+	/**
+	 * Funkce pro hlubokou kopii stavu linek nutna pro restart simulace (navrat do puvodniho stavu pred editacemi).
+	 */
+	@Override
+	public Object clone() throws CloneNotSupportedException 
+	{
+
+	    return super.clone();
 	}
 	
 }
