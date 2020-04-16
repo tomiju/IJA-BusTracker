@@ -377,39 +377,79 @@ public class Vehicle
 		}
 		else
 		{
-			//todo jiný výpočet cesty
-			System.out.println("Trasa je editována");
+			//todo jiny vypocet cesty
+			System.out.println("DEBUG drive(): Trasa je editovana TODO funkce na novou animaci"); // debug
 		}
 		
 	}
 	
 	/**
-	 * Zrusi animaci cesty
+	 * Zrusi animaci cesty.
 	 */
 	public void cancelVehicle()
 	{
-		this.transitionVehicle.stop();
-		this.transitionText.stop();
+		if (this.transitionVehicle != null && this.transitionText != null)
+		{
+			this.transitionVehicle.stop();
+			this.transitionText.stop();			
+		}
 	}
 	
 	/**
-	 * Pozastaví animaci cesty
+	 * Pozastavi animaci cesty.
 	 */
 	public void pauseVehicle()
 	{
-		this.transitionVehicle.pause();
-		this.transitionText.pause();
+		if(!this.isFinished() && this.transitionVehicle != null && this.transitionText != null)
+		{
+			this.transitionVehicle.pause();
+			this.transitionText.pause();
+		}
 	}
 	
 	/**
-	 * Znovu spusti animaci cesty
+	 * Znovu spusti animaci cesty.
 	 */
 	public void resumeVehicle()
 	{	
-		if(!this.isFinished())
+		if(!this.isFinished() && this.transitionVehicle != null && this.transitionText != null)
 		{
 			this.transitionVehicle.play();
 			this.transitionText.play();			
+		}	
+	}
+	
+	/**
+	 * Zrusi animaci cesty a ulozi soucasne souradnice vozidla, nacte vozidlo na soucasne souradnice. (Pro edit mode a animaci nove trasy)
+	 */
+	public void cancelDriving()
+	{
+		if(!this.isFinished() && this.transitionVehicle != null && this.transitionText != null)
+		{
+			//System.out.println(this.getId()+" Current position: X" + this.getCurrentPosition().getX() + " Y " + this.getCurrentPosition().getY());
+			
+			// nastaveni nove soucasne pozice vozidla
+			this.setCurrentPosition(new Coordinate(this.getVehicleView().getCircle().getCenterX() + this.getVehicleView().getCircle().getTranslateX(), this.getVehicleView().getCircle().getCenterY() + this.getVehicleView().getCircle().getTranslateY()));
+			
+			// zruseni animace (vrati objekt na zacatek, proto predtim ulozim pozici a objekt prekreslim na spravne misto
+			this.transitionVehicle.stop();
+			this.transitionVehicle = null;
+			//System.out.println("Cancelled");
+			
+			// prekresleni na spravne misto
+			//this.getVehicleView().getCircle().setCenterX(this.getCurrentPosition().getX());
+			//this.getVehicleView().getCircle().setCenterY(this.getCurrentPosition().getY());
+			//this.getVehicleView().getCircle().setFill(Color.YELLOW);
+			
+			//System.out.println(this.getId()+" Current position: X" + this.getCurrentPosition().getX() + " Y " + this.getCurrentPosition().getY());
+
+			// nastaveni nove soucasne pozice popisku vozidla
+			this.setCurrentPosition(new Coordinate(this.getVehicleView().getText().getX() + this.getVehicleView().getText().getTranslateX(), this.getVehicleView().getText().getY() + this.getVehicleView().getText().getTranslateY()));			
+			this.transitionText.stop();
+			this.transitionText = null;
+
+			//this.getVehicleView().getText().xProperty().bind(this.getVehicleView().getCircle().centerXProperty().add(7));
+			//this.getVehicleView().getText().yProperty().bind(this.getVehicleView().getCircle().centerYProperty());
 		}	
 	}
 	

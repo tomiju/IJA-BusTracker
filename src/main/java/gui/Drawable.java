@@ -127,10 +127,7 @@ public class Drawable
 					if (busLine.isEdited())
 					{
 						if(street.getStatus())
-						{ 
-							// TODO: menit "path" pro animaci -> podle naklikavani ukladat jmena ulic do nejakeho seznamu, ten potom pouzit pro kazdou linku
-							// a zvlast pro kazde vozidlo sestavit novou cestu
-							// kdyz pridavam do seznamu - pridavat i do noveho seznamu ulic pro danou linku (nejspis predat funkci jmeno nakliknute linky)
+						{
 							boolean inList = false;							
 							
 							if (streetList.getItems().isEmpty())
@@ -206,6 +203,11 @@ public class Drawable
 							alert.setHeaderText("Warning\nYou have closed street:  " + street.getId());
 							alert.setContentText("The path has been affected by street closing, you will now need to select new path for line:  " + busLine.getId());
 							alert.show();
+							
+							for (Vehicle vehicle : busLine.getVehicles())
+							{
+								vehicle.cancelDriving();
+							}
 							
 							busLine.setEdit(true);
 							busLine.resetStreetsForEditing();

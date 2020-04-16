@@ -100,10 +100,34 @@ public class SceneController implements Initializable {
 	@FXML
 	private void handleEditMode(ActionEvent event)
 	{
-		// TODO: pred vypnutim editacniho modu zkontrolovat, ze vsechny linky, kterych se uzavreni ulice tykalo maji novou trasu (bez uzavrene ulice) - jinak
-		// vyskoci okno s upozornenim a vypsanymi linkami, ktere potrebuji editovat!
 		if(btnEditMode.isSelected())
 		{
+			//debug - vypise aktualni pozici prvniho vozidla (po zastaveni animace)
+			/*boolean test = true;
+			for (Vehicle vehicle : SceneController.data.getVehicles()) 
+			{
+				if(test)
+				{
+					System.out.println("Vehicle: " + vehicle.getId() + " X: "+ vehicle.getVehicleView().getCircle().translateXProperty());
+					System.out.println("Vehicle: " + vehicle.getId() + " Y: "+ vehicle.getVehicleView().getCircle().translateYProperty());
+					
+					Circle circle = new Circle();
+					
+					circle.setRadius(8.0f);
+					circle.setFill(Color.PINK);
+					circle.setCenterX(vehicle.getVehicleView().getCircle().getCenterX() + vehicle.getVehicleView().getCircle().getTranslateX());
+					circle.setCenterY(vehicle.getVehicleView().getCircle().getCenterY() + vehicle.getVehicleView().getCircle().getTranslateY());
+					test = false;
+					map.getChildren().add(circle);
+					
+					// aktualizace souradnic
+					//vehicle.setCurrentPosition(new Coordinate(vehicle.getVehicleView().getCircle().getCenterX() + vehicle.getVehicleView().getCircle().getTranslateX(), vehicle.getVehicleView().getCircle().getCenterY() + vehicle.getVehicleView().getCircle().getTranslateY()));
+				
+					System.out.println("Current position: X" + vehicle.getCurrentPosition().getX() + " Y " + vehicle.getCurrentPosition().getY());
+				}
+			}*/
+			
+			
 			lblEditMode.setVisible(true);
 			lblVehicleList.setVisible(false);
 			txtVehicleName.setText("New Path:");
@@ -363,7 +387,7 @@ public class SceneController implements Initializable {
 					
 			txtVehicleName.setText("");
 			
-			if (!this.vehicleList.getSelectionModel().isEmpty())
+			if (!this.vehicleList.getItems().isEmpty())
 			{
 				vehicleList.getItems().clear();					
 			}
@@ -544,8 +568,6 @@ public class SceneController implements Initializable {
             	}
             	else
             	{
-            		System.out.println("TODO: edit mode #DEBUG (line 449, SceneController)"); // # DEBUG
-            		
             		streetList.getItems().clear();
             		vehicleList.getItems().clear();
             		
