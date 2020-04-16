@@ -4,6 +4,7 @@ import java.util.List;
 
 import drawable.StreetView;
 import drawable.VehicleView;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -200,6 +201,12 @@ public class Drawable
 						if (street_busLines.getId() == street.getId())
 						{
 							//System.out.println(busLine.getId()); // debug
+							Alert alert = new Alert(Alert.AlertType.INFORMATION);
+							alert.setTitle("Street closing information");
+							alert.setHeaderText("Warning\nYou have closed street:  " + street.getId());
+							alert.setContentText("The path has been affected by street closing, you will now need to select new path for line:  " + busLine.getId());
+							alert.show();
+							
 							busLine.setEdit(true);
 							busLine.resetStreetsForEditing();
 						}

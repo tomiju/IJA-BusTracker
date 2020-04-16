@@ -94,7 +94,7 @@ public class SceneController implements Initializable {
 	private Button focusReset;
 	
 	/**
-	 * Funkce se postara o zapnuti edit mode - pozastavi simulaci a prepne mod.
+	 * Funkce se postara o zapnuti/vypnuti edit mode - pozastavi simulaci a prepne mod.
 	 * @param event event
 	 */
 	@FXML
@@ -142,6 +142,22 @@ public class SceneController implements Initializable {
 		}
 		else
 		{
+			// kontrola, ze pri pokusu o opusteni edit mode jsou nastaveny vsechny editovane cesty
+			for (BusLine line : SceneController.data.getLines()) 
+			{
+				if (line.getStreets().isEmpty())
+				{
+					Alert alert = new Alert(Alert.AlertType.WARNING);
+					alert.setTitle("Edit mode error");
+					alert.setHeaderText("Warning\nPath not set for line:  " + line.getId());
+					alert.setContentText("You need to create new path if you have closed street that belonged to some bus line.\nPath can be created by clicking on the streets in map.");
+					alert.show();
+					
+					btnEditMode.setSelected(true);
+					return;
+				}
+			}
+			
 			lblEditMode.setVisible(false);
 			lblVehicleList.setVisible(true);
 			
@@ -307,16 +323,7 @@ public class SceneController implements Initializable {
 					
 					if (backupLine.getId() == line.getId())
 					{
-						/*System.out.println("lol: " + backupLine.getId());
-						for(Street street1 : line.getStreets())
-						{
-							System.out.println("Old: " + street1.getId());
-						}*/
 						line.resetSimulation(backupLine.getStreets());
-						/*for(Street street1 : backupLine.getStreets())
-						{
-							System.out.println("Backup: " + street1.getId());
-						}*/
 					}
 				}
 			}
@@ -354,8 +361,12 @@ public class SceneController implements Initializable {
  				street.getStreetView().getName().setMouseTransparent(true);
 			}
 					
-			vehicleList.getItems().clear();	
 			txtVehicleName.setText("");
+			
+			if (!this.vehicleList.getSelectionModel().isEmpty())
+			{
+				vehicleList.getItems().clear();					
+			}
 			
 			if (!this.lineList.getSelectionModel().isEmpty()) // error s indexem -1 kdyz se pokousim resetovat focus prazdneho seznamu!!!
 		    {
