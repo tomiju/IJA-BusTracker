@@ -1,5 +1,7 @@
 package map;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,9 +10,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import drawable.VehicleView;
+import javafx.animation.Animation;
 import javafx.animation.PathTransition;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
 import javafx.scene.shape.Polyline;
 import javafx.util.Duration;
+import java.util.Random;
 
 /**
  * 
@@ -41,6 +47,10 @@ public class Vehicle
 	private PathTransition transitionText = new PathTransition();
 	private int endTime;
 	private boolean ended = false;
+	
+	private Random random = new Random();
+	private boolean isFirstStreetSet = false;
+	private Coordinate editPreviousCoord = new Coordinate(0,0);
 	
 	// aktualni ulice se da dopocitat - aktualni koordinaty -> v lince jsou vsechny ulice po trase - spocitat na ktere primce lezi bod dany aktualnimi koordinaty
 	
@@ -213,6 +223,7 @@ public class Vehicle
 	@JsonIgnore
 	public void computeFullPath()
 	{
+		this.vehiclePath = new ArrayList<Coordinate>();
 		for (Street street: this.line.getStreets()) 
 		{
 			this.vehiclePath.add(street.getStart());
@@ -309,7 +320,7 @@ public class Vehicle
 			{
 				this.transitionVehicle.stop();
 				this.transitionText.stop();
-				System.out.println(this.getId() + " finished travelling.");
+				//System.out.println("DEBUG: " + this.getId() + " finished travelling."); // debug
 				this.ended = true;
 				
 				this.getVehicleView().getCircle().setVisible(false);
@@ -377,10 +388,147 @@ public class Vehicle
 		}
 		else
 		{
-			//todo jiny vypocet cesty
-			System.out.println("DEBUG drive(): Trasa je editovana TODO funkce na novou animaci"); // debug
+			if(this.transitionVehicle == null && !this.ended)
+			{
+				// nastaveni nove aktualni pozice s korekci
+				this.setCurrentPosition(new Coordinate(this.getVehicleView().getCircle().getCenterX() + this.getVehicleView().getCircle().getTranslateX() - 10.0, this.getVehicleView().getCircle().getCenterY() + this.getVehicleView().getCircle().getTranslateY()));
+				this.setCurrentPosition(new Coordinate(this.getVehicleView().getText().getX() + this.getVehicleView().getText().getTranslateX() - 10.0, this.getVehicleView().getText().getY() + this.getVehicleView().getText().getTranslateY()));
+				this.vehiclePath = new ArrayList<Coordinate>();
+				
+				this.resetIndex();
+				
+				for (Street street: this.line.getStreets()) 
+				{	
+					// pomocne promenne pro vzdalenost
+					double start_and_vehicle = round(this.distance(street.getStart().getX(), street.getStart().getY(), this.getCurrentPosition().getX(), this.getCurrentPosition().getY()), 0);
+					double vehicle_and_end = round(this.distance(street.getEnd().getX(), street.getEnd().getY(), this.getCurrentPosition().getX(), this.getCurrentPosition().getY()), 0);
+					double vehicle_distance = start_and_vehicle + vehicle_and_end;
+					double street_size = round(this.distance(street.getEnd().getX(), street.getEnd().getY(), street.getStart().getX(), street.getStart().getY()), 0);
+					
+					if(vehicle_distance - street_size >= -5.0 && vehicle_distance - street_size <= 5.0)
+					{
+						//System.out.println("DEBUG1: " + this.getId() + " leží na ulici: " + street.getId()); // debug
+						
+						this.editPreviousCoord = street.getEnd();
+						
+						this.vehiclePath.add(street.getEnd());
+						this.setCurrentStreet(street);
+						this.isFirstStreetSet = true;
+						continue;
+					}
+					
+					if(street.getEnd().getX() == this.editPreviousCoord.getX() && street.getEnd().getY() == this.editPreviousCoord.getY())
+					{
+						//System.out.println("DEBUG: " + this.getId() + " na ulici: " + street.getId() + " konec + zacatek "); // debug
+						
+						this.vehiclePath.add(street.getEnd());
+						this.vehiclePath.add(street.getStart());	
+						
+						this.editPreviousCoord = street.getStart();
+					}
+					else if(street.getStart().getX() == this.editPreviousCoord.getX() && street.getStart().getY() == this.editPreviousCoord.getY())
+					{
+						//System.out.println("DEBUG: " + this.getId() + " na ulici: " + street.getId() + " zacatek + konec"); // debug
+						
+						this.vehiclePath.add(street.getStart());
+						this.vehiclePath.add(street.getEnd());
+						
+						this.editPreviousCoord = street.getEnd();
+					}
+				}
+				
+				// osetreni prazdne cesty - vozidlo je na uzavrene ceste, apod...
+				if(this.vehiclePath.isEmpty())
+				{
+					//System.out.println("DEBUG: " + this.getId() + " cant go anywhere"); // debug
+					this.ended = true;
+					
+					Platform.runLater(() -> { // vypis informace o vozidle, ktere nemuze pokracovat v jizde
+						
+						Alert alert = new Alert(Alert.AlertType.WARNING);
+						alert.setTitle("Vehicle has no path");
+						alert.setHeaderText("Warning\nVehicle: \"" + this.getId() + "\" doesn't know where to go :(");
+						alert.setContentText("The path you have selected had made it impossible for this vehicle to continue, it will stay at this place forever. :(\nIt is possible, that you have closed street with vehicle being on it or made some vehicle stuck on street that is not part of the new path.");
+						alert.show();
+						
+		            });
+					
+					return;
+				}
+				
+				List<Double> coords = new ArrayList<Double>();
+				List<Double> coords2 = new ArrayList<Double>();
+				
+				coords.add(this.currentPosition.getX());
+				coords.add(this.currentPosition.getY());
+				coords2.add(this.currentPosition.getX() + 35);
+				coords2.add(this.currentPosition.getY());
+				
+				for (; this.index < this.vehiclePath.size(); this.index++) 
+				{
+					coords.add(this.vehiclePath.get(this.index).getX());
+					coords.add(this.vehiclePath.get(this.index).getY());
+					coords2.add(this.vehiclePath.get(this.index).getX() + 35);
+					coords2.add(this.vehiclePath.get(this.index).getY());
+				}
+				
+				Polyline pathVehicle = new Polyline();
+				pathVehicle.getPoints().addAll(coords);
+				
+				Polyline pathName = new Polyline();
+				pathName.getPoints().addAll(coords2);
+				
+				int randomTimer = random.nextInt(80) + random.nextInt(50) + random.nextInt(20);
+				
+				//System.out.println("DEBUG: " + this.getId() + " pojede: " + randomTimer + " \"minut\""); // debug
+				
+				PathTransition transition = new PathTransition();
+				transition.setNode(this.vehicleView.getCircle());
+				transition.setDuration(Duration.millis(randomTimer/timeSpeed*1000));
+				transition.setPath(pathVehicle);
+				transition.play();
+				
+				PathTransition transition2 = new PathTransition();
+				transition2.setNode(this.vehicleView.getText());
+				transition2.setDuration(Duration.millis(randomTimer/timeSpeed*1000));
+				transition2.setPath(pathName);
+				transition2.play();
+				
+				this.transitionVehicle = transition;
+				this.transitionText = transition2;
+			}
+			else if(this.transitionVehicle != null && !this.transitionVehicle.getStatus().equals(Animation.Status.RUNNING))
+			{
+				//System.out.println("DEBUG: " + this.getId() + " finished travelling."); // debug
+				this.ended = true;
+				
+				this.getVehicleView().getCircle().setVisible(false);
+				this.getVehicleView().getText().setVisible(false);
+				
+				return;
+				
+			}
 		}
 		
+	}
+	
+	/*
+	 * Pomocna funkce pro zaokrouhleni vzdalenosti bodu
+	 */
+	private static double round(double value, int places) {
+	    if (places < 0) throw new IllegalArgumentException();
+
+	    BigDecimal bd = BigDecimal.valueOf(value);
+	    bd = bd.setScale(places, RoundingMode.HALF_UP);
+	    return bd.doubleValue();
+	}
+	
+	/*
+	 * Pomocna funkce pro vypocet vzdalenosti bodu 
+	 */
+	private double distance(double x1, double y1, double x2, double y2)
+	{
+		return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
 	}
 	
 	/**
@@ -425,31 +573,18 @@ public class Vehicle
 	public void cancelDriving()
 	{
 		if(!this.isFinished() && this.transitionVehicle != null && this.transitionText != null)
-		{
-			//System.out.println(this.getId()+" Current position: X" + this.getCurrentPosition().getX() + " Y " + this.getCurrentPosition().getY());
-			
+		{		
 			// nastaveni nove soucasne pozice vozidla
 			this.setCurrentPosition(new Coordinate(this.getVehicleView().getCircle().getCenterX() + this.getVehicleView().getCircle().getTranslateX(), this.getVehicleView().getCircle().getCenterY() + this.getVehicleView().getCircle().getTranslateY()));
 			
 			// zruseni animace (vrati objekt na zacatek, proto predtim ulozim pozici a objekt prekreslim na spravne misto
 			this.transitionVehicle.stop();
 			this.transitionVehicle = null;
-			//System.out.println("Cancelled");
-			
-			// prekresleni na spravne misto
-			//this.getVehicleView().getCircle().setCenterX(this.getCurrentPosition().getX());
-			//this.getVehicleView().getCircle().setCenterY(this.getCurrentPosition().getY());
-			//this.getVehicleView().getCircle().setFill(Color.YELLOW);
-			
-			//System.out.println(this.getId()+" Current position: X" + this.getCurrentPosition().getX() + " Y " + this.getCurrentPosition().getY());
 
 			// nastaveni nove soucasne pozice popisku vozidla
 			this.setCurrentPosition(new Coordinate(this.getVehicleView().getText().getX() + this.getVehicleView().getText().getTranslateX(), this.getVehicleView().getText().getY() + this.getVehicleView().getText().getTranslateY()));			
 			this.transitionText.stop();
 			this.transitionText = null;
-
-			//this.getVehicleView().getText().xProperty().bind(this.getVehicleView().getCircle().centerXProperty().add(7));
-			//this.getVehicleView().getText().yProperty().bind(this.getVehicleView().getCircle().centerYProperty());
 		}	
 	}
 	
@@ -459,6 +594,7 @@ public class Vehicle
 	public void resetIndex()
 	{
 		this.index = 0;
+		this.isFirstStreetSet = false;
 	}
 	
 	/**

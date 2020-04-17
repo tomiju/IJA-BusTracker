@@ -38,12 +38,20 @@ public class Coordinate
 		return this.y;
 	}
 	
-	public void setX(float x)
+	/**
+	 * Umoznuje nastavi souradnici X
+	 * @param x
+	 */
+	public void setX(double x)
 	{
 		this.x = x;
 	}
 	
-	public void setY(float y)
+	/**
+	 * Umoznuje nastavi souradnici Y
+	 * @param y
+	 */
+	public void setY(double y)
 	{
 		this.y = y;
 	}
