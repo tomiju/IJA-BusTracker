@@ -28,7 +28,7 @@
                            <children>
                               <Label fx:id="lblEditMode" layoutX="-200.0" layoutY="450.0" prefHeight="85.0" prefWidth="377.0" text="EDIT MODE" textFill="#e80505" visible="false">
                                  <font>
-                                    <Font size="71.0" />
+                                    <Font name="Arial" size="71.0" />
                                  </font>
                               </Label>
                            </children></Pane>
@@ -47,13 +47,19 @@
                   <Separator orientation="VERTICAL" prefHeight="3.0" prefWidth="154.0" visible="false" />
                   <HBox prefHeight="35.0" prefWidth="183.0">
                      <children>
-                        <Label prefHeight="25.0" prefWidth="41.0" text=" Time:" />
-                        <Text fx:id="txtTimer" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00:00" wrappingWidth="70.13671875">
+                        <Label prefHeight="19.0" prefWidth="39.0" text=" Time:">
                            <font>
-                              <Font size="18.0" />
+                              <Font name="Arial" size="12.0" />
+                           </font></Label>
+                        <Text fx:id="txtTimer" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00:00" wrappingWidth="87.13671875">
+                           <font>
+                              <Font name="Arial" size="18.0" />
                            </font>
                         </Text>
-                        <Button fx:id="btnReset" mnemonicParsing="false" onAction="#handleSimulationReset" prefHeight="25.0" prefWidth="66.0" text="RESET" />
+                        <Button fx:id="btnReset" mnemonicParsing="false" onAction="#handleSimulationReset" prefHeight="24.0" prefWidth="58.0" text="RESET">
+                           <font>
+                              <Font name="Arial" size="12.0" />
+                           </font></Button>
                      </children>
                   </HBox>
                </children>
@@ -61,24 +67,39 @@
             <HBox prefHeight="41.0" prefWidth="183.0">
                <children>
                   <Separator prefHeight="18.0" prefWidth="49.0" visible="false" />
-                  <Button fx:id="btnPause" mnemonicParsing="false" onAction="#pauseSimulation" text="Pause" />
-               </children>
-            </HBox>
-            <HBox prefHeight="39.0" prefWidth="183.0">
-               <children>
-                  <ToggleButton fx:id="btnEditMode" mnemonicParsing="false" onAction="#handleEditMode" prefHeight="25.0" prefWidth="83.0" text="Edit mode" />
-                  <Separator prefHeight="26.0" prefWidth="28.0" visible="false" />
-                  <TextField fx:id="txtTimeSpeed" onAction="#onEnter" prefHeight="26.0" prefWidth="69.0" promptText="speed 1-5" />
-               </children>
-            </HBox>
-            <HBox prefHeight="39.0" prefWidth="183.0">
-               <children>
-                  <Label prefHeight="25.0" prefWidth="38.0" text=" Lines:" />
-                  <Button fx:id="focusReset" mnemonicParsing="false" onAction="#handleFocusReset" text="Clear" />
-                  <Separator prefHeight="23.0" prefWidth="29.0" visible="false" />
-                  <Button fx:id="btnSaveTimeSpeed" mnemonicParsing="false" onAction="#handleSimulationSpeedBtn" prefHeight="23.0" prefWidth="71.0" text="Change speed">
+                  <Button fx:id="btnPause" mnemonicParsing="false" onAction="#pauseSimulation" text="Pause">
                      <font>
-                        <Font size="9.0" />
+                        <Font name="Arial" size="12.0" />
+                     </font></Button>
+               </children>
+            </HBox>
+            <HBox prefHeight="39.0" prefWidth="183.0">
+               <children>
+                  <ToggleButton fx:id="btnEditMode" mnemonicParsing="false" onAction="#handleEditMode" prefHeight="25.0" prefWidth="85.0" text="Edit mode">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font></ToggleButton>
+                  <Separator prefHeight="26.0" prefWidth="28.0" visible="false" />
+                  <TextField fx:id="txtTimeSpeed" onAction="#onEnter" prefHeight="26.0" prefWidth="84.0" promptText="speed 1-5">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font></TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="39.0" prefWidth="183.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="61.0" text=" Lines:">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font></Label>
+                  <Button fx:id="focusReset" mnemonicParsing="false" onAction="#handleFocusReset" prefHeight="23.0" prefWidth="66.0" text="Clear">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font></Button>
+                  <Separator prefHeight="23.0" prefWidth="0.0" visible="false" />
+                  <Button fx:id="btnSaveTimeSpeed" mnemonicParsing="false" onAction="#handleSimulationSpeedBtn" prefHeight="23.0" prefWidth="101.0" text="Change speed">
+                     <font>
+                        <Font name="Arial" size="9.0" />
                      </font>
                   </Button>
                </children>
@@ -86,9 +107,18 @@
             <ListView fx:id="lineList" editable="true" onMouseClicked="#handleMouseClick" prefHeight="292.0" prefWidth="183.0" />
             <HBox prefHeight="18.0" prefWidth="183.0">
                <children>
-                  <Label prefHeight="17.0" prefWidth="63.0" text=" Streets:" />
-                  <Label fx:id="lblVehicleList" prefHeight="17.0" prefWidth="45.0" text=" Vehicle:" />
-                  <Text fx:id="txtVehicleName" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="74.13671875" />
+                  <Label prefHeight="15.0" prefWidth="55.0" text=" Streets:">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font></Label>
+                  <Label fx:id="lblVehicleList" prefHeight="15.0" prefWidth="53.0" text=" Vehicle:">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font></Label>
+                  <Text fx:id="txtVehicleName" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="73.13671875">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font></Text>
                </children>
             </HBox>
             <HBox prefHeight="394.0" prefWidth="183.0">

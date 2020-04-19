@@ -3,6 +3,10 @@ IJA - Project 2020
 "Bus tracker - Aplikace pro zobrazeni linek hromadne dopravy a sledovani jejich pohybu"
 Authors: Tomas Julina (xjulin08)
 		 Tomas Kantor (xkant14)
+
+Poznámky:
+	Přeložitelné na Merlin
+	Přeložitelné na Windows 10 (testována i funkcionalita)
 		 
 Popis:
 	Spusteni:
