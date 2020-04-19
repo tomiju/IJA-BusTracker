@@ -148,7 +148,7 @@ public class SceneController implements Initializable {
 					
 			for (BusLine line : SceneController.data.getLines()) 
 			{
-				line.unsetLineFocus(map);
+				line.unsetLineFocus();
 				
 				for (Street street : line.getStreets())
 				{
@@ -202,7 +202,7 @@ public class SceneController implements Initializable {
 			
 			for (BusLine line : SceneController.data.getLines()) 
 			{
-				line.unsetLineFocus(map);
+				line.unsetLineFocus();
 				
 				for (Street street : line.getStreets())
 				{
@@ -271,7 +271,7 @@ public class SceneController implements Initializable {
 			{	
 				if (Integer.parseInt(txtTimeSpeed.getText()) >= 1 && Integer.parseInt(txtTimeSpeed.getText()) <= 5)
 				{
-					System.out.println("speed: " + txtTimeSpeed.getText()) ;
+					//System.out.println("speed: " + txtTimeSpeed.getText()); // debug
 					timeSpeed = Integer.parseInt(txtTimeSpeed.getText());
 				}
 				else
@@ -364,6 +364,8 @@ public class SceneController implements Initializable {
 				
 				vehicle.getVehicleView().getText().xProperty().bind(vehicle.getVehicleView().getCircle().centerXProperty().add(7));
 				vehicle.getVehicleView().getText().yProperty().bind(vehicle.getVehicleView().getCircle().centerYProperty());
+				
+				vehicle.getVehicleView().getCircle().setFill(Color.BLUE);
 
 			    vehicle.resetIndex();
 			    vehicle.getTimetable().resetIndex();
@@ -440,7 +442,7 @@ public class SceneController implements Initializable {
 			{
     			if(line.getId() == this.lineList.getSelectionModel().getSelectedItem())
         		{
-        			 line.setLineFocus(map);
+        			 line.setLineFocus();
         		}
 			}	
 		}
@@ -455,7 +457,7 @@ public class SceneController implements Initializable {
 	{
 		for (BusLine line : SceneController.data.getLines()) 
 		{
-			line.unsetLineFocus(map);
+			line.unsetLineFocus();
 			
 			for (Street street : line.getStreets())
 			{
@@ -540,7 +542,7 @@ public class SceneController implements Initializable {
             			{
                 			if(line.getId() == oldValue)
                 			{
-                				line.unsetLineFocus(map);
+                				line.unsetLineFocus();
                 				
                 				for (Street street : line.getStreets())
                     			{
@@ -553,7 +555,7 @@ public class SceneController implements Initializable {
                 			
                 			if(line.getId() == newValue)
                     		{
-                    			 line.setLineFocus(map);
+                    			 line.setLineFocus();
                     			 
                     			 for (Street street : line.getStreets())
                      			{
@@ -583,7 +585,7 @@ public class SceneController implements Initializable {
             			{
                 			if(line.getId() == oldValue)
                 			{
-                				line.unsetLineFocus(map);
+                				line.unsetLineFocus();
                 				
                 				for (Street street : gui.SceneController.data.getStreets()) 
                 				{
@@ -596,7 +598,7 @@ public class SceneController implements Initializable {
                 			
                 			if(line.getId() == newValue)
                     		{
-                    			 line.setLineFocus(map);
+                    			 line.setLineFocus();
                     			 
                     			for (Street street : line.getStreets())
                      			{
@@ -696,7 +698,24 @@ public class SceneController implements Initializable {
 	 */
 	public void showVehicleInfo(Vehicle vehicle)
 	{
+		for (Vehicle vehicle1 : SceneController.data.getVehicles()) // smaze se focus z predchoziho vozidla
+		{
+			if(vehicle1.getId().equals(txtVehicleName.getText()) && !vehicle1.getId().equals(vehicle.getId()))
+			{
+				List<BusLine> pom = new ArrayList<BusLine>();
+				pom.add(vehicle1.getLine());
+				Drawable.resetColors(pom);
+			}
+		}
+		
 		vehicleList.getItems().clear();
+		
+		List<BusLine> pom = new ArrayList<BusLine>();
+		pom.add(vehicle.getLine());
+		Drawable.resetColors(pom);
+		
+		vehicle.getLine().setVehicleInfoFocus();
+		vehicle.getVehicleView().getCircle().setFill(Color.ORANGE);
 		
 		txtVehicleName.setText(vehicle.getId());
 		

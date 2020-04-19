@@ -40,7 +40,7 @@ public class Coordinate
 	
 	/**
 	 * Umoznuje nastavi souradnici X
-	 * @param x
+	 * @param x souradnice x
 	 */
 	public void setX(double x)
 	{
@@ -49,7 +49,7 @@ public class Coordinate
 	
 	/**
 	 * Umoznuje nastavi souradnici Y
-	 * @param y
+	 * @param y souradnice y
 	 */
 	public void setY(double y)
 	{

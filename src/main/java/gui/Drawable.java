@@ -112,9 +112,12 @@ public class Drawable
 	
 	/**
 	 * Zvyrazni novou trasu (umozni naklikavat v edit mode)
-	 * @param street
-	 * @param line
-	 * @param editMode
+	 * @param street ulice
+	 * @param line graficka reprezentace ulice
+	 * @param editMode stav editacniho modu
+	 * @param streetList seznam nove cesty
+	 * @param editedBusLine nazev editovane linky
+	 * @param lines seznam linek
 	 */
 	public static void setNewPath(Street street, Line line, boolean editMode, ListView<String> streetList, String editedBusLine, List<BusLine> lines)
 	{
@@ -133,7 +136,7 @@ public class Drawable
 							if (streetList.getItems().isEmpty())
 							{
 								streetList.getItems().add(street.getId());
-								line.setStroke(Color.BLUE);
+								line.setStroke(Color.CYAN);
 								
 								busLine.addStreet(street);
 								//DEBUG
@@ -156,7 +159,7 @@ public class Drawable
 							if (!inList) // lze pridat pouze ulice, ktere jiz v seznamu nejsou!
 							{
 								streetList.getItems().add(street.getId());
-								line.setStroke(Color.BLUE);
+								line.setStroke(Color.CYAN);
 								
 								if (busLine.getId() == editedBusLine)
 								{
@@ -181,6 +184,8 @@ public class Drawable
      * Uzavre / otevre ulici (prujezdna/neprujezdna).
      * @param street ulice
      * @param line graficka reprezentace ulice
+     * @param editMode stav editacniho modu
+     * @param busLines seznam vsech autobusovych linek
      */
 	public static void setStreetStatus(Street street, Line line, boolean editMode, List<BusLine> busLines)
 	{
@@ -188,6 +193,8 @@ public class Drawable
 		{
 			if(street.getStatus())
 			{
+				Drawable.resetColors(busLines);
+				
 				street.setOpen(false);
 				line.setStroke(Color.RED);
 				
@@ -203,6 +210,7 @@ public class Drawable
 							alert.setHeaderText("Warning\nYou have closed street:  " + street.getId());
 							alert.setContentText("The path has been affected by street closing, you will now need to select new path for line:  " + busLine.getId());
 							alert.show();
+						
 							
 							for (Vehicle vehicle : busLine.getVehicles())
 							{
@@ -251,6 +259,14 @@ public class Drawable
 				}
 			}
 			
+		}
+	}
+	
+	public static void resetColors(List<BusLine> busLines)
+	{
+		for	(BusLine busLine : busLines)
+		{
+			busLine.unsetLineFocus();
 		}
 	}
 }

@@ -49,7 +49,6 @@ public class Vehicle
 	private boolean ended = false;
 	
 	private Random random = new Random();
-	private boolean isFirstStreetSet = false;
 	private Coordinate editPreviousCoord = new Coordinate(0,0);
 	
 	// aktualni ulice se da dopocitat - aktualni koordinaty -> v lince jsou vsechny ulice po trase - spocitat na ktere primce lezi bod dany aktualnimi koordinaty
@@ -390,6 +389,14 @@ public class Vehicle
 		{
 			if(this.transitionVehicle == null && !this.ended)
 			{
+				String hoursTmp = time.substring(0,2);
+				int inputTime = (Integer.parseInt(time.substring(3,5)) + (Integer.parseInt(hoursTmp) * 60));
+				//System.out.println(this.getId() + " end: " + this.getTimetable().getEntries().get(this.getTimetable().getEntries().size() - 1).getTime());
+
+				int pom = Integer.parseInt(this.getTimetable().getEntries().get(this.getTimetable().getEntries().size() - 1).getTime().substring(3,5)) + (Integer.parseInt(this.getTimetable().getEntries().get(this.getTimetable().getEntries().size() - 1).getTime().substring(0,2)) * 60);
+				//System.out.println("Delka trasy: " + pom);
+				//System.out.println("Zbyvajici delka trasy: " + (pom - inputTime));
+				
 				// nastaveni nove aktualni pozice s korekci
 				this.setCurrentPosition(new Coordinate(this.getVehicleView().getCircle().getCenterX() + this.getVehicleView().getCircle().getTranslateX() - 10.0, this.getVehicleView().getCircle().getCenterY() + this.getVehicleView().getCircle().getTranslateY()));
 				this.setCurrentPosition(new Coordinate(this.getVehicleView().getText().getX() + this.getVehicleView().getText().getTranslateX() - 10.0, this.getVehicleView().getText().getY() + this.getVehicleView().getText().getTranslateY()));
@@ -413,7 +420,6 @@ public class Vehicle
 						
 						this.vehiclePath.add(street.getEnd());
 						this.setCurrentStreet(street);
-						this.isFirstStreetSet = true;
 						continue;
 					}
 					
@@ -478,7 +484,7 @@ public class Vehicle
 				Polyline pathName = new Polyline();
 				pathName.getPoints().addAll(coords2);
 				
-				int randomTimer = random.nextInt(80) + random.nextInt(50) + random.nextInt(20);
+				int randomTimer = (pom - inputTime) + random.nextInt(30);
 				
 				//System.out.println("DEBUG: " + this.getId() + " pojede: " + randomTimer + " \"minut\""); // debug
 				
@@ -568,7 +574,7 @@ public class Vehicle
 	}
 	
 	/**
-	 * Zrusi animaci cesty a ulozi soucasne souradnice vozidla, nacte vozidlo na soucasne souradnice. (Pro edit mode a animaci nove trasy)
+	 * Zrusi animaci cesty a ulozi soucasne souradnice vozidla. (Pro edit mode a animaci nove trasy)
 	 */
 	public void cancelDriving()
 	{
@@ -594,7 +600,6 @@ public class Vehicle
 	public void resetIndex()
 	{
 		this.index = 0;
-		this.isFirstStreetSet = false;
 	}
 	
 	/**

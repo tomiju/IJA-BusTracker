@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -70,6 +69,7 @@ public class BusLine implements Cloneable
 	
 	/**
 	 * Nastavi aktualni linku jako editovanou
+	 * @param isEdited status linky
 	 */
 	public void setEdit(boolean isEdited)
 	{
@@ -169,10 +169,9 @@ public class BusLine implements Cloneable
 	
 	/**
      * Nastavi "focus" (zvyrazni) na celou linku.
-     * @param map mapa
      */
 	@JsonIgnore
-	public void setLineFocus(Pane map)
+	public void setLineFocus()
 	{
 		for (Street street : this.streets) 
 		{
@@ -192,10 +191,9 @@ public class BusLine implements Cloneable
 	
 	/**
      * Zrusi "focus" lince.
-     * @param map mapa
      */
 	@JsonIgnore
-	public void unsetLineFocus(Pane map)
+	public void unsetLineFocus()
 	{
 		for (Street street : this.streets) 
 		{
@@ -210,6 +208,21 @@ public class BusLine implements Cloneable
 		{
 			Circle circle = vehicle.getVehicleView().getCircle();
 			circle.setFill(Color.BLUE);
+		}
+	}
+	
+	/**
+	 * Nastavi barvu trase vybraného vozidla
+	 */
+	public void setVehicleInfoFocus()
+	{
+		for (Street street : this.streets) 
+		{
+			if (street.isOpen())
+			{
+				Line line = street.getStreetView().getLine();
+				line.setStroke(Color.ORANGE);
+			}
 		}
 	}
 	

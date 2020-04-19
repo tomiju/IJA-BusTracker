@@ -12,14 +12,22 @@ Popis:
 		tlacitkem "RESET" spustit znova. Je mozne zvyraznit trasu jednotlivych linek i vozidel, ktere temto
 		linkam patri - kliknuti na nazev linky v seznamu v leve casti - zaroven se zobrazi seznam ulic, ze 
 		kterych se linka sklada.
-		Pri stisknuti vozidla (pohybujiciho se na mape) se zobrazi informace o danim vozidle - cely jeho itinerar s 
-		jmeny zastavek a casy - zvyraznena zastavka je prave nasledujici.
+		
+		Vozidla v zakladnim modu (bez editace) dodrzuji jizdni rad a zastavky (vse definovane ve vstupnim souboru).
+		
+		Pri stisknuti vozidla (pohybujiciho se na mape) se vozidlo a jeho trasa zvyrazni a zaroven se zobrazi 
+		informace o danem vozidle - cely jeho itinerar s jmeny zastavek a casy - zvyraznena zastavka je ta prave nasledujici.
+		
 		Zoom je mozny pomoci stisknuti klavesy CTRL a nasledneho scrollovani koleckem mysi.
+		
 		Po kliknuti na "Edit Mode" se aplikace prepne do editacniho modu, v tomto modu je mozne editovat trasu pro
 		jednotlive linky - je nutne vybrat linku ze seznamu, pote v seznamu "Streets" kliknutim na nazev ulice dojde 
-		k jeji uzavreni. Po uzavreni jakekoliv ulice je nutne pro VSECHNY linky, kterym tato ulice patrila vybrat 
-		NOVOU TRASU (jednotlive!!!) - vyber trasy probiha nasledovne - jiz pri uzavirani mate vybranou linku, naslednym
-		klikanim na ulice (POZOR! Je dulezite klikat v poradi od zacatku linky!!!!!!! - pokud tak neucinite
-		nebo uzavrete ulici, ktera ma pouze jednu moznou trasu, vozidla se budou teleportovat :) ) se do seznamu "New Path" bude pridavat
+		k jeji uzavreni. Po uzavreni jakekoliv ulice se ukaze varovani, kterych linek se uzavirka dotkla a je nutne 
+		pro VSECHNY linky, kterym tato ulice patrila vybrat NOVOU TRASU 
+		(kompletní - pokud nektere vozidlo nebude lezet na nove trase, tak nepojede; jednotlive pro kazdou linku) - vyber trasy 
+		probiha nasledovne - jiz pri uzavirani mate vybranou linku, naslednym klikanim na ulice 
+		(POZOR! Je dulezite klikat v poradi od zacatku linky! - pokud tak neucinite nebo uzavrete ulici, ktera 
+		ma pouze jednu moznou trasu, vozidla se muzou chovat neocekavane) se do seznamu "New Path" bude pridavat
 		nova trasa dane linky (v poradi klikani) - v pripade, ze jste editovali spravne bude nyni mozne editacni mod opustit 
-		a vozidla pojedou po jejich nove trase.
+		(jinak se zobrazi upozorneni) a vozidla pojedou po jejich nove trase. 
+		Delka nove editovane trasy je puvodni cas + nahodne zpozdeni (vypada to realneji).
