@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import map.InputData;
@@ -16,7 +18,6 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.exc.InvalidDefinitionException;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
@@ -51,12 +52,18 @@ public class InitWindowController implements Initializable {
 		         mapper.registerModule(new JavaTimeModule());
 		         mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		             
-		     	this.data = mapper.readValue(file, InputData.class); // TODO: dat to do try - osetrit spatny format vstupu  
+		     	 this.data = mapper.readValue(file, InputData.class); 
         	 } 
-        	 catch (InvalidDefinitionException e)
+        	 catch (Exception e)
         	 {
         		 e.printStackTrace();
-        		 System.out.println("Wrong input file.");
+     	   		 Alert alert = new Alert(Alert.AlertType.ERROR);
+    			 alert.setTitle("Application setup error");
+    			 alert.setHeaderText("Error\nSomething is was wrong with input data");
+    			 alert.setContentText("It is possible that you didnt choose any input file\nor the file you have chosen has incorrect format.");
+    			 alert.showAndWait();
+ 	             Platform.exit();
+ 	             System.exit(0);
         	 }     		
         }
         this.stage.close();	

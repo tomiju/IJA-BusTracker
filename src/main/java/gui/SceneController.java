@@ -514,6 +514,25 @@ public class SceneController implements Initializable {
         
         SceneController.data = iwController.getData(); // vstupni data
         
+        try
+        {
+        	SceneController.data.getLines();
+        	SceneController.data.getStops();
+        	SceneController.data.getStreets();
+        	SceneController.data.getVehicles();
+        }
+        catch(Exception e)
+        {
+	   		e.printStackTrace();
+	   		Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Application setup error");
+			alert.setHeaderText("Error\nSomething is was wrong with input data");
+			alert.setContentText("It is possible that you didnt choose any input file\nor the file you have chosen has incorrect format.");
+			alert.showAndWait();
+            Platform.exit();
+            System.exit(0);
+        }
+        
         // vytvori hlubokou kopii stavu linek pred editaci (nutne pro restart editace)
         this.dataBackup = new ArrayList<BusLine>();
         for (BusLine line : SceneController.data.getLines())
