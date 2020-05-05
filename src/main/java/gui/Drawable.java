@@ -1,6 +1,6 @@
 package gui;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import drawable.StreetView;
 import drawable.VehicleView;
@@ -38,12 +38,14 @@ public class Drawable
 	    line.setStartY(street.getStart().getY()); 
 	    line.setEndX(street.getEnd().getX()); 
 	    line.setEndY(street.getEnd().getY());
-	    line.setStrokeWidth(2.5);
-	   
+	    line.setStrokeWidth(3.0);
+	    line.setStroke(Color.GREY);
+	    
 	    Text text = new Text(street.getStart().getX(),street.getStart().getY(), street.getId());
 	    
 	    text.xProperty().bind(line.startXProperty().add(line.getEndX()).divide(2).add(7));
 	    text.yProperty().bind(line.startYProperty().add(line.getEndY()).divide(2).add(-10));
+		text.setFill(Color.GREY);
 	    
 	    //text.setOnMouseClicked(e -> setStreetStatus(street, line));
 	    //line.setOnMouseClicked(e -> setStreetStatus(street, line));
@@ -76,6 +78,7 @@ public class Drawable
 				circle.setCenterY(stop.getCoordinate().getY());
 		
 				text.setText(stop.getId());
+				text.setFill(Color.GREY);
 				text.xProperty().bind(circle.centerXProperty().add(15));
 				text.yProperty().bind(circle.centerYProperty().add(15));
 
@@ -103,6 +106,7 @@ public class Drawable
 			text.setText(vehicle.getId());
 			text.xProperty().bind(circle.centerXProperty().add(7));
 			text.yProperty().bind(circle.centerYProperty());
+			text.setFill(Color.GAINSBORO);
 
 			map.getChildren().add(circle);
 		    map.getChildren().add(text);	
@@ -119,7 +123,7 @@ public class Drawable
 	 * @param editedBusLine nazev editovane linky
 	 * @param lines seznam linek
 	 */
-	public static void setNewPath(Street street, Line line, boolean editMode, ListView<String> streetList, String editedBusLine, List<BusLine> lines)
+	public static void setNewPath(Street street, Line line, boolean editMode, ListView<String> streetList, String editedBusLine, ArrayList<BusLine> lines)
 	{
 		if (editMode)
 		{
@@ -187,7 +191,7 @@ public class Drawable
      * @param editMode stav editacniho modu
      * @param busLines seznam vsech autobusovych linek
      */
-	public static void setStreetStatus(Street street, Line line, boolean editMode, List<BusLine> busLines)
+	public static void setStreetStatus(Street street, Line line, boolean editMode, ArrayList<BusLine> busLines)
 	{
 		if (editMode)
 		{
@@ -262,7 +266,7 @@ public class Drawable
 		}
 	}
 	
-	public static void resetColors(List<BusLine> busLines)
+	public static void resetColors(ArrayList<BusLine> busLines)
 	{
 		for	(BusLine busLine : busLines)
 		{

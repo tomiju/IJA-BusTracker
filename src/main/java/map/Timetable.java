@@ -1,6 +1,6 @@
 package map;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public class Timetable 
 {
-	private List<TimetableEntry> entries; // list se zastavkami a casy, kdy na nich jsem
+	private ArrayList<TimetableEntry> entries; // ArrayList se zastavkami a casy, kdy na nich jsem
 	
 	@JsonIgnore
 	private int index = 0;
@@ -22,7 +22,7 @@ public class Timetable
 	@JsonIgnore
 	private TimetableEntry next;
 	
-	public Timetable(List<TimetableEntry> entries)
+	public Timetable(ArrayList<TimetableEntry> entries)
 	{
 		this.entries = entries;
 	}
@@ -31,9 +31,9 @@ public class Timetable
 	
 	/**
 	 * Vrati seznam zapisu (obsah jizdniho radu).
-	 * @return List seznam zapisu
+	 * @return ArrayList seznam zapisu
 	 */
-	public List<TimetableEntry> getEntries()
+	public ArrayList<TimetableEntry> getEntries()
 	{
 		return this.entries;
 	}
@@ -47,12 +47,12 @@ public class Timetable
 	{
 		this.index++;
 
-		if (this.index >= entries.size()) 
+		if (this.index > entries.size() - 1) 
 		{
 			this.index = 0;
 		}
 
-		return (next = entries.get(this.index));
+		return (this.next = entries.get(this.index));
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class Timetable
 			this.index = entries.size() - 1;
 		}
 
-		return (next = entries.get(this.index));
+		return (this.next = entries.get(this.index));
 	}
 	
 	/**

@@ -1,6 +1,6 @@
 package map;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * 
@@ -12,12 +12,12 @@ import java.util.List;
  */
 public class InputData implements Cloneable // pomocna trida pro zpracovani input dat z YAML souboru
 {
-	private List<Stop> stops;
-	private List<Street> streets;
-	private List<BusLine> lines;
-	private List<Vehicle> vehicles;
+	private ArrayList<Stop> stops;
+	private ArrayList<Street> streets;
+	private ArrayList<BusLine> lines;
+	private ArrayList<Vehicle> vehicles;
 	
-	public InputData(List<Stop> stops, List<Street> streets, List<Vehicle> vehicles, List<BusLine> busLines) 
+	public InputData(ArrayList<Stop> stops, ArrayList<Street> streets, ArrayList<Vehicle> vehicles, ArrayList<BusLine> busLines) 
 	{
 		this.streets = streets;
 		this.stops = stops;
@@ -29,36 +29,36 @@ public class InputData implements Cloneable // pomocna trida pro zpracovani inpu
 	
 	/**
      * Ziska seznam ulic.
-     * @return List seznam ulic
+     * @return ArrayList seznam ulic
      */
-	public List<Street> getStreets()
+	public ArrayList<Street> getStreets()
 	{
 		return this.streets;
 	}
 	
 	/**
      * Ziska seznam zastavek.
-     * @return List seznam zastavek
+     * @return ArrayList seznam zastavek
      */
-	public List<Stop> getStops()
+	public ArrayList<Stop> getStops()
 	{
 		return this.stops;
 	}
 	
 	/**
      * Ziska seznam vozidel.
-     * @return List seznam vozidel
+     * @return ArrayList seznam vozidel
      */
-	public List<Vehicle> getVehicles()
+	public ArrayList<Vehicle> getVehicles()
 	{
 		return this.vehicles;
 	}
 	
 	/**
      * Ziska seznam linek.
-     * @return List seznam linek
+     * @return ArrayList seznam linek
      */
-	public List<BusLine> getLines()
+	public ArrayList<BusLine> getLines()
 	{
 		return this.lines;
 	}

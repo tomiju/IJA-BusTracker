@@ -16,6 +16,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
  
@@ -34,6 +35,8 @@ public class Main extends Application
 		Parent root = loader.load();
 		
 	    Scene scene = new Scene(root, 1280, 800);
+	    scene.getStylesheets().add("/style.css");
+	    scene.setFill(Color.BLACK);
 	    primaryStage.setScene(scene);
 	    primaryStage.setTitle("Bus tracker");
 	    primaryStage.setResizable(false);

@@ -1,6 +1,6 @@
 package map;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -22,14 +22,14 @@ public class Street
 
 	private String id;
 	private boolean open = true; // otevrena / uzavrena ulice
-	private List<Stop> stops;
+	private ArrayList<Stop> stops;
 	private Coordinate start, end;
 	private int busyness; // vytizeni
 	
 	@JsonIgnore
 	private StreetView streetView;
 	
-	public Street(String name, Coordinate start, Coordinate end, List<Stop> stops)
+	public Street(String name, Coordinate start, Coordinate end, ArrayList<Stop> stops)
 	{
 		this.id = name;
 		this.stops = stops;
@@ -73,7 +73,7 @@ public class Street
    * Vrati seznam zastavek na ulici.
    * @return Seznam zastavek na ulici. Pokud ulize nema zadnou zastavku, je seznam prazdny.
    */
-	public List<Stop> getStops()
+	public ArrayList<Stop> getStops()
 	{
 		return this.stops;
 	}

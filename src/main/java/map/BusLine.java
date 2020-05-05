@@ -1,7 +1,6 @@
 package map;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,12 +23,12 @@ public class BusLine implements Cloneable
 {
 	private String id;
 	private Stop start, end;
-	private List<Street> streets;
-	private List<Vehicle> vehicles;
+	private ArrayList<Street> streets;
+	private ArrayList<Vehicle> vehicles;
 	
 	private boolean edited = false;
 	
-	public BusLine(String id, List<Street> streets)
+	public BusLine(String id, ArrayList<Street> streets)
 	{
 		this.streets = streets;
 		this.id = id;
@@ -88,8 +87,9 @@ public class BusLine implements Cloneable
 	 * Nahraje puvodni stav ulic
 	 * @param backupStreets puvodni ulice
 	 */
-	public void resetSimulation(List<Street> backupStreets)
+	public void resetSimulation(ArrayList<Street> backupStreets)
 	{
+		this.streets = new ArrayList<Street>();
 		this.streets = backupStreets;
 	}
 	
@@ -140,19 +140,19 @@ public class BusLine implements Cloneable
 	
 	/**
      * Ziska seznam ulic.
-     * @return List seznam ulic
+     * @return ArrayList seznam ulic
      */
-	public List<Street> getStreets()
+	public ArrayList<Street> getStreets()
 	{
 		return this.streets;
 	}
 	
 	/**
      * Ziska seznam vozidel.
-     * @return List seznam vozidel
+     * @return ArrayList seznam vozidel
      */
 	@JsonIgnore
-	public List<Vehicle> getVehicles()
+	public ArrayList<Vehicle> getVehicles()
 	{
 		return this.vehicles;
 	}
@@ -200,7 +200,7 @@ public class BusLine implements Cloneable
 			if (street.isOpen())
 			{
 				Line line = street.getStreetView().getLine();
-				line.setStroke(Color.BLACK);
+				line.setStroke(Color.GREY);
 			}
 		}
 		

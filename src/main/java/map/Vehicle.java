@@ -3,7 +3,6 @@ package map;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -41,7 +40,7 @@ public class Vehicle
 	private TimetableEntry previousStop;
 	private int nextStopTime;
 	private int previousStopTime;
-	private List<Coordinate> vehiclePath;
+	private ArrayList<Coordinate> vehiclePath;
 	private int index = 0;
 	private PathTransition transitionVehicle = new PathTransition();
 	private PathTransition transitionText = new PathTransition();
@@ -200,10 +199,10 @@ public class Vehicle
 	
 	/**
 	 * Ziska aktualni trasu vozidla
-	 * @return List aktualni trasa vozidla
+	 * @return ArrayList aktualni trasa vozidla
 	 */
 	@JsonIgnore
-	public List<Coordinate> getVehiclePath()
+	public ArrayList<Coordinate> getVehiclePath()
 	{
 		return this.vehiclePath;
 	}
@@ -255,14 +254,13 @@ public class Vehicle
 			String hoursTmp = time.substring(0,2);
 			int inputTime = (Integer.parseInt(time.substring(3,5)) + (Integer.parseInt(hoursTmp) * 60));
 			
-			List<Double> coords = new ArrayList<Double>();
+			ArrayList<Double> coords = new ArrayList<Double>();
 			
-			List<Double> coords2 = new ArrayList<Double>();
+			ArrayList<Double> coords2 = new ArrayList<Double>();
 					
 			if (inputTime == 0)
 			{	
 				this.computeFullPath();
-				
 				this.setFirstEntry(this.timetable);
 				double nextStopX = (double)this.firstEntry.getStop().getCoordinate().getX();
 				double nextStopY = (double)this.firstEntry.getStop().getCoordinate().getY();
@@ -272,7 +270,7 @@ public class Vehicle
 				coords2.add(this.currentPosition.getX() + 35);
 				coords2.add(this.currentPosition.getY());
 				
-				for (; this.index < this.vehiclePath.size(); this.index++) 
+				for (; this.index < this.vehiclePath.size(); ++this.index) 
 				{
 					if (this.vehiclePath.get(this.index).getX() == nextStopX && this.vehiclePath.get(this.index).getY() == nextStopY)
 					{
@@ -339,7 +337,7 @@ public class Vehicle
 				coords2.add(this.currentPosition.getX() + 35);
 				coords2.add(this.currentPosition.getY());
 				
-				for (; this.index < this.vehiclePath.size(); this.index++) 
+				for (; this.index < this.vehiclePath.size(); ++this.index) 
 				{
 					if (this.vehiclePath.get(this.index).getX() == nextStopX && this.vehiclePath.get(this.index).getY() == nextStopY)
 					{
@@ -462,15 +460,15 @@ public class Vehicle
 					return;
 				}
 				
-				List<Double> coords = new ArrayList<Double>();
-				List<Double> coords2 = new ArrayList<Double>();
+				ArrayList<Double> coords = new ArrayList<Double>();
+				ArrayList<Double> coords2 = new ArrayList<Double>();
 				
 				coords.add(this.currentPosition.getX());
 				coords.add(this.currentPosition.getY());
 				coords2.add(this.currentPosition.getX() + 35);
 				coords2.add(this.currentPosition.getY());
 				
-				for (; this.index < this.vehiclePath.size(); this.index++) 
+				for (; this.index < this.vehiclePath.size(); ++this.index) 
 				{
 					coords.add(this.vehiclePath.get(this.index).getX());
 					coords.add(this.vehiclePath.get(this.index).getY());
@@ -600,6 +598,7 @@ public class Vehicle
 	public void resetIndex()
 	{
 		this.index = 0;
+		this.editPreviousCoord = new Coordinate(0,0);
 	}
 	
 	/**

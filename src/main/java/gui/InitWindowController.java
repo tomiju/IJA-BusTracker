@@ -56,7 +56,7 @@ public class InitWindowController implements Initializable {
         	 } 
         	 catch (Exception e)
         	 {
-        		 e.printStackTrace();
+        		 //e.printStackTrace(); // debug
      	   		 Alert alert = new Alert(Alert.AlertType.ERROR);
     			 alert.setTitle("Application setup error");
     			 alert.setHeaderText("Error\nSomething is was wrong with input data");

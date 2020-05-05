@@ -10,7 +10,6 @@ import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -43,7 +42,7 @@ import map.Vehicle;
  */
 public class SceneController implements Initializable {
 	private static InputData data;
-	private List<BusLine> dataBackup = new ArrayList<BusLine>();
+	private ArrayList<BusLine> dataBackup = new ArrayList<BusLine>();
 	private LocalTime localTime = LocalTime.of(23, 59, 0, 0);
 	private int timeSpeed = 1;
 	private Timer mainClock;
@@ -223,7 +222,7 @@ public class SceneController implements Initializable {
 			{
 				if (street.getStatus())
 				{
-					street.getStreetView().getLine().setStroke(Color.BLACK);
+					street.getStreetView().getLine().setStroke(Color.GREY);
 				}
 			}
 		}
@@ -269,7 +268,7 @@ public class SceneController implements Initializable {
 			}
 			else
 			{	
-				if (Integer.parseInt(txtTimeSpeed.getText()) >= 1 && Integer.parseInt(txtTimeSpeed.getText()) <= 5)
+				if (!txtTimeSpeed.getText().isEmpty() && Integer.parseInt(txtTimeSpeed.getText()) >= 1 && Integer.parseInt(txtTimeSpeed.getText()) <= 5)
 				{
 					//System.out.println("speed: " + txtTimeSpeed.getText()); // debug
 					timeSpeed = Integer.parseInt(txtTimeSpeed.getText());
@@ -340,15 +339,17 @@ public class SceneController implements Initializable {
 			
 			for (BusLine line: SceneController.data.getLines())
 			{
-				line.setEdit(false);
-				
-				for (BusLine backupLine : this.dataBackup)
+				if(line.isEdited())
 				{
+					line.setEdit(false);
 					
-					if (backupLine.getId() == line.getId())
-					{
-						line.resetSimulation(backupLine.getStreets());
-					}
+					for (BusLine backupLine : this.dataBackup)
+					{					
+						if (backupLine.getId() == line.getId())
+						{
+							line.resetSimulation(backupLine.getStreets());
+						}
+					}					
 				}
 			}
 			
@@ -381,7 +382,7 @@ public class SceneController implements Initializable {
 				{
 					street.setOpen(true);
 				}
-				street.getStreetView().getLine().setStroke(Color.BLACK);
+				street.getStreetView().getLine().setStroke(Color.GREY);
 				
 				street.getStreetView().getLine().setMouseTransparent(true); // nejde editovat trasa
  				street.getStreetView().getName().setMouseTransparent(true);
@@ -396,17 +397,16 @@ public class SceneController implements Initializable {
 			
 			if (!this.lineList.getSelectionModel().isEmpty()) // error s indexem -1 kdyz se pokousim resetovat focus prazdneho seznamu!!!
 		    {
-				this.lineList.getSelectionModel().clearSelection();
+				lineList.getSelectionModel().clearSelection();
 		    }
 		    
 		    if (!this.streetList.getSelectionModel().isEmpty()) // error s indexem -1 kdyz se pokousim resetovat focus prazdneho seznamu!!!
 		    {
-		    	this.streetList.getSelectionModel().clearSelection();
+		    	streetList.getSelectionModel().clearSelection();
 		    }
 			
 			drive();
-		}
-		
+		}	
 	}
 	
 	/**
@@ -470,9 +470,15 @@ public class SceneController implements Initializable {
 			}
 		}
 		
-	    this.lineList.getSelectionModel().clearSelection();
+		if (!this.lineList.getSelectionModel().isEmpty()) // error s indexem -1 kdyz se pokousim resetovat focus prazdneho seznamu!!!
+	    {
+			this.lineList.getSelectionModel().clearSelection();
+	    }
 		
-		vehicleList.getItems().clear();
+		if (!this.vehicleList.getItems().isEmpty()) // error s indexem -1 kdyz se pokousim resetovat focus prazdneho seznamu!!!
+	    {
+			vehicleList.getItems().clear();	    
+	    }
 		
 		txtVehicleName.setText("");
 	}
@@ -498,6 +504,7 @@ public class SceneController implements Initializable {
         {
         	opWindow = owLoader.load();
             ow = new Scene(opWindow);
+            ow.getStylesheets().add("/style.css");
         } 
         catch (IOException e) 
         {
@@ -534,7 +541,7 @@ public class SceneController implements Initializable {
         }
         
         // vytvori hlubokou kopii stavu linek pred editaci (nutne pro restart editace)
-        this.dataBackup = new ArrayList<BusLine>();
+        //this.dataBackup = new ArrayList<BusLine>();
         for (BusLine line : SceneController.data.getLines())
         {
         	try 
@@ -554,7 +561,10 @@ public class SceneController implements Initializable {
             	
             	if(!btnEditMode.isSelected())
             	{
-            		streetList.getItems().clear();
+            		if(!streetList.getItems().isEmpty())
+            		{
+            			streetList.getItems().clear();            			
+            		}
             		for (BusLine line : gui.SceneController.data.getLines()) 
             		{
                 		if (line != null)
@@ -589,8 +599,15 @@ public class SceneController implements Initializable {
             	}
             	else
             	{
-            		streetList.getItems().clear();
-            		vehicleList.getItems().clear();
+            		if(!streetList.getItems().isEmpty())
+            		{
+            			streetList.getItems().clear();
+            		}
+            		
+            		if(!vehicleList.getItems().isEmpty())
+            		{
+            			vehicleList.getItems().clear();            			
+            		}
             		
             		for (Street street : gui.SceneController.data.getStreets())
             		{
@@ -610,7 +627,7 @@ public class SceneController implements Initializable {
                 				{
                 					if (street.isOpen())
                 					{
-                						street.getStreetView().getLine().setStroke(Color.BLACK);
+                						street.getStreetView().getLine().setStroke(Color.GREY);
                 					}
                 				}
                 			}
@@ -721,15 +738,18 @@ public class SceneController implements Initializable {
 		{
 			if(vehicle1.getId().equals(txtVehicleName.getText()) && !vehicle1.getId().equals(vehicle.getId()))
 			{
-				List<BusLine> pom = new ArrayList<BusLine>();
+				ArrayList<BusLine> pom = new ArrayList<BusLine>();
 				pom.add(vehicle1.getLine());
 				Drawable.resetColors(pom);
 			}
 		}
 		
-		vehicleList.getItems().clear();
+		if(!vehicleList.getItems().isEmpty())
+		{
+			vehicleList.getItems().clear();			
+		}
 		
-		List<BusLine> pom = new ArrayList<BusLine>();
+		ArrayList<BusLine> pom = new ArrayList<BusLine>();
 		pom.add(vehicle.getLine());
 		Drawable.resetColors(pom);
 		
@@ -776,23 +796,28 @@ public class SceneController implements Initializable {
 		timer.scheduleAtFixedRate(new TimerTask() {
 			public void run()
 			{
-				if(btnPause.getText().equals("Pause") && !btnEditMode.isSelected())
-				{				
-					localTime = localTime.plusMinutes(1);
-					txtTimer.setText(localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
-							
-					for (Vehicle vehicle : SceneController.data.getVehicles()) 
-					{
-						vehicle.drive(txtTimer.getText(), timeSpeed);
+				Platform.runLater(() -> {
+					if(btnPause.getText().equals("Pause") && !btnEditMode.isSelected())
+					{				
+						localTime = localTime.plusMinutes(1);
 						
-						Platform.runLater(() -> { // automaticka aktualizace nasledujici zastavky (pro nakliknute vozidlo)
-							if (getCurrentVehicleId() == vehicle.getId())
+							txtTimer.setText(localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+								
+						for (Vehicle vehicle : SceneController.data.getVehicles()) 
+						{
+							if(vehicle != null)
 							{
-								showVehicleInfo(vehicle);
+								vehicle.drive(txtTimer.getText(), timeSpeed);
+								
+								// automaticka aktualizace nasledujici zastavky (pro nakliknute vozidlo)
+									if (getCurrentVehicleId() == vehicle.getId())
+									{
+										showVehicleInfo(vehicle);
+									}						
 							}
-			            });
+						}
 					}
-				}
+				});	
 			}
 		}, 0, (int)(1000 / timeSpeed));   
 	}
