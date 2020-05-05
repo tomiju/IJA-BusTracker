@@ -412,7 +412,7 @@ public class Vehicle
 					
 					if(vehicle_distance - street_size >= -5.0 && vehicle_distance - street_size <= 5.0)
 					{
-						//System.out.println("DEBUG1: " + this.getId() + " leží na ulici: " + street.getId()); // debug
+						//System.out.println("DEBUG1: " + this.getId() + " lezi na ulici: " + street.getId()); // debug
 						
 						this.editPreviousCoord = street.getEnd();
 						

@@ -229,7 +229,7 @@ public class SceneController implements Initializable {
 	}
 	
 	/**
-	 * Pozastaví/spustí simulaci
+	 * Pozastavi/spusti simulaci
 	 * @param event event
 	 */
 	@FXML
@@ -655,8 +655,7 @@ public class SceneController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observable,
                     String oldValue, String newValue) {
-            	// TODO: pouze v edit mode!
-            	// když kliknu na nějakou ulici, nastaví se červená a status "uzavřeno", když na ni kliknu znova, tak se otevře
+
             	if(btnEditMode.isSelected())
             	{
             		for (Street street : gui.SceneController.data.getStreets())

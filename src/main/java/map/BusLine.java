@@ -212,7 +212,7 @@ public class BusLine implements Cloneable
 	}
 	
 	/**
-	 * Nastavi barvu trase vybraného vozidla
+	 * Nastavi barvu trase vybraneho vozidla
 	 */
 	public void setVehicleInfoFocus()
 	{
