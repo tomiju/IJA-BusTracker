@@ -48,6 +48,7 @@ public class Vehicle
 	private boolean ended = false;
 	
 	private Random random = new Random();
+	private int delay = 0;
 	private Coordinate editPreviousCoord = new Coordinate(0,0);
 	
 	// aktualni ulice se da dopocitat - aktualni koordinaty -> v lince jsou vsechny ulice po trase - spocitat na ktere primce lezi bod dany aktualnimi koordinaty
@@ -208,6 +209,16 @@ public class Vehicle
 	}
 	
 	/**
+	 * Ziska zpozdeni vozidla pri objizdke
+	 * @return int Zpozdeni vozidla
+	 */
+	@JsonIgnore
+	public int getDelay()
+	{
+		return this.delay;
+	}
+	
+	/**
      * Prida aktualni vozidlo v lince do jejiho seznamu.
      */
 	public void addVehicleToLine()
@@ -327,6 +338,9 @@ public class Vehicle
 			}
 			else if (inputTime == Integer.parseInt(this.previousStop.getTime().substring(3,5)) + (Integer.parseInt(this.previousStop.getTime().substring(0,2)) * 60) || inputTime == Integer.parseInt(this.firstEntry.getTime().substring(3,5)) + (Integer.parseInt(this.firstEntry.getTime().substring(0,2)) * 60))
 			{
+				this.getVehicleView().getCircle().setVisible(true);
+				this.getVehicleView().getText().setVisible(true);
+				
 				this.nextStopTime = Integer.parseInt(this.nextStop.getTime().substring(3,5)) + (Integer.parseInt(this.nextStop.getTime().substring(0,2)) * 60) - this.previousStopTime;
 				
 				double nextStopX = (double)this.nextStop.getStop().getCoordinate().getX();
@@ -482,7 +496,8 @@ public class Vehicle
 				Polyline pathName = new Polyline();
 				pathName.getPoints().addAll(coords2);
 				
-				int randomTimer = (pom - inputTime) + random.nextInt(30);
+				this.delay = random.nextInt(20);
+				int randomTimer = (pom - inputTime) + this.delay;
 				
 				//System.out.println("DEBUG: " + this.getId() + " pojede: " + randomTimer + " \"minut\""); // debug
 				

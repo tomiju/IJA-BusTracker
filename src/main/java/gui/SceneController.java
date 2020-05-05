@@ -210,6 +210,15 @@ public class SceneController implements Initializable {
 						streetList.getItems().remove(street.getId());
 					}
 				}
+				
+				if(line.isEdited())
+				{
+					for (Vehicle vehicle : line.getVehicles())
+					{
+						vehicle.getVehicleView().getCircle().setVisible(true);
+						vehicle.getVehicleView().getText().setVisible(true);
+					}					
+				}
 			}
 			
 		    this.lineList.getSelectionModel().clearSelection();
@@ -372,6 +381,9 @@ public class SceneController implements Initializable {
 			    vehicle.getTimetable().resetIndex();
 			    vehicle.resetVehiclePath();
 			    
+			    vehicle.getVehicleView().getCircle().setVisible(false);
+			    vehicle.getVehicleView().getText().setVisible(false);
+			    
 			    this.localTime = LocalTime.of(23, 59, 0, 0);
 				this.txtTimer.setText(localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));	
 			}
@@ -513,7 +525,7 @@ public class SceneController implements Initializable {
         
         InitWindowController iwController = (InitWindowController) owLoader.getController();
 
-        owStage.setTitle("Bus tracker");
+        owStage.setTitle("Bus Tracker");
         owStage.setScene(ow);
         owStage.setResizable(false);
         iwController.setStage(owStage);
@@ -765,13 +777,20 @@ public class SceneController implements Initializable {
 		int pomIndex = 0;
 		for	(String item : vehicleList.getItems())
 		{
+			if(vehicle.getLine().isEdited())
+			{
+				vehicleList.getSelectionModel().select(vehicleList.getItems().size() - 1);
+				String pom1 = vehicleList.getItems().get(vehicleList.getItems().size() - 1);
+				vehicleList.getItems().set(vehicleList.getItems().size() - 1, pom1.concat("\n(+" + vehicle.getDelay() + " min.)"));
+				break;
+			}
+			
 			if(item.equals(vehicle.getCurrentStopId()))
 			{
 				vehicleList.getSelectionModel().select(pomIndex);
 			}
 			pomIndex++;
 		}
-
 	}
 	
 	/**

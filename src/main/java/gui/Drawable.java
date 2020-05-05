@@ -47,9 +47,6 @@ public class Drawable
 	    text.yProperty().bind(line.startYProperty().add(line.getEndY()).divide(2).add(-10));
 		text.setFill(Color.GREY);
 	    
-	    //text.setOnMouseClicked(e -> setStreetStatus(street, line));
-	    //line.setOnMouseClicked(e -> setStreetStatus(street, line));
-	    
 	    map.getChildren().add(line);
 	    map.getChildren().add(text);
 	    
@@ -107,6 +104,9 @@ public class Drawable
 			text.xProperty().bind(circle.centerXProperty().add(7));
 			text.yProperty().bind(circle.centerYProperty());
 			text.setFill(Color.GAINSBORO);
+			
+		    text.setVisible(false);
+		    circle.setVisible(false);
 
 			map.getChildren().add(circle);
 		    map.getChildren().add(text);	

@@ -38,7 +38,7 @@ public class Main extends Application
 	    scene.getStylesheets().add("/style.css");
 	    scene.setFill(Color.BLACK);
 	    primaryStage.setScene(scene);
-	    primaryStage.setTitle("Bus tracker");
+	    primaryStage.setTitle("Bus Tracker");
 	    primaryStage.setResizable(false);
 	    
 	    primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
