@@ -5,13 +5,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="175.0" minWidth="297.0" prefHeight="175.0" prefWidth="297.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="175.0" minWidth="297.0" prefHeight="175.0" prefWidth="297.0" style="-fx-background-color: #292929;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text layoutX="46.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bus Tracker" wrappingWidth="225.265625">
+      <Text fill="#dddddd" layoutX="46.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bus Tracker" wrappingWidth="225.265625">
          <font>
             <Font name="Arial Bold" size="35.0" />
          </font></Text>
-      <Button layoutX="82.0" layoutY="72.0" mnemonicParsing="false" onAction="#loadFile" prefHeight="48.0" prefWidth="134.0" text="Load map">
+      <Button layoutX="82.0" layoutY="72.0" mnemonicParsing="false" onAction="#loadFile" prefHeight="48.0" prefWidth="134.0" style="-fx-background-color: #666666;" text="Load map" textFill="#dddddd">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font></Button>

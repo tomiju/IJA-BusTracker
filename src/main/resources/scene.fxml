@@ -16,15 +16,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #292929;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <ScrollPane fx:id="zoomMap" prefHeight="706.0" prefWidth="1001.0" BorderPane.alignment="CENTER">
+      <ScrollPane fx:id="zoomMap" prefHeight="706.0" prefWidth="1001.0" style="-fx-background-color: #292929;" BorderPane.alignment="CENTER">
          <content>
-            <StackPane onScroll="#onStackPaneScroll" prefHeight="744.0" prefWidth="1015.0">
+            <StackPane onScroll="#onStackPaneScroll" prefHeight="744.0" prefWidth="1015.0" style="-fx-background-color: #292929;">
                <children>
                   <Group fx:id="scroll" pickOnBounds="true">
                      <children>
-                        <Pane fx:id="map" cache="true" layoutX="-124.0" prefHeight="792.0" prefWidth="1094.0">
+                        <Pane fx:id="map" cache="true" layoutX="-124.0" prefHeight="798.0" prefWidth="1095.0" style="-fx-background-color: #292929;">
                            <children>
                               <Label fx:id="lblEditMode" layoutX="-200.0" layoutY="450.0" prefHeight="85.0" prefWidth="918.0" text="EDIT MODE" textFill="#e80505" visible="false">
                                  <font>
@@ -40,23 +40,23 @@
       </ScrollPane>
    </center>
    <left>
-      <VBox fillWidth="false" prefHeight="689.0" prefWidth="183.0" BorderPane.alignment="CENTER">
+      <VBox fillWidth="false" prefHeight="689.0" prefWidth="183.0" style="-fx-background-color: #292929;" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="45.0" prefWidth="183.0">
                <children>
                   <Separator orientation="VERTICAL" prefHeight="3.0" prefWidth="154.0" visible="false" />
                   <HBox prefHeight="35.0" prefWidth="183.0">
                      <children>
-                        <Label prefHeight="19.0" prefWidth="39.0" text=" Time:">
+                        <Label prefHeight="19.0" prefWidth="39.0" text=" Time:" textFill="#dddddd">
                            <font>
                               <Font name="Arial" size="12.0" />
                            </font></Label>
-                        <Text fx:id="txtTimer" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00:00" wrappingWidth="87.13671875">
+                        <Text fx:id="txtTimer" fill="#dddddd" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00:00" wrappingWidth="87.13671875">
                            <font>
                               <Font name="Arial" size="18.0" />
                            </font>
                         </Text>
-                        <Button fx:id="btnReset" mnemonicParsing="false" onAction="#handleSimulationReset" prefHeight="24.0" prefWidth="58.0" text="RESET">
+                        <Button fx:id="btnReset" mnemonicParsing="false" onAction="#handleSimulationReset" prefHeight="24.0" prefWidth="58.0" style="-fx-background-color: #666666;" text="RESET" textFill="#dddddd">
                            <font>
                               <Font name="Arial" size="12.0" />
                            </font></Button>
@@ -66,8 +66,8 @@
             </VBox>
             <HBox prefHeight="41.0" prefWidth="183.0">
                <children>
-                  <Separator prefHeight="18.0" prefWidth="49.0" visible="false" />
-                  <Button fx:id="btnPause" mnemonicParsing="false" onAction="#pauseSimulation" text="Pause">
+                  <Separator prefHeight="18.0" prefWidth="45.0" visible="false" />
+                  <Button fx:id="btnPause" mnemonicParsing="false" onAction="#pauseSimulation" style="-fx-background-color: #666666;" text="Pause" textFill="#dddddd">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font></Button>
@@ -75,12 +75,12 @@
             </HBox>
             <HBox prefHeight="39.0" prefWidth="183.0">
                <children>
-                  <ToggleButton fx:id="btnEditMode" mnemonicParsing="false" onAction="#handleEditMode" prefHeight="25.0" prefWidth="85.0" text="Edit mode">
+                  <ToggleButton fx:id="btnEditMode" mnemonicParsing="false" onAction="#handleEditMode" prefHeight="25.0" prefWidth="85.0" style="-fx-background-color: #666666;" text="Edit mode" textFill="#dddddd">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font></ToggleButton>
                   <Separator prefHeight="26.0" prefWidth="28.0" visible="false" />
-                  <TextField fx:id="txtTimeSpeed" onAction="#onEnter" prefHeight="26.0" prefWidth="84.0" promptText="speed 1-5">
+                  <TextField fx:id="txtTimeSpeed" onAction="#onEnter" prefHeight="26.0" prefWidth="84.0" promptText="speed 1-5" style="-fx-background-color: #878787;">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font></TextField>
@@ -88,43 +88,43 @@
             </HBox>
             <HBox prefHeight="39.0" prefWidth="183.0">
                <children>
-                  <Label prefHeight="25.0" prefWidth="61.0" text=" Lines:">
+                  <Label prefHeight="25.0" prefWidth="61.0" text=" Lines:" textFill="#dddddd">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font></Label>
-                  <Button fx:id="focusReset" mnemonicParsing="false" onAction="#handleFocusReset" prefHeight="23.0" prefWidth="66.0" text="Clear">
+                  <Button fx:id="focusReset" mnemonicParsing="false" onAction="#handleFocusReset" prefHeight="23.0" prefWidth="66.0" style="-fx-background-color: #666666;" text="Clear" textFill="#dddddd">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font></Button>
                   <Separator prefHeight="23.0" prefWidth="0.0" visible="false" />
-                  <Button fx:id="btnSaveTimeSpeed" mnemonicParsing="false" onAction="#handleSimulationSpeedBtn" prefHeight="23.0" prefWidth="101.0" text="Change speed">
+                  <Button fx:id="btnSaveTimeSpeed" mnemonicParsing="false" onAction="#handleSimulationSpeedBtn" prefHeight="23.0" prefWidth="101.0" style="-fx-background-color: #666666;" text="Change speed" textFill="#dddddd">
                      <font>
                         <Font name="Arial" size="9.0" />
                      </font>
                   </Button>
                </children>
             </HBox>
-            <ListView fx:id="lineList" editable="true" onMouseClicked="#handleMouseClick" prefHeight="292.0" prefWidth="183.0" />
+            <ListView fx:id="lineList" editable="true" onMouseClicked="#handleMouseClick" prefHeight="292.0" prefWidth="183.0" style="-fx-background-color: #232323; -fx-border-color: #696969;" />
             <HBox prefHeight="18.0" prefWidth="183.0">
                <children>
-                  <Label prefHeight="15.0" prefWidth="55.0" text=" Streets:">
+                  <Label prefHeight="15.0" prefWidth="55.0" text=" Streets:" textFill="#dddddd">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font></Label>
-                  <Label fx:id="lblVehicleList" prefHeight="15.0" prefWidth="53.0" text=" Vehicle:">
+                  <Label fx:id="lblVehicleList" prefHeight="15.0" prefWidth="53.0" text=" Vehicle:" textFill="#dddddd">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font></Label>
-                  <Text fx:id="txtVehicleName" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="73.13671875">
+                  <Text fx:id="txtVehicleName" fill="#dddddd" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="73.13671875">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font></Text>
                </children>
             </HBox>
-            <HBox prefHeight="394.0" prefWidth="183.0">
+            <HBox prefHeight="374.0" prefWidth="183.0">
                <children>
-                  <ListView fx:id="streetList" editable="true" prefHeight="379.0" prefWidth="92.0" />
-                  <ListView fx:id="vehicleList" editable="true" mouseTransparent="true" prefHeight="393.0" prefWidth="98.0" />
+                  <ListView fx:id="streetList" editable="true" prefHeight="361.0" prefWidth="86.0" style="-fx-background-color: #232323; -fx-border-color: #696969;" />
+                  <ListView fx:id="vehicleList" editable="true" mouseTransparent="true" prefHeight="393.0" prefWidth="98.0" style="-fx-background-color: #232323; -fx-border-color: #696969;" />
                </children>
             </HBox>
          </children>
