@@ -139,16 +139,10 @@ public class Drawable
 							
 							if (streetList.getItems().isEmpty())
 							{
-								streetList.getItems().add(street.getId());
+								streetList.getItems().add(street.getId()); // pridani nakliknute ulice do seznamu
 								line.setStroke(Color.CYAN);
 								
 								busLine.addStreet(street);
-								//DEBUG
-								/*System.out.println("Debug edited streets:");
-								for (Street street1 : busLine.getStreets())
-								{
-									System.out.println(street1.getId());
-								}*/
 							}
 							
 							for (String item : streetList.getItems()) // lze pridat pouze ulice, ktere jiz v seznamu nejsou!
@@ -199,22 +193,20 @@ public class Drawable
 			{
 				Drawable.resetColors(busLines);
 				
-				street.setOpen(false);
+				street.setOpen(false); // uzavre ulici
 				line.setStroke(Color.RED);
 				
 				for	(BusLine busLine : busLines)
 				{
 					for	(Street street_busLines : busLine.getStreets())
 					{
-						if (street_busLines.getId() == street.getId())
+						if (street_busLines.getId() == street.getId()) // upozorneni, kterych ulic se uzavreni tyka
 						{
-							//System.out.println(busLine.getId()); // debug
 							Alert alert = new Alert(Alert.AlertType.INFORMATION);
 							alert.setTitle("Street closing information");
 							alert.setHeaderText("Warning\nYou have closed street:  " + street.getId());
-							alert.setContentText("The path has been affected by street closing, you will now need to select new path for line:  " + busLine.getId());
-							alert.show();
-						
+							alert.setContentText("The path has been affected, line:  " + busLine.getId());
+							alert.show();						
 							
 							for (Vehicle vehicle : busLine.getVehicles())
 							{

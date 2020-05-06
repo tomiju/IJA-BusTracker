@@ -24,7 +24,6 @@ public class Street
 	private boolean open = true; // otevrena / uzavrena ulice
 	private ArrayList<Stop> stops;
 	private Coordinate start, end;
-	private int busyness; // vytizeni
 	
 	@JsonIgnore
 	private StreetView streetView;
@@ -35,7 +34,6 @@ public class Street
 		this.stops = stops;
 		this.start = start;
 		this.end = end;
-		this.busyness = 0;
 		
 		this.streetView = new StreetView();
 	}
@@ -86,16 +84,6 @@ public class Street
 	public boolean getStatus()
 	{
 		return this.open;
-	}
-	
-	/**
-	 * Vrati promennou reprezentujici "zahlcenost" ulice
-	 * @return int stupen zahlceni ulice
-	 */
-	@JsonIgnore
-	public int getBusyness()
-	{
-		return this.busyness;
 	}
 	
 	/**

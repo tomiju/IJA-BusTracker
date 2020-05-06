@@ -40,7 +40,7 @@ public class Vehicle
 	private TimetableEntry previousStop;
 	private int nextStopTime;
 	private int previousStopTime;
-	private ArrayList<Coordinate> vehiclePath;
+	private ArrayList<Coordinate> vehiclePath; // cesta vozidla
 	private int index = 0;
 	private PathTransition transitionVehicle = new PathTransition();
 	private PathTransition transitionText = new PathTransition();
@@ -50,8 +50,8 @@ public class Vehicle
 	private Random random = new Random();
 	private int delay = 0;
 	private Coordinate editPreviousCoord = new Coordinate(0,0);
-	private int editedPathStopsIndex = 0;
-	private ArrayList<TimetableEntry> editedPathStops = new ArrayList<TimetableEntry>();
+	private int editedPathStopsIndex = 0; // pomocny index
+	private ArrayList<TimetableEntry> editedPathStops = new ArrayList<TimetableEntry>(); // editovana cesta vozidla
 	
 	// aktualni ulice se da dopocitat - aktualni koordinaty -> v lince jsou vsechny ulice po trase - spocitat na ktere primce lezi bod dany aktualnimi koordinaty
 	
@@ -244,7 +244,8 @@ public class Vehicle
 	public void computeFullPath()
 	{
 		this.vehiclePath = new ArrayList<Coordinate>();
-		for (Street street: this.line.getStreets()) 
+		
+		for (Street street: this.line.getStreets()) // projde cestu a postupne ulozi body
 		{
 			this.vehiclePath.add(street.getStart());
 			
@@ -276,11 +277,10 @@ public class Vehicle
 
 		if(!this.getLine().isEdited())
 		{	
-			ArrayList<Double> coords = new ArrayList<Double>();
-			
+			ArrayList<Double> coords = new ArrayList<Double>();			
 			ArrayList<Double> coords2 = new ArrayList<Double>();
 					
-			if (inputTime == 0)
+			if (inputTime == 0) // prvni zastavka - nastaveni promennych
 			{	
 				this.computeFullPath();
 				this.setFirstEntry(this.timetable);
@@ -311,8 +311,8 @@ public class Vehicle
 				coords2.add(nextStopY);
 				
 				this.setCurrentPosition(this.firstEntry.getStop().getCoordinate());
-				this.previousStop = this.firstEntry;
-				this.nextStop = this.timetable.nextStop();
+				this.previousStop = this.firstEntry; // prvni zastavka
+				this.nextStop = this.timetable.nextStop(); // druha zastavka
 						
 				Polyline pathVehicle = new Polyline();
 				pathVehicle.getPoints().addAll(coords);
@@ -320,7 +320,7 @@ public class Vehicle
 				Polyline pathName = new Polyline();
 				pathName.getPoints().addAll(coords2);
 				
-				PathTransition transition = new PathTransition();
+				PathTransition transition = new PathTransition(); // nastaveni animace
 				transition.setNode(this.vehicleView.getCircle());
 				transition.setDuration(Duration.millis(this.nextStopTime/timeSpeed*1000));
 				transition.setPath(pathVehicle);
@@ -335,7 +335,7 @@ public class Vehicle
 				this.transitionVehicle = transition;
 				this.transitionText = transition2;
 			}
-			else if (this.endTime == inputTime)
+			else if (this.endTime == inputTime) // konec jizdy
 			{
 				this.transitionVehicle.stop();
 				this.transitionText.stop();
@@ -348,15 +348,17 @@ public class Vehicle
 				return;
 			}
 			else if (inputTime == Integer.parseInt(this.previousStop.getTime().substring(3,5)) + (Integer.parseInt(this.previousStop.getTime().substring(0,2)) * 60) || inputTime == Integer.parseInt(this.firstEntry.getTime().substring(3,5)) + (Integer.parseInt(this.firstEntry.getTime().substring(0,2)) * 60))
-			{
+			{ // po prujezdu prvni zastavkou se zviditelni vozidlo
 				this.getVehicleView().getCircle().setVisible(true);
 				this.getVehicleView().getText().setVisible(true);
 				
+				// parsovani casu dalsi zastavky - kvuli delce jizdy
 				this.nextStopTime = Integer.parseInt(this.nextStop.getTime().substring(3,5)) + (Integer.parseInt(this.nextStop.getTime().substring(0,2)) * 60) - this.previousStopTime;
 				
 				double nextStopX = (double)this.nextStop.getStop().getCoordinate().getX();
 				double nextStopY = (double)this.nextStop.getStop().getCoordinate().getY();
 				
+				// nasklada se trasa k dalsi zastavce
 				coords.add(this.currentPosition.getX());
 				coords.add(this.currentPosition.getY());
 				coords2.add(this.currentPosition.getX() + 35);
@@ -380,6 +382,7 @@ public class Vehicle
 				coords2.add(nextStopX + 35);
 				coords2.add(nextStopY);
 				
+				// aktualni pozice je nasledujici zastavka
 				this.setCurrentPosition(this.nextStop.getStop().getCoordinate());
 				
 				this.previousStopTime = Integer.parseInt(this.nextStop.getTime().substring(3,5)) + (Integer.parseInt(this.nextStop.getTime().substring(0,2)) * 60);
@@ -409,12 +412,13 @@ public class Vehicle
 			}
 		}
 		else
-		{
+		{	// editovana trasa
 			if(this.transitionVehicle == null && !this.ended)
 			{
 				hoursTmp = time.substring(0,2);
 				inputTime = (Integer.parseInt(time.substring(3,5)) + (Integer.parseInt(hoursTmp) * 60));
-
+				
+				// delka cele jizdy (pom - inputTime) je zbyvajici delka jizdy
 				int pom = Integer.parseInt(this.getTimetable().getEntries().get(this.getTimetable().getEntries().size() - 1).getTime().substring(3,5)) + (Integer.parseInt(this.getTimetable().getEntries().get(this.getTimetable().getEntries().size() - 1).getTime().substring(0,2)) * 60);
 				
 				// nastaveni nove aktualni pozice s korekci
@@ -433,12 +437,13 @@ public class Vehicle
 					double vehicle_distance = start_and_vehicle + vehicle_and_end;
 					double street_size = round(this.distance(street.getEnd().getX(), street.getEnd().getY(), street.getStart().getX(), street.getStart().getY()), 0);
 					
+					// urceni pozice na aktualni ulici (
 					if(vehicle_distance - street_size >= -5.0 && vehicle_distance - street_size <= 5.0)
 					{
 						this.editPreviousCoord = street.getEnd();
 						
 						if (inputTime <= Integer.parseInt(this.previousStop.getTime().substring(3,5)) + (Integer.parseInt(this.previousStop.getTime().substring(0,2)) * 60) || inputTime <= Integer.parseInt(this.firstEntry.getTime().substring(3,5)) + (Integer.parseInt(this.firstEntry.getTime().substring(0,2)) * 60))
-						{
+						{ // pokud uz projel zastavkou na aktualni ulici, tak ji neulozim, jinak ano
 							if(this.previousStop.getStop().getStreet().getId().equals(street.getId()))
 							{
 								this.vehiclePath.add(this.previousStop.getStop().getCoordinate());
@@ -452,11 +457,11 @@ public class Vehicle
 						continue;
 					}
 					
-					if(street.getEnd().getX() == this.editPreviousCoord.getX() && street.getEnd().getY() == this.editPreviousCoord.getY())
+					if(street.getEnd().getX() == this.editPreviousCoord.getX() && street.getEnd().getY() == this.editPreviousCoord.getY()) // na ulici prijizdi zezadu
 					{
 						this.vehiclePath.add(street.getEnd());
 									
-						for(TimetableEntry timetable : this.getTimetable().getEntries())
+						for(TimetableEntry timetable : this.getTimetable().getEntries()) // kdyz je ulice v puvodnim jizdnim radu, tak ji ulozim do trasy
 						{
 							if(timetable.getStop().getStreet().getId().equals(street.getId()))
 							{
@@ -475,11 +480,11 @@ public class Vehicle
 						
 						this.editPreviousCoord = street.getStart();
 					}
-					else if(street.getStart().getX() == this.editPreviousCoord.getX() && street.getStart().getY() == this.editPreviousCoord.getY())
+					else if(street.getStart().getX() == this.editPreviousCoord.getX() && street.getStart().getY() == this.editPreviousCoord.getY()) // na ulici prijizdi zepredu
 					{
 						this.vehiclePath.add(street.getStart());
 						
-						for(TimetableEntry timetable : this.getTimetable().getEntries())
+						for(TimetableEntry timetable : this.getTimetable().getEntries()) // kdyz je ulice v puvodnim jizdnim radu, tak ji ulozim do trasy
 						{
 							if(timetable.getStop().getStreet().getId().equals(street.getId()))
 							{
@@ -510,11 +515,10 @@ public class Vehicle
 						Alert alert = new Alert(Alert.AlertType.WARNING);
 						alert.setTitle("Vehicle has no path");
 						alert.setHeaderText("Warning\nVehicle: \"" + this.getId() + "\" doesn't know where to go :(");
-						alert.setContentText("The path you have selected had made it impossible for this vehicle to continue, it will stay at this place forever. :(\nIt is possible, that you have closed street with vehicle being on it or made some vehicle stuck on street that is not part of the new path.");
+						alert.setContentText("Stuck... Forever :(");
 						alert.show();
 						
-		            });
-					
+		            });					
 					return;
 				}
 				
@@ -531,13 +535,13 @@ public class Vehicle
 					if(this.nextStop != null)
 					{
 						if (this.vehiclePath.get(this.index).getX() == this.nextStop.getStop().getCoordinate().getX() && this.vehiclePath.get(this.index).getY() == this.nextStop.getStop().getCoordinate().getY())
-						{
+						{ // prvni animace po nasledujici zastavku
 							coords.add(this.nextStop.getStop().getCoordinate().getX());
 							coords.add(this.nextStop.getStop().getCoordinate().getY());
 							coords2.add(this.nextStop.getStop().getCoordinate().getX() + 35);
 							coords2.add(this.nextStop.getStop().getCoordinate().getY());
+							
 							pom = Integer.parseInt(this.nextStop.getTime().substring(3,5)) + (Integer.parseInt(this.nextStop.getTime().substring(0,2)) * 60);
-
 							this.setCurrentPosition(this.nextStop.getStop().getCoordinate());
 							break;
 						}
@@ -555,7 +559,7 @@ public class Vehicle
 				Polyline pathName = new Polyline();
 				pathName.getPoints().addAll(coords2);
 				
-				this.delay = random.nextInt(20) + 5;
+				this.delay = random.nextInt(20) + 5; // nahodne zpozdeni
 				int randomTimer = (pom - inputTime) + this.delay;
 				
 				PathTransition transition = new PathTransition();
@@ -575,7 +579,7 @@ public class Vehicle
 			}
 			else if(!this.ended && this.nextStop != null && (inputTime) == (Integer.parseInt(this.nextStop.getTime().substring(3,5)) + (Integer.parseInt(this.nextStop.getTime().substring(0,2)) * 60) + this.delay))
 			{	
-				if(this.editedPathStopsIndex + 1 < this.editedPathStops.size())
+				if(this.editedPathStopsIndex + 1 < this.editedPathStops.size()) // pokud existuje jeste dalsi zastavka, tak je nasledujici, jinak dojel
 				{
 					this.nextStop = this.editedPathStops.get(this.editedPathStopsIndex + 1);
 					this.editedPathStopsIndex++;
@@ -607,6 +611,7 @@ public class Vehicle
 							coords.add(this.nextStop.getStop().getCoordinate().getY());
 							coords2.add(this.nextStop.getStop().getCoordinate().getX() + 35);
 							coords2.add(this.nextStop.getStop().getCoordinate().getY());
+							
 							pom = Integer.parseInt(this.nextStop.getTime().substring(3,5)) + (Integer.parseInt(this.nextStop.getTime().substring(0,2)) * 60);
 							this.setCurrentPosition(this.nextStop.getStop().getCoordinate());
 							break;
@@ -643,7 +648,7 @@ public class Vehicle
 				this.transitionVehicle = transition;
 				this.transitionText = transition2;				
 			}
-			else if(this.transitionVehicle != null && !this.transitionVehicle.getStatus().equals(Animation.Status.RUNNING) && this.nextStop == null)
+			else if(this.transitionVehicle != null && !this.transitionVehicle.getStatus().equals(Animation.Status.RUNNING) && this.nextStop == null) // konec jizdy
 			{				
 				this.ended = true;
 
@@ -718,7 +723,7 @@ public class Vehicle
 	{
 		if(!this.isFinished() && this.transitionVehicle != null && this.transitionText != null)
 		{		
-			// nastaveni nove soucasne pozice vozidla
+			// nastaveni nove soucasne pozice vozidla (tam, kde skoncila animace)
 			this.setCurrentPosition(new Coordinate(this.getVehicleView().getCircle().getCenterX() + this.getVehicleView().getCircle().getTranslateX(), this.getVehicleView().getCircle().getCenterY() + this.getVehicleView().getCircle().getTranslateY()));
 			
 			// zruseni animace (vrati objekt na zacatek, proto predtim ulozim pozici a objekt prekreslim na spravne misto

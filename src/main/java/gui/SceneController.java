@@ -99,39 +99,13 @@ public class SceneController implements Initializable {
 	@FXML
 	private void handleEditMode(ActionEvent event)
 	{
-		if(btnEditMode.isSelected())
-		{
-			//debug - vypise aktualni pozici prvniho vozidla (po zastaveni animace)
-			/*boolean test = true;
-			for (Vehicle vehicle : SceneController.data.getVehicles()) 
-			{
-				if(test)
-				{
-					System.out.println("Vehicle: " + vehicle.getId() + " X: "+ vehicle.getVehicleView().getCircle().translateXProperty());
-					System.out.println("Vehicle: " + vehicle.getId() + " Y: "+ vehicle.getVehicleView().getCircle().translateYProperty());
-					
-					Circle circle = new Circle();
-					
-					circle.setRadius(8.0f);
-					circle.setFill(Color.PINK);
-					circle.setCenterX(vehicle.getVehicleView().getCircle().getCenterX() + vehicle.getVehicleView().getCircle().getTranslateX());
-					circle.setCenterY(vehicle.getVehicleView().getCircle().getCenterY() + vehicle.getVehicleView().getCircle().getTranslateY());
-					test = false;
-					map.getChildren().add(circle);
-					
-					// aktualizace souradnic
-					//vehicle.setCurrentPosition(new Coordinate(vehicle.getVehicleView().getCircle().getCenterX() + vehicle.getVehicleView().getCircle().getTranslateX(), vehicle.getVehicleView().getCircle().getCenterY() + vehicle.getVehicleView().getCircle().getTranslateY()));
-				
-					System.out.println("Current position: X" + vehicle.getCurrentPosition().getX() + " Y " + vehicle.getCurrentPosition().getY());
-				}
-			}*/
-			
-			
+		if(btnEditMode.isSelected()) // zapnuti edit mode
+		{			
 			lblEditMode.setVisible(true);
 			lblVehicleList.setVisible(false);
 			txtVehicleName.setText("New Path:");
 			
-			for (Vehicle vehicle : SceneController.data.getVehicles()) 
+			for (Vehicle vehicle : SceneController.data.getVehicles()) // pozastaveni animaci
 			{
 				vehicle.pauseVehicle();
 
@@ -146,7 +120,7 @@ public class SceneController implements Initializable {
 			txtTimeSpeed.setMouseTransparent(true);
 			streetList.setMouseTransparent(false);
 					
-			for (BusLine line : SceneController.data.getLines()) 
+			for (BusLine line : SceneController.data.getLines()) // zrusi focus z ulic (barvy)
 			{
 				line.unsetLineFocus();
 				
@@ -164,7 +138,7 @@ public class SceneController implements Initializable {
 			
 			vehicleList.getItems().clear();
 		}
-		else
+		else // vypnuti edit mode
 		{
 			// kontrola, ze pri pokusu o opusteni edit mode jsou nastaveny vsechny editovane cesty
 			for (BusLine line : SceneController.data.getLines()) 
@@ -174,7 +148,7 @@ public class SceneController implements Initializable {
 					Alert alert = new Alert(Alert.AlertType.WARNING);
 					alert.setTitle("Edit mode error");
 					alert.setHeaderText("Warning\nPath not set for line:  " + line.getId());
-					alert.setContentText("You need to create new path if you have closed street that belonged to some bus line.\nPath can be created by clicking on the streets in map.");
+					alert.setContentText("You need to create new path.");
 					alert.show();
 					
 					btnEditMode.setSelected(true);
@@ -186,11 +160,10 @@ public class SceneController implements Initializable {
 			lblEditMode.setVisible(false);
 			lblVehicleList.setVisible(true);
 			
-			for (Vehicle vehicle : SceneController.data.getVehicles()) 
+			for (Vehicle vehicle : SceneController.data.getVehicles()) // znovu zapnuti animaci po vypnuti edit mode
 			{
 				vehicle.resumeVehicle();
 				
-
 				vehicle.getVehicleView().getCircle().setMouseTransparent(false);
 				vehicle.getVehicleView().getText().setMouseTransparent(false);
 			}
@@ -201,7 +174,7 @@ public class SceneController implements Initializable {
 			btnSaveTimeSpeed.setMouseTransparent(false);
 			txtTimeSpeed.setMouseTransparent(false);
 			
-			for (BusLine line : SceneController.data.getLines()) 
+			for (BusLine line : SceneController.data.getLines()) // vycisti barvy ulic
 			{
 				line.unsetLineFocus();
 				
@@ -213,7 +186,7 @@ public class SceneController implements Initializable {
 					}
 				}
 				
-				if(line.isEdited())
+				if(line.isEdited()) // zviditelni vozidla, ktere jeste byli neviditelne
 				{
 					for (Vehicle vehicle : line.getVehicles())
 					{
@@ -281,7 +254,6 @@ public class SceneController implements Initializable {
 			{	
 				if (!txtTimeSpeed.getText().isEmpty() && Integer.parseInt(txtTimeSpeed.getText()) >= 1 && Integer.parseInt(txtTimeSpeed.getText()) <= 5)
 				{
-					//System.out.println("speed: " + txtTimeSpeed.getText()); // debug
 					timeSpeed = Integer.parseInt(txtTimeSpeed.getText());
 				}
 				else
@@ -313,7 +285,6 @@ public class SceneController implements Initializable {
 			{	
 				if (Integer.parseInt(txtTimeSpeed.getText()) >= 1 && Integer.parseInt(txtTimeSpeed.getText()) <= 5)
 				{
-					System.out.println("speed: " + txtTimeSpeed.getText()) ;
 					timeSpeed = Integer.parseInt(txtTimeSpeed.getText());
 				}
 				else
@@ -348,27 +319,25 @@ public class SceneController implements Initializable {
 			btnSaveTimeSpeed.setMouseTransparent(false);
 			txtTimeSpeed.setMouseTransparent(false);
 			
-			for (BusLine line: SceneController.data.getLines())
+			for (BusLine line: SceneController.data.getLines()) // resetuje stav na needitovany, resetuje barvy
 			{
-
 				line.setEdit(false);
 				
-				for (BusLine backupLine : this.dataBackup)
+				for (BusLine backupLine : this.dataBackup) // nacte zalohu puvodnich stavu linek
 				{					
 					if (backupLine.getId() == line.getId())
 					{
 						line.resetSimulation(backupLine.getStreets());
 					}
-				}					
-				
+				}									
 			}
 			
-			for (Vehicle vehicle : SceneController.data.getVehicles()) 
+			for (Vehicle vehicle : SceneController.data.getVehicles()) // zrusi animace, nastavi pocatecni pozice
 			{	
 				vehicle.cancelVehicle();
 				
 				vehicle.setCurrentPosition(vehicle.getLine().getStreets().get(0).getStart()); // nastaveni pocatecni pozice auta
-				vehicle.setCurrentStreet(vehicle.getLine().getStart().getStreet()); // nastaveni pocatecni ulice
+				vehicle.setCurrentStreet(vehicle.getLine().getStart().getStreet()); 
 
 			    vehicle.getVehicleView().getCircle().setCenterX(vehicle.getCurrentPosition().getX());
 			    vehicle.getVehicleView().getCircle().setCenterY(vehicle.getCurrentPosition().getY());
@@ -378,26 +347,26 @@ public class SceneController implements Initializable {
 				
 				vehicle.getVehicleView().getCircle().setFill(Color.BLUE);
 
-			    vehicle.resetIndex();
+			    vehicle.resetIndex(); // reset pomocnych promennych
 			    vehicle.getTimetable().resetIndex();
 			    vehicle.resetVehiclePath();
 			    
 			    vehicle.getVehicleView().getCircle().setVisible(false);
 			    vehicle.getVehicleView().getText().setVisible(false);
 			    
-			    this.localTime = LocalTime.of(23, 59, 0, 0);
+			    this.localTime = LocalTime.of(23, 59, 0, 0); // reset casu
 				this.txtTimer.setText(localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));	
 			}
 			
 			for (Street street : SceneController.data.getStreets())
 			{
-				if (!street.getStatus())
+				if (!street.getStatus()) // otevreni vsech ulic
 				{
 					street.setOpen(true);
 				}
 				street.getStreetView().getLine().setStroke(Color.GREY);
 				
-				street.getStreetView().getLine().setMouseTransparent(true); // nejde editovat trasa
+				street.getStreetView().getLine().setMouseTransparent(true); // nejde editovat trasa mimo editacni mod
  				street.getStreetView().getName().setMouseTransparent(true);
 			}
 					
@@ -413,7 +382,7 @@ public class SceneController implements Initializable {
 				lineList.getSelectionModel().clearSelection();
 		    }
 		    
-		    if (!this.streetList.getSelectionModel().isEmpty()) // error s indexem -1 kdyz se pokousim resetovat focus prazdneho seznamu!!!
+		    if (!this.streetList.getSelectionModel().isEmpty())
 		    {
 		    	streetList.getSelectionModel().clearSelection();
 		    }
@@ -476,7 +445,7 @@ public class SceneController implements Initializable {
 			{
 				if (street != null)
 				{
-					street.getStreetView().getLine().setMouseTransparent(true); // nejde editovat trasa
+					street.getStreetView().getLine().setMouseTransparent(true); // nejde editovat trasa mimo editacni mod
  					street.getStreetView().getName().setMouseTransparent(true);
 					streetList.getItems().remove(street.getId());
 				}
@@ -547,14 +516,13 @@ public class SceneController implements Initializable {
 	   		Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setTitle("Application setup error");
 			alert.setHeaderText("Error\nSomething is was wrong with input data");
-			alert.setContentText("It is possible that you didnt choose any input file\nor the file you have chosen has incorrect format.");
+			alert.setContentText("Incorrect file format.");
 			alert.showAndWait();
             Platform.exit();
             System.exit(0);
         }
         
         // vytvori hlubokou kopii stavu linek pred editaci (nutne pro restart editace)
-        //this.dataBackup = new ArrayList<BusLine>();
         for (BusLine line : SceneController.data.getLines())
         {
         	try 
@@ -572,7 +540,7 @@ public class SceneController implements Initializable {
             public void changed(ObservableValue<? extends String> observable,
                     String oldValue, String newValue) {
             	
-            	if(!btnEditMode.isSelected())
+            	if(!btnEditMode.isSelected()) // mimo editacni mod
             	{
             		if(!streetList.getItems().isEmpty())
             		{
@@ -713,7 +681,7 @@ public class SceneController implements Initializable {
      */
 	public void initMap()
 	{
-		for (Street street : SceneController.data.getStreets()) 
+		for (Street street : SceneController.data.getStreets()) // vykresli ulice
 		{
 			Drawable.drawStreets(street, map);
 			street.setStreetParameterToStop();
@@ -725,7 +693,7 @@ public class SceneController implements Initializable {
 	        street.getStreetView().getName().setMouseTransparent(true);
 		}
 		
-		for (BusLine line : SceneController.data.getLines()) 
+		for (BusLine line : SceneController.data.getLines()) // naplni seznam linkama
 		{
 			if (line != null)
 			{
@@ -733,7 +701,7 @@ public class SceneController implements Initializable {
 			}	
 		}
 		
-		for (Vehicle vehicle : SceneController.data.getVehicles()) 
+		for (Vehicle vehicle : SceneController.data.getVehicles()) // vykresli vozidla
 		{
 			vehicle.setCurrentPosition(vehicle.getLine().getStreets().get(0).getStart()); // nastaveni pocatecni pozice auta
 			vehicle.setCurrentStreet(vehicle.getLine().getStart().getStreet()); // nastaveni pocatecni ulice
@@ -775,7 +743,7 @@ public class SceneController implements Initializable {
 		
 		txtVehicleName.setText(vehicle.getId());
 		
-		for(TimetableEntry entry : vehicle.getTimetable().getEntries())
+		for(TimetableEntry entry : vehicle.getTimetable().getEntries()) // naplneni tabulky jizdnim radem vozidla
 		{
 			if(vehicle.getLine().isEdited())
 			{
@@ -806,7 +774,7 @@ public class SceneController implements Initializable {
 		}
 		
 		int pomIndex = 0;
-		for	(String item : vehicleList.getItems())
+		for	(String item : vehicleList.getItems()) // zvyrazneni nasledujici zastavky
 		{
 			if(!vehicle.isFinished())
 			{
@@ -820,7 +788,7 @@ public class SceneController implements Initializable {
 	}
 	
 	/**
-	 * Vrati jmeno aktualne nakliknuteho vozidla
+	 * Ziska jmeno aktualne nakliknuteho vozidla
 	 * @return String jmeno aktualne nakliknuteho vozidla
 	 */
 	public String getCurrentVehicleId()
@@ -840,7 +808,7 @@ public class SceneController implements Initializable {
 		timer.scheduleAtFixedRate(new TimerTask() {
 			public void run()
 			{
-				Platform.runLater(() -> {
+				Platform.runLater(() -> { // zajisti, ze se upravy GUI budou delat z GUI vlakna
 					if(btnPause.getText().equals("Pause") && !btnEditMode.isSelected())
 					{				
 						localTime = localTime.plusMinutes(1);
@@ -851,13 +819,13 @@ public class SceneController implements Initializable {
 						{
 							if(vehicle != null)
 							{
-								vehicle.drive(txtTimer.getText(), timeSpeed);
+								vehicle.drive(txtTimer.getText(), timeSpeed); // jizda
 								
 								// automaticka aktualizace nasledujici zastavky (pro nakliknute vozidlo)
-									if (getCurrentVehicleId() == vehicle.getId())
-									{
-										showVehicleInfo(vehicle);
-									}						
+								if (getCurrentVehicleId() == vehicle.getId())
+								{
+									showVehicleInfo(vehicle);
+								}						
 							}
 						}
 					}
