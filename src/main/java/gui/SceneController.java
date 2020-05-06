@@ -144,6 +144,7 @@ public class SceneController implements Initializable {
 			focusReset.setMouseTransparent(true);
 			btnSaveTimeSpeed.setMouseTransparent(true);
 			txtTimeSpeed.setMouseTransparent(true);
+			streetList.setMouseTransparent(false);
 					
 			for (BusLine line : SceneController.data.getLines()) 
 			{
@@ -181,6 +182,7 @@ public class SceneController implements Initializable {
 				}
 			}
 			
+			streetList.setMouseTransparent(true);
 			lblEditMode.setVisible(false);
 			lblVehicleList.setVisible(true);
 			
@@ -348,18 +350,17 @@ public class SceneController implements Initializable {
 			
 			for (BusLine line: SceneController.data.getLines())
 			{
-				if(line.isEdited())
-				{
-					line.setEdit(false);
-					
-					for (BusLine backupLine : this.dataBackup)
-					{					
-						if (backupLine.getId() == line.getId())
-						{
-							line.resetSimulation(backupLine.getStreets());
-						}
-					}					
-				}
+
+				line.setEdit(false);
+				
+				for (BusLine backupLine : this.dataBackup)
+				{					
+					if (backupLine.getId() == line.getId())
+					{
+						line.resetSimulation(backupLine.getStreets());
+					}
+				}					
+				
 			}
 			
 			for (Vehicle vehicle : SceneController.data.getVehicles()) 
@@ -683,6 +684,11 @@ public class SceneController implements Initializable {
             			}
             		}
             	}
+            	else
+            	{
+            		newValue = "";
+            		oldValue = "";
+            	}
             }
         });
         
@@ -771,25 +777,45 @@ public class SceneController implements Initializable {
 		
 		for(TimetableEntry entry : vehicle.getTimetable().getEntries())
 		{
-			vehicleList.getItems().add(entry.getStop().getId().concat("\n" + entry.getTime()));
+			if(vehicle.getLine().isEdited())
+			{
+				boolean isItInList = false;
+				
+				for(TimetableEntry pom1 : vehicle.getEditedPathStops())
+				{
+					if(pom1.getStop().getId() == entry.getStop().getId())
+					{
+						isItInList = true;
+						break;
+					}
+				}
+				
+				if(isItInList)
+				{
+					vehicleList.getItems().add(entry.getStop().getId().concat("\n" + entry.getTime()+"\n(+" + vehicle.getDelay() + " min.)"));
+				}
+				else
+				{
+					vehicleList.getItems().add(entry.getStop().getId().concat("\n" + entry.getTime()+"\n(SKIPPED)"));
+				}
+			}
+			else
+			{
+				vehicleList.getItems().add(entry.getStop().getId().concat("\n" + entry.getTime()+"\n(+" + vehicle.getDelay() + " min.)"));				
+			}
 		}
 		
 		int pomIndex = 0;
 		for	(String item : vehicleList.getItems())
 		{
-			if(vehicle.getLine().isEdited())
+			if(!vehicle.isFinished())
 			{
-				vehicleList.getSelectionModel().select(vehicleList.getItems().size() - 1);
-				String pom1 = vehicleList.getItems().get(vehicleList.getItems().size() - 1);
-				vehicleList.getItems().set(vehicleList.getItems().size() - 1, pom1.concat("\n(+" + vehicle.getDelay() + " min.)"));
-				break;
+				if(item.equals(vehicle.getCurrentStopId()))
+				{
+					vehicleList.getSelectionModel().select(pomIndex);
+				}
+				pomIndex++;				
 			}
-			
-			if(item.equals(vehicle.getCurrentStopId()))
-			{
-				vehicleList.getSelectionModel().select(pomIndex);
-			}
-			pomIndex++;
 		}
 	}
 	

@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import map.InputData;
@@ -35,11 +36,14 @@ public class InitWindowController implements Initializable {
 	private InputData data;
 	
 	@FXML
-	private void loadFile(ActionEvent event) throws JsonGenerationException, JsonMappingException, IOException //TODO
+	private Button btnLoadMap;
+	
+	@FXML
+	private void loadFile(ActionEvent event) throws JsonGenerationException, JsonMappingException, IOException
 	{
+	    btnLoadMap.setDisable(true);
 		FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(null);
-        
         
         if (file != null) 
         {

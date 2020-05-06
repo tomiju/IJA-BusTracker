@@ -321,6 +321,216 @@ streets:
   end:
     x: 438.0
     y: -87.0
+ -
+  &street26 id: "Street26"
+  open: true
+  stops:
+  start:
+    x: -60.0
+    y: -121.0
+  end:
+    x: 94.3
+    y: -71.1
+ -
+  &street27 id: "Street27"
+  open: true
+  stops:
+  start:
+    x: 60.2
+    y: -4.2
+  end:
+    x: 94.3
+    y: -71.1
+ -
+  &street28 id: "Street28"
+  open: true
+  stops:
+  start:
+    x: 94.3
+    y: -71.1
+  end:
+    x: 152.3
+    y: -53.7
+ -
+  &street29 id: "Street29"
+  open: true
+  stops:
+  start:
+    x: 152.3
+    y: -53.7
+  end:
+    x: 235.2
+    y: -3.0
+ -
+  &street30 id: "Street30"
+  open: true
+  stops:
+  start:
+    x: -111.0
+    y: -31.0
+  end:
+    x: -104.7
+    y: 63.3
+ -
+  &street31 id: "Street31"
+  open: true
+  stops:
+  start:
+    x: -104.7
+    y: 63.3
+  end:
+    x: -47.7
+    y: 140.3
+ -
+  &street32 id: "Street32"
+  open: true
+  stops:
+  start:
+    x: -47.7
+    y: 140.3
+  end:
+    x: 57.0
+    y: 92.0
+ -
+  &street33 id: "Street33"
+  open: true
+  stops:
+  start:
+    x: 411.9
+    y: 11.3
+  end:
+    x: 235.2
+    y: -3.0
+ -
+  &street34 id: "Street34"
+  open: true
+  stops:
+  start:
+    x: 438.0
+    y: -87.0
+  end:
+    x: 411.9
+    y: 11.3
+ -
+  &street35 id: "Street35"
+  open: true
+  stops:
+  start:
+    x: 609.6
+    y: -61.0
+  end:
+    x: 411.9
+    y: 11.3
+ -
+  &street36 id: "Street36"
+  open: true
+  stops:
+  start:
+    x: 620.0
+    y: -142.0
+  end:
+    x: 609.6
+    y: -61.0
+ -
+  &street37 id: "Street37"
+  open: true
+  stops:
+  start:
+    x: 411.9
+    y: 11.3
+  end:
+    x: 568.0
+    y: 140.0
+ -
+  &street38 id: "Street38"
+  open: true
+  stops:
+  start:
+    x: 237.5
+    y: 92.5
+  end:
+    x: 254.3
+    y: 192.3
+ -
+  &street39 id: "Street39"
+  open: true
+  stops:
+  start:
+    x: 254.3
+    y: 192.3
+  end:
+    x: 295.3
+    y: 177.3
+ -
+  &street40 id: "Street40"
+  open: true
+  stops:
+  start:
+    x: 295.3
+    y: 177.3
+  end:
+    x: 334.3
+    y: 272.3
+ -
+  &street41 id: "Street41"
+  open: true
+  stops:
+  start:
+    x: 334.3
+    y: 272.3
+  end:
+    x: 236.3
+    y: 290.3
+ -
+  &street42 id: "Street42"
+  open: true
+  stops:
+  start:
+    x: 236.3
+    y: 290.3
+  end:
+    x: 405.3
+    y: 371.7
+ -
+  &street43 id: "Street43"
+  open: true
+  stops:
+  start:
+    x: 237.5
+    y: 92.5
+  end:
+    x: 118.3
+    y: 155.3
+ -
+  &street44 id: "Street44"
+  open: true
+  stops:
+  start:
+    x: 118.3
+    y: 155.3
+  end:
+    x: 117.6
+    y: 257.3
+ -
+  &street45 id: "Street45"
+  open: true
+  stops:
+  start:
+    x: 117.6
+    y: 257.3
+  end:
+    x: -10.0
+    y: 260.0
+ -
+  &street46 id: "Street46"
+  open: true
+  stops:
+  start:
+    x: -47.7
+    y: 140.3
+  end:
+    x: -113.0
+    y: 158.0
 lines:
  -
   &line1 id: "Line1"
@@ -374,13 +584,13 @@ vehicles:
       time: "00:03:00"
      -
       stop: *stop2
-      time: "00:22:00"
+      time: "00:12:00"
      -
       stop: *stop3
-      time: "00:28:00"
+      time: "00:20:00"
      -
       stop: *stop4
-      time: "00:32:00"
+      time: "00:27:00"
      -
       stop: *stop5
       time: "00:37:00"
@@ -804,13 +1014,13 @@ vehicles:
       time: "00:05:00"
      -
       stop: *stop13
-      time: "00:17:00"
+      time: "00:12:00"
      -
       stop: *stop14
-      time: "00:23:00"
+      time: "00:17:00"
      -
       stop: *stop15
-      time: "00:28:00"
+      time: "00:23:00"
      -
       stop: *stop6
       time: "00:35:00"

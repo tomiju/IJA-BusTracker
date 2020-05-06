@@ -11,7 +11,7 @@
          <font>
             <Font name="Arial Bold" size="35.0" />
          </font></Text>
-      <Button layoutX="82.0" layoutY="72.0" mnemonicParsing="false" onAction="#loadFile" prefHeight="48.0" prefWidth="134.0" style="-fx-background-color: #666666;" text="Load map" textFill="#dddddd">
+      <Button fx:id="btnLoadMap" layoutX="82.0" layoutY="72.0" mnemonicParsing="false" onAction="#loadFile" prefHeight="48.0" prefWidth="134.0" style="-fx-background-color: #666666;" text="Load map" textFill="#dddddd">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font></Button>

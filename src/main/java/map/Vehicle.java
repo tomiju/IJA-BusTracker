@@ -50,6 +50,8 @@ public class Vehicle
 	private Random random = new Random();
 	private int delay = 0;
 	private Coordinate editPreviousCoord = new Coordinate(0,0);
+	private int editedPathStopsIndex = 0;
+	private ArrayList<TimetableEntry> editedPathStops = new ArrayList<TimetableEntry>();
 	
 	// aktualni ulice se da dopocitat - aktualni koordinaty -> v lince jsou vsechny ulice po trase - spocitat na ktere primce lezi bod dany aktualnimi koordinaty
 	
@@ -219,6 +221,15 @@ public class Vehicle
 	}
 	
 	/**
+	 * Ziska editovany jizdni rad
+	 * @return ArrayList<TimetableEntry> editovany jizdni rad
+	 */
+	public ArrayList<TimetableEntry> getEditedPathStops()
+	{
+		return this.editedPathStops;
+	}
+	
+	/**
      * Prida aktualni vozidlo v lince do jejiho seznamu.
      */
 	public void addVehicleToLine()
@@ -260,11 +271,11 @@ public class Vehicle
 	 */
 	public void drive(String time, int timeSpeed)
 	{
+		String hoursTmp = time.substring(0,2);
+		int inputTime = (Integer.parseInt(time.substring(3,5)) + (Integer.parseInt(hoursTmp) * 60));
+
 		if(!this.getLine().isEdited())
-		{
-			String hoursTmp = time.substring(0,2);
-			int inputTime = (Integer.parseInt(time.substring(3,5)) + (Integer.parseInt(hoursTmp) * 60));
-			
+		{	
 			ArrayList<Double> coords = new ArrayList<Double>();
 			
 			ArrayList<Double> coords2 = new ArrayList<Double>();
@@ -328,7 +339,7 @@ public class Vehicle
 			{
 				this.transitionVehicle.stop();
 				this.transitionText.stop();
-				//System.out.println("DEBUG: " + this.getId() + " finished travelling."); // debug
+
 				this.ended = true;
 				
 				this.getVehicleView().getCircle().setVisible(false);
@@ -401,13 +412,10 @@ public class Vehicle
 		{
 			if(this.transitionVehicle == null && !this.ended)
 			{
-				String hoursTmp = time.substring(0,2);
-				int inputTime = (Integer.parseInt(time.substring(3,5)) + (Integer.parseInt(hoursTmp) * 60));
-				//System.out.println(this.getId() + " end: " + this.getTimetable().getEntries().get(this.getTimetable().getEntries().size() - 1).getTime());
+				hoursTmp = time.substring(0,2);
+				inputTime = (Integer.parseInt(time.substring(3,5)) + (Integer.parseInt(hoursTmp) * 60));
 
 				int pom = Integer.parseInt(this.getTimetable().getEntries().get(this.getTimetable().getEntries().size() - 1).getTime().substring(3,5)) + (Integer.parseInt(this.getTimetable().getEntries().get(this.getTimetable().getEntries().size() - 1).getTime().substring(0,2)) * 60);
-				//System.out.println("Delka trasy: " + pom);
-				//System.out.println("Zbyvajici delka trasy: " + (pom - inputTime));
 				
 				// nastaveni nove aktualni pozice s korekci
 				this.setCurrentPosition(new Coordinate(this.getVehicleView().getCircle().getCenterX() + this.getVehicleView().getCircle().getTranslateX() - 10.0, this.getVehicleView().getCircle().getCenterY() + this.getVehicleView().getCircle().getTranslateY()));
@@ -415,6 +423,7 @@ public class Vehicle
 				this.vehiclePath = new ArrayList<Coordinate>();
 				
 				this.resetIndex();
+				this.nextStop = null;
 				
 				for (Street street: this.line.getStreets()) 
 				{	
@@ -426,10 +435,18 @@ public class Vehicle
 					
 					if(vehicle_distance - street_size >= -5.0 && vehicle_distance - street_size <= 5.0)
 					{
-						//System.out.println("DEBUG1: " + this.getId() + " lezi na ulici: " + street.getId()); // debug
-						
 						this.editPreviousCoord = street.getEnd();
 						
+						if (inputTime <= Integer.parseInt(this.previousStop.getTime().substring(3,5)) + (Integer.parseInt(this.previousStop.getTime().substring(0,2)) * 60) || inputTime <= Integer.parseInt(this.firstEntry.getTime().substring(3,5)) + (Integer.parseInt(this.firstEntry.getTime().substring(0,2)) * 60))
+						{
+							if(this.previousStop.getStop().getStreet().getId().equals(street.getId()))
+							{
+								this.vehiclePath.add(this.previousStop.getStop().getCoordinate());
+								this.nextStop = this.previousStop;
+								this.editedPathStops.add(this.nextStop);
+								this.editedPathStopsIndex = this.editedPathStops.size()-1;
+							}
+						}
 						this.vehiclePath.add(street.getEnd());
 						this.setCurrentStreet(street);
 						continue;
@@ -437,18 +454,46 @@ public class Vehicle
 					
 					if(street.getEnd().getX() == this.editPreviousCoord.getX() && street.getEnd().getY() == this.editPreviousCoord.getY())
 					{
-						//System.out.println("DEBUG: " + this.getId() + " na ulici: " + street.getId() + " konec + zacatek "); // debug
-						
 						this.vehiclePath.add(street.getEnd());
+									
+						for(TimetableEntry timetable : this.getTimetable().getEntries())
+						{
+							if(timetable.getStop().getStreet().getId().equals(street.getId()))
+							{
+								this.vehiclePath.add(timetable.getStop().getCoordinate());
+								this.editedPathStops.add(timetable);
+								
+								if(this.nextStop == null)
+								{
+									this.nextStop = timetable;
+									this.editedPathStopsIndex = this.editedPathStops.size()-1;	
+								}
+							}
+						}
+						
 						this.vehiclePath.add(street.getStart());	
 						
 						this.editPreviousCoord = street.getStart();
 					}
 					else if(street.getStart().getX() == this.editPreviousCoord.getX() && street.getStart().getY() == this.editPreviousCoord.getY())
 					{
-						//System.out.println("DEBUG: " + this.getId() + " na ulici: " + street.getId() + " zacatek + konec"); // debug
-						
 						this.vehiclePath.add(street.getStart());
+						
+						for(TimetableEntry timetable : this.getTimetable().getEntries())
+						{
+							if(timetable.getStop().getStreet().getId().equals(street.getId()))
+							{
+								this.vehiclePath.add(timetable.getStop().getCoordinate());	
+								this.editedPathStops.add(timetable);
+								
+								if(this.nextStop == null)
+								{
+									this.nextStop = timetable;
+									this.editedPathStopsIndex = this.editedPathStops.size()-1;	
+								}
+							}
+						}
+						
 						this.vehiclePath.add(street.getEnd());
 						
 						this.editPreviousCoord = street.getEnd();
@@ -458,7 +503,6 @@ public class Vehicle
 				// osetreni prazdne cesty - vozidlo je na uzavrene ceste, apod...
 				if(this.vehiclePath.isEmpty())
 				{
-					//System.out.println("DEBUG: " + this.getId() + " cant go anywhere"); // debug
 					this.ended = true;
 					
 					Platform.runLater(() -> { // vypis informace o vozidle, ktere nemuze pokracovat v jizde
@@ -484,6 +528,21 @@ public class Vehicle
 				
 				for (; this.index < this.vehiclePath.size(); ++this.index) 
 				{
+					if(this.nextStop != null)
+					{
+						if (this.vehiclePath.get(this.index).getX() == this.nextStop.getStop().getCoordinate().getX() && this.vehiclePath.get(this.index).getY() == this.nextStop.getStop().getCoordinate().getY())
+						{
+							coords.add(this.nextStop.getStop().getCoordinate().getX());
+							coords.add(this.nextStop.getStop().getCoordinate().getY());
+							coords2.add(this.nextStop.getStop().getCoordinate().getX() + 35);
+							coords2.add(this.nextStop.getStop().getCoordinate().getY());
+							pom = Integer.parseInt(this.nextStop.getTime().substring(3,5)) + (Integer.parseInt(this.nextStop.getTime().substring(0,2)) * 60);
+
+							this.setCurrentPosition(this.nextStop.getStop().getCoordinate());
+							break;
+						}
+					}
+
 					coords.add(this.vehiclePath.get(this.index).getX());
 					coords.add(this.vehiclePath.get(this.index).getY());
 					coords2.add(this.vehiclePath.get(this.index).getX() + 35);
@@ -496,10 +555,8 @@ public class Vehicle
 				Polyline pathName = new Polyline();
 				pathName.getPoints().addAll(coords2);
 				
-				this.delay = random.nextInt(20);
+				this.delay = random.nextInt(20) + 5;
 				int randomTimer = (pom - inputTime) + this.delay;
-				
-				//System.out.println("DEBUG: " + this.getId() + " pojede: " + randomTimer + " \"minut\""); // debug
 				
 				PathTransition transition = new PathTransition();
 				transition.setNode(this.vehicleView.getCircle());
@@ -516,16 +573,84 @@ public class Vehicle
 				this.transitionVehicle = transition;
 				this.transitionText = transition2;
 			}
-			else if(this.transitionVehicle != null && !this.transitionVehicle.getStatus().equals(Animation.Status.RUNNING))
-			{
-				//System.out.println("DEBUG: " + this.getId() + " finished travelling."); // debug
-				this.ended = true;
+			else if(!this.ended && this.nextStop != null && (inputTime) == (Integer.parseInt(this.nextStop.getTime().substring(3,5)) + (Integer.parseInt(this.nextStop.getTime().substring(0,2)) * 60) + this.delay))
+			{	
+				if(this.editedPathStopsIndex + 1 < this.editedPathStops.size())
+				{
+					this.nextStop = this.editedPathStops.get(this.editedPathStopsIndex + 1);
+					this.editedPathStopsIndex++;
+				}
+				else
+				{
+					this.nextStop = null;
+					this.ended = true;
+					return;
+				}
 				
+				int pom = (Integer.parseInt(this.nextStop.getTime().substring(3,5)) + (Integer.parseInt(this.nextStop.getTime().substring(0,2)) * 60) + this.delay);
+				
+				ArrayList<Double> coords = new ArrayList<Double>();
+				ArrayList<Double> coords2 = new ArrayList<Double>();
+				
+				coords.add(this.currentPosition.getX());
+				coords.add(this.currentPosition.getY());
+				coords2.add(this.currentPosition.getX() + 35);
+				coords2.add(this.currentPosition.getY());
+				
+				for (; this.index < this.vehiclePath.size(); ++this.index) 
+				{
+					if(this.nextStop != null)
+					{
+						if (this.vehiclePath.get(this.index).getX() == this.nextStop.getStop().getCoordinate().getX() && this.vehiclePath.get(this.index).getY() == this.nextStop.getStop().getCoordinate().getY())
+						{
+							coords.add(this.nextStop.getStop().getCoordinate().getX());
+							coords.add(this.nextStop.getStop().getCoordinate().getY());
+							coords2.add(this.nextStop.getStop().getCoordinate().getX() + 35);
+							coords2.add(this.nextStop.getStop().getCoordinate().getY());
+							pom = Integer.parseInt(this.nextStop.getTime().substring(3,5)) + (Integer.parseInt(this.nextStop.getTime().substring(0,2)) * 60);
+							this.setCurrentPosition(this.nextStop.getStop().getCoordinate());
+							break;
+						}
+					}
+
+					coords.add(this.vehiclePath.get(this.index).getX());
+					coords.add(this.vehiclePath.get(this.index).getY());
+					coords2.add(this.vehiclePath.get(this.index).getX() + 35);
+					coords2.add(this.vehiclePath.get(this.index).getY());
+				}
+			
+								
+				Polyline pathVehicle = new Polyline();
+				pathVehicle.getPoints().addAll(coords);
+				
+				Polyline pathName = new Polyline();
+				pathName.getPoints().addAll(coords2);
+
+				int randomTimer = (pom - inputTime) + this.delay;				
+				
+				PathTransition transition = new PathTransition();
+				transition.setNode(this.vehicleView.getCircle());
+				transition.setDuration(Duration.millis(randomTimer/timeSpeed*1000));
+				transition.setPath(pathVehicle);
+				transition.play();
+				
+				PathTransition transition2 = new PathTransition();
+				transition2.setNode(this.vehicleView.getText());
+				transition2.setDuration(Duration.millis(randomTimer/timeSpeed*1000));
+				transition2.setPath(pathName);
+				transition2.play();
+				
+				this.transitionVehicle = transition;
+				this.transitionText = transition2;				
+			}
+			else if(this.transitionVehicle != null && !this.transitionVehicle.getStatus().equals(Animation.Status.RUNNING) && this.nextStop == null)
+			{				
+				this.ended = true;
+
 				this.getVehicleView().getCircle().setVisible(false);
 				this.getVehicleView().getText().setVisible(false);
 				
-				return;
-				
+				return;		
 			}
 		}
 		
@@ -644,6 +769,17 @@ public class Vehicle
 	@JsonIgnore
 	public String getCurrentStopId()
 	{
-		return this.previousStop.getStop().getId().concat("\n"+this.previousStop.getTime());
+		if(this.getLine().isEdited())
+		{
+			if(this.nextStop != null)
+			{
+				return this.nextStop.getStop().getId().concat("\n" + this.nextStop.getTime() + "\n(+" + this.getDelay() + " min.)");				
+			}
+			else
+			{
+				return this.editedPathStops.get(this.editedPathStops.size() - 1).getStop().getId().concat("\n" + editedPathStops.get(this.editedPathStops.size() - 1).getTime() + "\n(+" + this.getDelay() + " min.)");
+			}
+		}
+		return this.previousStop.getStop().getId().concat("\n" + this.previousStop.getTime() + "\n(+" + this.getDelay() + " min.)");
 	}
 }
