@@ -34,5 +34,6 @@ Popis:
 		(POZOR! Je dulezite klikat v poradi od zacatku linky! - pokud tak neucinite nebo uzavrete ulici, ktera 
 		ma pouze jednu moznou trasu, vozidla se muzou chovat neocekavane) se do seznamu "New Path" bude pridavat
 		nova trasa dane linky (v poradi klikani) - v pripade, ze jste editovali spravne bude nyni mozne editacni mod opustit 
-		(jinak se zobrazi upozorneni) a vozidla pojedou po jejich nove trase. 
+		(jinak se zobrazi upozorneni) a vozidla pojedou po jejich nove trase - pokud v editovane trase nejsou zadne zastavky
+		 z puvodni cesty, tak vozidlo nema kam jet, musi tam byt alespon posledni zastavka - vozidla budou zastavovat na zastavkach. 
 		Delka nove editovane trasy je puvodni cas + nahodne zpozdeni (vypada to realneji).

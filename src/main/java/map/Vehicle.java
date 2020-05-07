@@ -222,7 +222,7 @@ public class Vehicle
 	
 	/**
 	 * Ziska editovany jizdni rad
-	 * @return ArrayList<TimetableEntry> editovany jizdni rad
+	 * @return ArrayList editovany jizdni rad
 	 */
 	public ArrayList<TimetableEntry> getEditedPathStops()
 	{
@@ -579,7 +579,7 @@ public class Vehicle
 			}
 			else if(!this.ended && this.nextStop != null && (inputTime) == (Integer.parseInt(this.nextStop.getTime().substring(3,5)) + (Integer.parseInt(this.nextStop.getTime().substring(0,2)) * 60) + this.delay))
 			{	
-				this.getVehicleView().getCircle().setVisible(true); // vozidlo je viditelne po prvni zastávce
+				this.getVehicleView().getCircle().setVisible(true); // vozidlo je viditelne po prvni zastavce
 				this.getVehicleView().getText().setVisible(true);			
 				
 				if(this.editedPathStopsIndex + 1 < this.editedPathStops.size()) // pokud existuje jeste dalsi zastavka, tak je nasledujici, jinak dojel
