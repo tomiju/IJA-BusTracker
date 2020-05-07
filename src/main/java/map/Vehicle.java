@@ -559,7 +559,7 @@ public class Vehicle
 				Polyline pathName = new Polyline();
 				pathName.getPoints().addAll(coords2);
 				
-				this.delay = random.nextInt(20) + 5; // nahodne zpozdeni
+				this.delay = random.nextInt(10) + 5; // nahodne zpozdeni
 				int randomTimer = (pom - inputTime) + this.delay;
 				
 				PathTransition transition = new PathTransition();
@@ -579,6 +579,9 @@ public class Vehicle
 			}
 			else if(!this.ended && this.nextStop != null && (inputTime) == (Integer.parseInt(this.nextStop.getTime().substring(3,5)) + (Integer.parseInt(this.nextStop.getTime().substring(0,2)) * 60) + this.delay))
 			{	
+				this.getVehicleView().getCircle().setVisible(true); // vozidlo je viditelne po prvni zastávce
+				this.getVehicleView().getText().setVisible(true);			
+				
 				if(this.editedPathStopsIndex + 1 < this.editedPathStops.size()) // pokud existuje jeste dalsi zastavka, tak je nasledujici, jinak dojel
 				{
 					this.nextStop = this.editedPathStops.get(this.editedPathStopsIndex + 1);

@@ -185,15 +185,6 @@ public class SceneController implements Initializable {
 						streetList.getItems().remove(street.getId());
 					}
 				}
-				
-				if(line.isEdited()) // zviditelni vozidla, ktere jeste byli neviditelne
-				{
-					for (Vehicle vehicle : line.getVehicles())
-					{
-						vehicle.getVehicleView().getCircle().setVisible(true);
-						vehicle.getVehicleView().getText().setVisible(true);
-					}					
-				}
 			}
 			
 		    this.lineList.getSelectionModel().clearSelection();
