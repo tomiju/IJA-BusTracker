@@ -544,14 +544,6 @@ public class SceneController implements Initializable {
                 			if(line.getId() == oldValue)
                 			{
                 				line.unsetLineFocus();
-                				
-                				for (Street street : line.getStreets())
-                    			{
-                    				if (street != null)
-                    				{
-                    					streetList.getItems().remove(street.getId());
-                    				}
-                    			}
                 			}
                 			
                 			if(line.getId() == newValue)

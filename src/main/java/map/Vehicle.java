@@ -245,24 +245,56 @@ public class Vehicle
 	{
 		this.vehiclePath = new ArrayList<Coordinate>();
 		
-		for (Street street: this.line.getStreets()) // projde cestu a postupne ulozi body
+		try
 		{
-			this.vehiclePath.add(street.getStart());
+			// zpatecni linka
+			String str = this.getLine().getId();
+			String result = str.substring(str.indexOf("(") + 1, str.indexOf(")")); // kdyz nazev obsahuje slovo "backwards", tak je to zpatecni linka
 			
-			if (street.getStops() != null)
+			if(result.equals("backwards"))
 			{
-				for (Stop stop : street.getStops())
+				for (Street street: this.line.getStreets()) // projde cestu a postupne ulozi body
 				{
-					this.vehiclePath.add(stop.getCoordinate());
+					this.vehiclePath.add(street.getEnd());
 					
-					if (stop.getId() == this.getLine().getEnd().getId())
+					if (street.getStops() != null)
 					{
-						return;
+						for (Stop stop : street.getStops())
+						{
+							this.vehiclePath.add(stop.getCoordinate());
+							
+							if (stop.getId() == this.getLine().getEnd().getId())
+							{
+								return;
+							}
+						}
+					}
+					this.vehiclePath.add(street.getStart());
+				}			
+			}		
+		}
+		catch(Exception e)
+		{
+			// klasicky smer
+			for (Street street: this.line.getStreets()) // projde cestu a postupne ulozi body, klasicka linka
+			{
+				this.vehiclePath.add(street.getStart());
+				
+				if (street.getStops() != null)
+				{
+					for (Stop stop : street.getStops())
+					{
+						this.vehiclePath.add(stop.getCoordinate());
+						
+						if (stop.getId() == this.getLine().getEnd().getId())
+						{
+							return;
+						}
 					}
 				}
+				this.vehiclePath.add(street.getEnd());
 			}
-			this.vehiclePath.add(street.getEnd());
-		}
+		}		
 	}
 	
 	/**
@@ -439,22 +471,52 @@ public class Vehicle
 					
 					// urceni pozice na aktualni ulici (
 					if(vehicle_distance - street_size >= -5.0 && vehicle_distance - street_size <= 5.0)
-					{
-						this.editPreviousCoord = street.getEnd();
-						
-						if (inputTime <= Integer.parseInt(this.previousStop.getTime().substring(3,5)) + (Integer.parseInt(this.previousStop.getTime().substring(0,2)) * 60) || inputTime <= Integer.parseInt(this.firstEntry.getTime().substring(3,5)) + (Integer.parseInt(this.firstEntry.getTime().substring(0,2)) * 60))
-						{ // pokud uz projel zastavkou na aktualni ulici, tak ji neulozim, jinak ano
-							if(this.previousStop.getStop().getStreet().getId().equals(street.getId()))
+					{					
+						try 
+						{
+							// pripad, kdy je to zpatecni linka
+							String str = this.getLine().getId();
+							String result = str.substring(str.indexOf("(") + 1, str.indexOf(")")); // kdyz nazev obsahuje slovo "backwards", tak je to zpatecni linka
+							
+							if(result.equals("backwards"))
 							{
-								this.vehiclePath.add(this.previousStop.getStop().getCoordinate());
-								this.nextStop = this.previousStop;
-								this.editedPathStops.add(this.nextStop);
-								this.editedPathStopsIndex = this.editedPathStops.size()-1;
-							}
+								this.editPreviousCoord = street.getStart();
+								
+								if (inputTime <= Integer.parseInt(this.previousStop.getTime().substring(3,5)) + (Integer.parseInt(this.previousStop.getTime().substring(0,2)) * 60) || inputTime <= Integer.parseInt(this.firstEntry.getTime().substring(3,5)) + (Integer.parseInt(this.firstEntry.getTime().substring(0,2)) * 60))
+								{ // pokud uz projel zastavkou na aktualni ulici, tak ji neulozim, jinak ano
+									if(this.previousStop.getStop().getStreet().getId().equals(street.getId()))
+									{
+										this.vehiclePath.add(this.previousStop.getStop().getCoordinate());
+										this.nextStop = this.previousStop;
+										this.editedPathStops.add(this.nextStop);
+										this.editedPathStopsIndex = this.editedPathStops.size()-1;
+									}
+								}
+								this.vehiclePath.add(street.getStart());
+								this.setCurrentStreet(street);
+								continue;
+							}		
 						}
-						this.vehiclePath.add(street.getEnd());
-						this.setCurrentStreet(street);
-						continue;
+						catch(Exception e)
+						{ 
+							// pripad, kde je to klasicka linka smerem "dopredu"
+							
+							this.editPreviousCoord = street.getEnd();
+							
+							if (inputTime <= Integer.parseInt(this.previousStop.getTime().substring(3,5)) + (Integer.parseInt(this.previousStop.getTime().substring(0,2)) * 60) || inputTime <= Integer.parseInt(this.firstEntry.getTime().substring(3,5)) + (Integer.parseInt(this.firstEntry.getTime().substring(0,2)) * 60))
+							{ // pokud uz projel zastavkou na aktualni ulici, tak ji neulozim, jinak ano
+								if(this.previousStop.getStop().getStreet().getId().equals(street.getId()))
+								{
+									this.vehiclePath.add(this.previousStop.getStop().getCoordinate());
+									this.nextStop = this.previousStop;
+									this.editedPathStops.add(this.nextStop);
+									this.editedPathStopsIndex = this.editedPathStops.size()-1;
+								}
+							}
+							this.vehiclePath.add(street.getEnd());
+							this.setCurrentStreet(street);
+							continue;	
+						}											
 					}
 					
 					if(street.getEnd().getX() == this.editPreviousCoord.getX() && street.getEnd().getY() == this.editPreviousCoord.getY()) // na ulici prijizdi zezadu

@@ -548,7 +548,46 @@ lines:
    - *street15
    - *street16
  -
+  &line1_back id: "Line1 (backwards)"
+  start: *stop6
+  end: *stop1
+  streets:
+   - *street16
+   - *street15
+   - *street14
+   - *street13
+   - *street6
+   - *street5
+   - *street4
+   - *street3
+   - *street2
+   - *street1
+ -
   &line2 id: "Line2"
+  start: *stop12
+  end: *stop6
+  streets:
+   - *street25
+   - *street12
+   - *street6
+   - *street17
+   - *street18
+   - *street19
+   - *street16
+ -
+  &line2_back id: "Line2 (backwards)"
+  start: *stop6
+  end: *stop12
+  streets:
+   - *street16
+   - *street19
+   - *street18
+   - *street17
+   - *street6
+   - *street12
+   - *street25
+ -
+  &line3 id: "Line3"
   start: *stop7
   end: *stop11
   streets:
@@ -562,19 +601,21 @@ lines:
    - *street21
    - *street22
  -
-  &line3 id: "Line3"
-  start: *stop12
-  end: *stop6
+  &line3_back id: "Line3 (backwards)"
+  start: *stop11
+  end: *stop7
   streets:
-   - *street25
-   - *street12
+   - *street22
+   - *street21
+   - *street20
+   - *street7
    - *street6
-   - *street17
-   - *street18
-   - *street19
-   - *street16
+   - *street12
+   - *street11
+   - *street10
+   - *street9
 vehicles:
- - 
+ -
   &vehicle1 id: "Vehicle1"
   line: *line1
   timetable:
@@ -597,7 +638,7 @@ vehicles:
      -
       stop: *stop6
       time: "00:45:00"
- - 
+ -
   &vehicle2 id: "Vehicle2"
   line: *line1
   timetable:
@@ -620,7 +661,7 @@ vehicles:
      -
       stop: *stop6
       time: "00:50:00"
- - 
+ -
   &vehicle3 id: "Vehicle3"
   line: *line1
   timetable:
@@ -643,7 +684,7 @@ vehicles:
      -
       stop: *stop6
       time: "00:55:00"
- - 
+ -
   &vehicle4 id: "Vehicle4"
   line: *line1
   timetable:
@@ -666,7 +707,7 @@ vehicles:
      -
       stop: *stop6
       time: "01:00:00"
- - 
+ -
   &vehicle5 id: "Vehicle5"
   line: *line1
   timetable:
@@ -689,7 +730,7 @@ vehicles:
      -
       stop: *stop6
       time: "01:05:00"
- - 
+ -
   &vehicle6 id: "Vehicle6"
   line: *line1
   timetable:
@@ -712,7 +753,7 @@ vehicles:
      -
       stop: *stop6
       time: "01:10:00"
- - 
+ -
   &vehicle7 id: "Vehicle7"
   line: *line1
   timetable:
@@ -735,7 +776,7 @@ vehicles:
      -
       stop: *stop6
       time: "01:15:00"
- - 
+ -
   &vehicle8 id: "Vehicle8"
   line: *line1
   timetable:
@@ -758,7 +799,7 @@ vehicles:
      -
       stop: *stop6
       time: "01:15:00"
- - 
+ -
   &vehicle9 id: "Vehicle9"
   line: *line1
   timetable:
@@ -781,7 +822,7 @@ vehicles:
      -
       stop: *stop6
       time: "01:20:00"
- - 
+ -
   &vehicle10 id: "Vehicle10"
   line: *line1
   timetable:
@@ -804,9 +845,9 @@ vehicles:
      -
       stop: *stop6
       time: "01:25:00"
- - 
+ -
   &vehicle11 id: "Vehicle11"
-  line: *line2
+  line: *line3
   timetable:
     entries:
      -
@@ -824,9 +865,9 @@ vehicles:
      -
       stop: *stop11
       time: "00:52:00"
- - 
+ -
   &vehicle12 id: "Vehicle12"
-  line: *line2
+  line: *line3
   timetable:
     entries:
      -
@@ -844,9 +885,9 @@ vehicles:
      -
       stop: *stop11
       time: "00:57:00"
- - 
+ -
   &vehicle13 id: "Vehicle13"
-  line: *line2
+  line: *line3
   timetable:
     entries:
      -
@@ -864,9 +905,9 @@ vehicles:
      -
       stop: *stop11
       time: "01:02:00"
- - 
+ -
   &vehicle14 id: "Vehicle14"
-  line: *line2
+  line: *line3
   timetable:
     entries:
      -
@@ -884,9 +925,9 @@ vehicles:
      -
       stop: *stop11
       time: "01:07:00"
- - 
+ -
   &vehicle15 id: "Vehicle15"
-  line: *line2
+  line: *line3
   timetable:
     entries:
      -
@@ -904,9 +945,9 @@ vehicles:
      -
       stop: *stop11
       time: "01:12:00"
- - 
+ -
   &vehicle16 id: "Vehicle16"
-  line: *line2
+  line: *line3
   timetable:
     entries:
      -
@@ -924,9 +965,9 @@ vehicles:
      -
       stop: *stop11
       time: "01:17:00"
- - 
+ -
   &vehicle17 id: "Vehicle17"
-  line: *line2
+  line: *line3
   timetable:
     entries:
      -
@@ -944,9 +985,9 @@ vehicles:
      -
       stop: *stop11
       time: "01:22:00"
- - 
+ -
   &vehicle18 id: "Vehicle18"
-  line: *line2
+  line: *line3
   timetable:
     entries:
      -
@@ -964,9 +1005,9 @@ vehicles:
      -
       stop: *stop11
       time: "01:27:00"
- - 
+ -
   &vehicle19 id: "Vehicle19"
-  line: *line2
+  line: *line3
   timetable:
     entries:
      -
@@ -986,7 +1027,7 @@ vehicles:
       time: "01:32:00"
  -
   &vehicle20 id: "Vehicle20"
-  line: *line2
+  line: *line3
   timetable:
     entries:
      -
@@ -1004,9 +1045,9 @@ vehicles:
      -
       stop: *stop11
       time: "01:37:00"
- - 
+ -
   &vehicle21 id: "Vehicle21"
-  line: *line3
+  line: *line2
   timetable:
     entries:
      -
@@ -1024,9 +1065,9 @@ vehicles:
      -
       stop: *stop6
       time: "00:35:00"
- - 
+ -
   &vehicle22 id: "Vehicle22"
-  line: *line3
+  line: *line2
   timetable:
     entries:
      -
@@ -1044,9 +1085,9 @@ vehicles:
      -
       stop: *stop6
       time: "00:40:00"
- - 
+ -
   &vehicle23 id: "Vehicle23"
-  line: *line3
+  line: *line2
   timetable:
     entries:
      -
@@ -1066,7 +1107,7 @@ vehicles:
       time: "00:45:00"
  -
   &vehicle24 id: "Vehicle24"
-  line: *line3
+  line: *line2
   timetable:
     entries:
      -
@@ -1084,9 +1125,9 @@ vehicles:
      -
       stop: *stop6
       time: "00:50:00"
- - 
+ -
   &vehicle25 id: "Vehicle25"
-  line: *line3
+  line: *line2
   timetable:
     entries:
      -
@@ -1104,9 +1145,9 @@ vehicles:
      -
       stop: *stop6
       time: "00:55:00"
- - 
+ -
   &vehicle26 id: "Vehicle26"
-  line: *line3
+  line: *line2
   timetable:
     entries:
      -
@@ -1124,9 +1165,9 @@ vehicles:
      -
       stop: *stop6
       time: "01:00:00"
- - 
+ -
   &vehicle27 id: "Vehicle27"
-  line: *line3
+  line: *line2
   timetable:
     entries:
      -
@@ -1144,9 +1185,9 @@ vehicles:
      -
       stop: *stop6
       time: "01:05:00"
- - 
+ -
   &vehicle28 id: "Vehicle28"
-  line: *line3
+  line: *line2
   timetable:
     entries:
      -
@@ -1164,9 +1205,9 @@ vehicles:
      -
       stop: *stop6
       time: "01:10:00"
- - 
+ -
   &vehicle29 id: "Vehicle29"
-  line: *line3
+  line: *line2
   timetable:
     entries:
      -
@@ -1184,9 +1225,9 @@ vehicles:
      -
       stop: *stop6
       time: "01:15:00"
- - 
+ -
   &vehicle30 id: "Vehicle30"
-  line: *line3
+  line: *line2
   timetable:
     entries:
      -
@@ -1204,3 +1245,633 @@ vehicles:
      -
       stop: *stop6
       time: "01:20:00"
+ -
+  &vehicle31 id: "Vehicle31"
+  line: *line1_back
+  timetable:
+    entries:
+     -
+      stop: *stop6
+      time: "00:55:00"
+     -
+      stop: *stop5
+      time: "01:03:00"
+     -
+      stop: *stop4
+      time: "01:13:00"
+     -
+      stop: *stop3
+      time: "01:21:00"
+     -
+      stop: *stop2
+      time: "01:29:00"
+     -
+      stop: *stop1
+      time: "01:41:00"
+ -
+  &vehicle32 id: "Vehicle32"
+  line: *line1_back
+  timetable:
+    entries:
+     -
+      stop: *stop6
+      time: "01:00:00"
+     -
+      stop: *stop5
+      time: "01:08:00"
+     -
+      stop: *stop4
+      time: "01:13:00"
+     -
+      stop: *stop3
+      time: "01:18:00"
+     -
+      stop: *stop2
+      time: "01:23:00"
+     -
+      stop: *stop1
+      time: "01:33:00"
+ -
+  &vehicle33 id: "Vehicle33"
+  line: *line1_back
+  timetable:
+    entries:
+     -
+      stop: *stop6
+      time: "01:05:00"
+     -
+      stop: *stop5
+      time: "01:13:00"
+     -
+      stop: *stop4
+      time: "01:18:00"
+     -
+      stop: *stop3
+      time: "01:23:00"
+     -
+      stop: *stop2
+      time: "01:28:00"
+     -
+      stop: *stop1
+      time: "01:40:00"
+ -
+  &vehicle34 id: "Vehicle34"
+  line: *line1_back
+  timetable:
+    entries:
+     -
+      stop: *stop6
+      time: "01:10:00"
+     -
+      stop: *stop5
+      time: "01:18:00"
+     -
+      stop: *stop4
+      time: "01:23:00"
+     -
+      stop: *stop3
+      time: "01:28:00"
+     -
+      stop: *stop2
+      time: "01:32:00"
+     -
+      stop: *stop1
+      time: "01:44:00"
+ -
+  &vehicle35 id: "Vehicle35"
+  line: *line1_back
+  timetable:
+    entries:
+     -
+      stop: *stop6
+      time: "01:15:00"
+     -
+      stop: *stop5
+      time: "01:23:00"
+     -
+      stop: *stop4
+      time: "01:28:00"
+     -
+      stop: *stop3
+      time: "01:32:00"
+     -
+      stop: *stop2
+      time: "01:37:00"
+     -
+      stop: *stop1
+      time: "01:49:00"
+ -
+  &vehicle36 id: "Vehicle36"
+  line: *line1_back
+  timetable:
+    entries:
+     -
+      stop: *stop6
+      time: "01:20:00"
+     -
+      stop: *stop5
+      time: "01:28:00"
+     -
+      stop: *stop4
+      time: "01:32:00"
+     -
+      stop: *stop3
+      time: "01:37:00"
+     -
+      stop: *stop2
+      time: "01:42:00"
+     -
+      stop: *stop1
+      time: "01:54:00"
+ -
+  &vehicle37 id: "Vehicle37"
+  line: *line1_back
+  timetable:
+    entries:
+     -
+      stop: *stop6
+      time: "01:25:00"
+     -
+      stop: *stop5
+      time: "01:33:00"
+     -
+      stop: *stop4
+      time: "01:38:00"
+     -
+      stop: *stop3
+      time: "01:42:00"
+     -
+      stop: *stop2
+      time: "01:47:00"
+     -
+      stop: *stop1
+      time: "01:59:00"
+ -
+  &vehicle38 id: "Vehicle38"
+  line: *line1_back
+  timetable:
+    entries:
+     -
+      stop: *stop6
+      time: "01:30:00"
+     -
+      stop: *stop5
+      time: "01:38:00"
+     -
+      stop: *stop4
+      time: "01:43:00"
+     -
+      stop: *stop3
+      time: "01:48:00"
+     -
+      stop: *stop2
+      time: "01:53:00"
+     -
+      stop: *stop1
+      time: "02:05:00"
+ -
+  &vehicle39 id: "Vehicle39"
+  line: *line1_back
+  timetable:
+    entries:
+     -
+      stop: *stop6
+      time: "01:35:00"
+     -
+      stop: *stop5
+      time: "01:43:00"
+     -
+      stop: *stop4
+      time: "01:48:00"
+     -
+      stop: *stop3
+      time: "01:53:00"
+     -
+      stop: *stop2
+      time: "01:58:00"
+     -
+      stop: *stop1
+      time: "02:10:00"
+ -
+  &vehicle40 id: "Vehicle40"
+  line: *line1_back
+  timetable:
+    entries:
+     -
+      stop: *stop6
+      time: "01:40:00"
+     -
+      stop: *stop5
+      time: "01:48:00"
+     -
+      stop: *stop4
+      time: "01:53:00"
+     -
+      stop: *stop3
+      time: "01:58:00"
+     -
+      stop: *stop2
+      time: "02:03:00"
+     -
+      stop: *stop1
+      time: "02:15:00"
+ -
+  &vehicle41 id: "Vehicle41"
+  line: *line3_back
+  timetable:
+    entries:
+     -
+      stop: *stop11
+      time: "01:02:00"
+     -
+      stop: *stop10
+      time: "01:08:00"
+     -
+      stop: *stop9
+      time: "01:12:00"
+     -
+      stop: *stop8
+      time: "01:29:00"
+     -
+      stop: *stop7
+      time: "01:37:00"
+ -
+  &vehicle42 id: "Vehicle42"
+  line: *line3_back
+  timetable:
+    entries:
+     -
+      stop: *stop11
+      time: "01:07:00"
+     -
+      stop: *stop10
+      time: "01:13:00"
+     -
+      stop: *stop9
+      time: "01:17:00"
+     -
+      stop: *stop8
+      time: "01:34:00"
+     -
+      stop: *stop7
+      time: "01:42:00"
+ -
+  &vehicle43 id: "Vehicle43"
+  line: *line3_back
+  timetable:
+    entries:
+     -
+      stop: *stop11
+      time: "01:12:00"
+     -
+      stop: *stop10
+      time: "01:18:00"
+     -
+      stop: *stop9
+      time: "01:22:00"
+     -
+      stop: *stop8
+      time: "01:39:00"
+     -
+      stop: *stop7
+      time: "01:47:00"
+ -
+  &vehicle44 id: "Vehicle44"
+  line: *line3_back
+  timetable:
+    entries:
+     -
+      stop: *stop11
+      time: "01:17:00"
+     -
+      stop: *stop10
+      time: "01:23:00"
+     -
+      stop: *stop9
+      time: "01:27:00"
+     -
+      stop: *stop8
+      time: "01:44:00"
+     -
+      stop: *stop7
+      time: "01:52:00"
+ -
+  &vehicle45 id: "Vehicle45"
+  line: *line3_back
+  timetable:
+    entries:
+     -
+      stop: *stop11
+      time: "01:22:00"
+     -
+      stop: *stop10
+      time: "01:28:00"
+     -
+      stop: *stop9
+      time: "01:32:00"
+     -
+      stop: *stop8
+      time: "01:49:00"
+     -
+      stop: *stop7
+      time: "01:57:00"
+ -
+  &vehicle46 id: "Vehicle46"
+  line: *line3_back
+  timetable:
+    entries:
+     -
+      stop: *stop11
+      time: "01:27:00"
+     -
+      stop: *stop10
+      time: "01:33:00"
+     -
+      stop: *stop9
+      time: "01:37:00"
+     -
+      stop: *stop8
+      time: "01:54:00"
+     -
+      stop: *stop7
+      time: "02:02:00"
+ -
+  &vehicle47 id: "Vehicle47"
+  line: *line3_back
+  timetable:
+    entries:
+     -
+      stop: *stop11
+      time: "01:32:00"
+     -
+      stop: *stop10
+      time: "01:38:00"
+     -
+      stop: *stop9
+      time: "01:42:00"
+     -
+      stop: *stop8
+      time: "01:59:00"
+     -
+      stop: *stop7
+      time: "02:07:00"
+ -
+  &vehicle48 id: "Vehicle48"
+  line: *line3_back
+  timetable:
+    entries:
+     -
+      stop: *stop11
+      time: "01:37:00"
+     -
+      stop: *stop10
+      time: "01:43:00"
+     -
+      stop: *stop9
+      time: "01:47:00"
+     -
+      stop: *stop8
+      time: "02:04:00"
+     -
+      stop: *stop7
+      time: "02:12:00"
+ -
+  &vehicle49 id: "Vehicle49"
+  line: *line3_back
+  timetable:
+    entries:
+     -
+      stop: *stop11
+      time: "01:42:00"
+     -
+      stop: *stop10
+      time: "01:48:00"
+     -
+      stop: *stop9
+      time: "01:52:00"
+     -
+      stop: *stop8
+      time: "02:09:00"
+     -
+      stop: *stop7
+      time: "02:17:00"
+ -
+  &vehicle50 id: "Vehicle50"
+  line: *line3_back
+  timetable:
+    entries:
+     -
+      stop: *stop11
+      time: "01:477:00"
+     -
+      stop: *stop10
+      time: "01:52:00"
+     -
+      stop: *stop9
+      time: "01:57:00"
+     -
+      stop: *stop8
+      time: "02:14:00"
+     -
+      stop: *stop7
+      time: "02:22:00"
+ -
+  &vehicle51 id: "Vehicle51"
+  line: *line2_back
+  timetable:
+    entries:
+     -
+      stop: *stop6
+      time: "00:45:00"
+     -
+      stop: *stop15
+      time: "00:57:00"
+     -
+      stop: *stop14
+      time: "01:05:00"
+     -
+      stop: *stop13
+      time: "01:10:00"
+     -
+      stop: *stop12
+      time: "01:17:00"
+ -
+  &vehicle52 id: "Vehicle52"
+  line: *line2_back
+  timetable:
+    entries:
+     -
+      stop: *stop6
+      time: "00:50:00"
+     -
+      stop: *stop15
+      time: "01:02:00"
+     -
+      stop: *stop14
+      time: "01:10:00"
+     -
+      stop: *stop13
+      time: "01:15:00"
+     -
+      stop: *stop12
+      time: "01:22:00"
+ -
+  &vehicle53 id: "Vehicle53"
+  line: *line2_back
+  timetable:
+    entries:
+     -
+      stop: *stop6
+      time: "00:55:00"
+     -
+      stop: *stop15
+      time: "01:07:00"
+     -
+      stop: *stop14
+      time: "01:15:00"
+     -
+      stop: *stop13
+      time: "01:20:00"
+     -
+      stop: *stop12
+      time: "01:27:00"
+ -
+  &vehicle54 id: "Vehicle54"
+  line: *line2_back
+  timetable:
+    entries:
+     -
+      stop: *stop6
+      time: "01:00:00"
+     -
+      stop: *stop15
+      time: "01:12:00"
+     -
+      stop: *stop14
+      time: "01:20:00"
+     -
+      stop: *stop13
+      time: "01:25:00"
+     -
+      stop: *stop12
+      time: "01:32:00"
+ -
+  &vehicle55 id: "Vehicle55"
+  line: *line2_back
+  timetable:
+    entries:
+     -
+      stop: *stop6
+      time: "01:05:00"
+     -
+      stop: *stop15
+      time: "01:17:00"
+     -
+      stop: *stop14
+      time: "01:25:00"
+     -
+      stop: *stop13
+      time: "01:30:00"
+     -
+      stop: *stop12
+      time: "01:37:00"
+ -
+  &vehicle56 id: "Vehicle56"
+  line: *line2_back
+  timetable:
+    entries:
+     -
+      stop: *stop6
+      time: "01:10:00"
+     -
+      stop: *stop15
+      time: "01:22:00"
+     -
+      stop: *stop14
+      time: "01:30:00"
+     -
+      stop: *stop13
+      time: "01:35:00"
+     -
+      stop: *stop12
+      time: "01:42:00"
+ -
+  &vehicle57 id: "Vehicle57"
+  line: *line2_back
+  timetable:
+    entries:
+     -
+      stop: *stop6
+      time: "01:15:00"
+     -
+      stop: *stop15
+      time: "01:27:00"
+     -
+      stop: *stop14
+      time: "01:35:00"
+     -
+      stop: *stop13
+      time: "01:40:00"
+     -
+      stop: *stop12
+      time: "01:47:00"
+ -
+  &vehicle58 id: "Vehicle58"
+  line: *line2_back
+  timetable:
+    entries:
+     -
+      stop: *stop6
+      time: "01:20:00"
+     -
+      stop: *stop15
+      time: "01:32:00"
+     -
+      stop: *stop14
+      time: "01:40:00"
+     -
+      stop: *stop13
+      time: "01:45:00"
+     -
+      stop: *stop12
+      time: "01:52:00"
+ -
+  &vehicle59 id: "Vehicle59"
+  line: *line2_back
+  timetable:
+    entries:
+     -
+      stop: *stop6
+      time: "01:25:00"
+     -
+      stop: *stop15
+      time: "01:37:00"
+     -
+      stop: *stop14
+      time: "01:45:00"
+     -
+      stop: *stop13
+      time: "01:50:00"
+     -
+      stop: *stop12
+      time: "01:57:00"
+ -
+  &vehicle60 id: "Vehicle60"
+  line: *line2_back
+  timetable:
+    entries:
+     -
+      stop: *stop6
+      time: "01:30:00"
+     -
+      stop: *stop15
+      time: "01:42:00"
+     -
+      stop: *stop14
+      time: "01:50:00"
+     -
+      stop: *stop13
+      time: "01:55:00"
+     -
+      stop: *stop12
+      time: "02:02:00"
