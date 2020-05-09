@@ -69,8 +69,10 @@ public class Drawable
 				Circle circle = new Circle();
 				Text text = new Text();
 				
-				circle.setRadius(7.0f);
+				circle.setRadius(8.0f);
 				circle.setFill(Color.RED);
+				circle.setStroke(Color.GREY);
+				circle.setStrokeWidth(3.0);
 				circle.setCenterX(stop.getCoordinate().getX());
 				circle.setCenterY(stop.getCoordinate().getY());
 		
@@ -95,8 +97,11 @@ public class Drawable
 			Circle circle = new Circle();
 			Text text = new Text();
 			
-			circle.setRadius(7.0f);
+			circle.setRadius(8.0f);
 			circle.setFill(Color.BLUE);
+			circle.setStroke(Color.GREY);
+			circle.setStrokeWidth(3.0);
+			circle.setOpacity(0.8);
 			circle.setCenterX(vehicle.getCurrentPosition().getX());
 			circle.setCenterY(vehicle.getCurrentPosition().getY());
 	
