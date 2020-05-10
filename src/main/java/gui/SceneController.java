@@ -240,22 +240,50 @@ public class SceneController implements Initializable {
 			if(txtTimeSpeed.getText() == "")
 			{
 				timeSpeed = 1;
+				
+				this.mainClock.cancel();
+				drive();
+				for (Vehicle vehicle : gui.SceneController.data.getVehicles())
+				{
+					vehicle.changeAnimationSpeed(txtTimer.getText(), timeSpeed);
+				}
 			}
 			else
 			{	
-				if (!txtTimeSpeed.getText().isEmpty() && Integer.parseInt(txtTimeSpeed.getText()) >= 1 && Integer.parseInt(txtTimeSpeed.getText()) <= 5)
+				if (Integer.parseInt(txtTimeSpeed.getText()) >= 1 && Integer.parseInt(txtTimeSpeed.getText()) <= 5)
 				{
 					timeSpeed = Integer.parseInt(txtTimeSpeed.getText());
+					
+					this.mainClock.cancel();
+					drive();
+					for (Vehicle vehicle : gui.SceneController.data.getVehicles())
+					{
+						vehicle.changeAnimationSpeed(txtTimer.getText(), timeSpeed);
+					}
 				}
 				else
 				{
 					timeSpeed = 1;
+					
+					this.mainClock.cancel();
+					drive();
+					for (Vehicle vehicle : gui.SceneController.data.getVehicles())
+					{
+						vehicle.changeAnimationSpeed(txtTimer.getText(), timeSpeed);
+					}
 				}	
 			}
 		}
 		else
 		{
 			timeSpeed = 1;
+			
+			this.mainClock.cancel();
+			drive();
+			for (Vehicle vehicle : gui.SceneController.data.getVehicles())
+			{
+				vehicle.changeAnimationSpeed(txtTimer.getText(), timeSpeed);
+			}
 		}
 	}
 	
@@ -271,22 +299,50 @@ public class SceneController implements Initializable {
 			if(txtTimeSpeed.getText() == "")
 			{
 				timeSpeed = 1;
+				
+				this.mainClock.cancel();
+				drive();
+				for (Vehicle vehicle : gui.SceneController.data.getVehicles())
+				{
+					vehicle.changeAnimationSpeed(txtTimer.getText(), timeSpeed);
+				}
 			}
 			else
 			{	
 				if (Integer.parseInt(txtTimeSpeed.getText()) >= 1 && Integer.parseInt(txtTimeSpeed.getText()) <= 5)
 				{
 					timeSpeed = Integer.parseInt(txtTimeSpeed.getText());
+					
+					this.mainClock.cancel();
+					drive();
+					for (Vehicle vehicle : gui.SceneController.data.getVehicles())
+					{
+						vehicle.changeAnimationSpeed(txtTimer.getText(), timeSpeed);
+					}
 				}
 				else
 				{
 					timeSpeed = 1;
+					
+					this.mainClock.cancel();
+					drive();
+					for (Vehicle vehicle : gui.SceneController.data.getVehicles())
+					{
+						vehicle.changeAnimationSpeed(txtTimer.getText(), timeSpeed);
+					}
 				}	
 			}
 		}
 		else
 		{
 			timeSpeed = 1;
+			
+			this.mainClock.cancel();
+			drive();
+			for (Vehicle vehicle : gui.SceneController.data.getVehicles())
+			{
+				vehicle.changeAnimationSpeed(txtTimer.getText(), timeSpeed);
+			}
 		}
 	}
 	
@@ -300,6 +356,8 @@ public class SceneController implements Initializable {
 		if (((Integer.parseInt(this.txtTimer.getText().substring(3,5)) + (Integer.parseInt(this.txtTimer.getText().substring(0,2)) * 60))) >= 1)
 		{
 			this.mainClock.cancel();
+			timeSpeed = 1;
+			txtTimeSpeed.setText("");
 			
 			btnPause.setText("Pause");
 			btnEditMode.setSelected(false);
