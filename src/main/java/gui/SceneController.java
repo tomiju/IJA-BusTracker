@@ -242,6 +242,12 @@ public class SceneController implements Initializable {
 				timeSpeed = 1;
 				
 				this.mainClock.cancel();
+				
+				if (btnPause.getText().equals("Resume"))
+				{
+					btnPause.setText("Pause");
+				}
+				
 				drive();
 				for (Vehicle vehicle : gui.SceneController.data.getVehicles())
 				{
@@ -255,6 +261,12 @@ public class SceneController implements Initializable {
 					timeSpeed = Integer.parseInt(txtTimeSpeed.getText());
 					
 					this.mainClock.cancel();
+					
+					if (btnPause.getText().equals("Resume"))
+					{
+						btnPause.setText("Pause");
+					}
+					
 					drive();
 					for (Vehicle vehicle : gui.SceneController.data.getVehicles())
 					{
@@ -266,6 +278,12 @@ public class SceneController implements Initializable {
 					timeSpeed = 1;
 					
 					this.mainClock.cancel();
+					
+					if (btnPause.getText().equals("Resume"))
+					{
+						btnPause.setText("Pause");
+					}
+					
 					drive();
 					for (Vehicle vehicle : gui.SceneController.data.getVehicles())
 					{
@@ -279,6 +297,12 @@ public class SceneController implements Initializable {
 			timeSpeed = 1;
 			
 			this.mainClock.cancel();
+			
+			if (btnPause.getText().equals("Resume"))
+			{
+				btnPause.setText("Pause");
+			}
+			
 			drive();
 			for (Vehicle vehicle : gui.SceneController.data.getVehicles())
 			{
@@ -301,6 +325,12 @@ public class SceneController implements Initializable {
 				timeSpeed = 1;
 				
 				this.mainClock.cancel();
+
+				if (btnPause.getText().equals("Resume"))
+				{
+					btnPause.setText("Pause");
+				}
+				
 				drive();
 				for (Vehicle vehicle : gui.SceneController.data.getVehicles())
 				{
@@ -314,6 +344,12 @@ public class SceneController implements Initializable {
 					timeSpeed = Integer.parseInt(txtTimeSpeed.getText());
 					
 					this.mainClock.cancel();
+					
+					if (btnPause.getText().equals("Resume"))
+					{
+						btnPause.setText("Pause");
+					}
+					
 					drive();
 					for (Vehicle vehicle : gui.SceneController.data.getVehicles())
 					{
@@ -325,6 +361,12 @@ public class SceneController implements Initializable {
 					timeSpeed = 1;
 					
 					this.mainClock.cancel();
+					
+					if (btnPause.getText().equals("Resume"))
+					{
+						btnPause.setText("Pause");
+					}
+					
 					drive();
 					for (Vehicle vehicle : gui.SceneController.data.getVehicles())
 					{
@@ -338,6 +380,12 @@ public class SceneController implements Initializable {
 			timeSpeed = 1;
 			
 			this.mainClock.cancel();
+			
+			if (btnPause.getText().equals("Resume"))
+			{
+				btnPause.setText("Pause");
+			}
+			
 			drive();
 			for (Vehicle vehicle : gui.SceneController.data.getVehicles())
 			{

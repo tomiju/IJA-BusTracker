@@ -106,7 +106,7 @@ public class Drawable
 			circle.setCenterY(vehicle.getCurrentPosition().getY());
 	
 			text.setText(vehicle.getId());
-			text.xProperty().bind(circle.centerXProperty().add(7));
+			text.xProperty().bind(circle.centerXProperty().add(10));
 			text.yProperty().bind(circle.centerYProperty());
 			text.setFill(Color.GAINSBORO);
 			
