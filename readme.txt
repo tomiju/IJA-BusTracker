@@ -1,4 +1,4 @@
-IJA - Project 2020
+IJA - Projekt 2020
 
 "Bus tracker - Aplikace pro zobrazeni linek hromadne dopravy a sledovani jejich pohybu"
 Autori:
