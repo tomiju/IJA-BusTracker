@@ -24,6 +24,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -148,7 +149,12 @@ public class SceneController implements Initializable {
 			{
 				if (line.getStreets().isEmpty())
 				{
-					Alert alert = new Alert(Alert.AlertType.WARNING);
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+					
+					DialogPane dialogPane = alert.getDialogPane();
+					dialogPane.getStylesheets().add("/style.css");
+					
+					alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
 					alert.setTitle("Edit mode error");
 					alert.setHeaderText("Warning\nPath not set for line:  " + line.getId());
 					alert.setContentText("You need to create new path.");
@@ -629,8 +635,13 @@ public class SceneController implements Initializable {
         }
         catch(Exception e)
         {
-	   		e.printStackTrace();
+	   		//e.printStackTrace();
 	   		Alert alert = new Alert(Alert.AlertType.ERROR);
+	   		
+	   		DialogPane dialogPane = alert.getDialogPane();
+			dialogPane.getStylesheets().add("/style.css");
+	   		
+	   		alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
 			alert.setTitle("Application setup error");
 			alert.setHeaderText("Error\nSomething is was wrong with input data");
 			alert.setContentText("Incorrect file format.");

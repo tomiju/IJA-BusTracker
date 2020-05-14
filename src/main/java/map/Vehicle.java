@@ -13,6 +13,8 @@ import javafx.animation.Animation;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
+import javafx.scene.layout.Region;
 import javafx.scene.shape.Polyline;
 import javafx.util.Duration;
 import java.util.Random;
@@ -587,6 +589,11 @@ public class Vehicle
 					Platform.runLater(() -> { // vypis informace o vozidle, ktere nemuze pokracovat v jizde
 						
 						Alert alert = new Alert(Alert.AlertType.WARNING);
+						
+						DialogPane dialogPane = alert.getDialogPane();
+						dialogPane.getStylesheets().add("/style.css");
+						
+						alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
 						alert.setTitle("Vehicle has no path");
 						alert.setHeaderText("Warning\nVehicle: \"" + this.getId() + "\" doesn't know where to go :(");
 						alert.setContentText("Stuck... Forever :(");

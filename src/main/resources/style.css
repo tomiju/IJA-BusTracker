@@ -57,3 +57,43 @@
 .scroll-pane > .corner {
     -fx-background-color: transparent;
 }
+
+.dialog-pane{
+  -fx-border-color: #292929;
+  -fx-border-width:2.0px;
+ }
+
+.dialog-pane > .button-bar > .container {
+  -fx-background-color: #292929;
+}
+
+.dialog-pane > .content.label {
+   -fx-padding: 0.5em 0.5em 0.5em 0.5em;
+   -fx-background-color: #292929;
+   -fx-text-fill:#dddddd;
+   -fx-font-size:15.0px;
+}
+
+.dialog-pane:header .header-panel {
+  -fx-background-color: #333333;
+}
+
+.dialog-pane:header .header-panel .label{
+  -fx-background-color: #333333;
+  -fx-background-radius:10px;
+  -fx-text-fill:#dddddd;
+  -fx-font-size:15.0px;
+}
+
+.dialog-pane .button{
+   -fx-background-color: #666666;
+   -fx-text-fill:#dddddd;
+   -fx-wrap-text: true;
+   -fx-cursor:hand;
+ }
+
+.dialog-pane .button:hover{     
+  -fx-background-color:#666666;
+  -fx-text-fill:#dddddd;
+  -fx-font-weight:bold; 
+ }

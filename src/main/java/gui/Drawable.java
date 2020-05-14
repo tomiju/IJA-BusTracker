@@ -5,12 +5,16 @@ import java.util.ArrayList;
 import drawable.StreetView;
 import drawable.VehicleView;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import javafx.scene.control.ButtonBar;
 import map.BusLine;
 import map.Stop;
 import map.Street;
@@ -204,33 +208,57 @@ public class Drawable
 		{
 			if(street.getStatus())
 			{
-				Drawable.resetColors(busLines);
+				Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 				
-				street.setOpen(false); // uzavre ulici
-				line.setStroke(Color.RED);
+				DialogPane dialogPane = alert.getDialogPane();
+				dialogPane.getStylesheets().add("/style.css");
 				
-				for	(BusLine busLine : busLines)
-				{
-					for	(Street street_busLines : busLine.getStreets())
-					{
-						if (street_busLines.getId() == street.getId()) // upozorneni, kterych ulic se uzavreni tyka
-						{
-							Alert alert = new Alert(Alert.AlertType.INFORMATION);
-							alert.setTitle("Street closing information");
-							alert.setHeaderText("Warning\nYou have closed street:  " + street.getId());
-							alert.setContentText("The path has been affected, line:  " + busLine.getId());
-							alert.show();						
+				alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+				alert.setTitle("Street closing information");
+				alert.setHeaderText("You are about to close street: " + street.getId());
+				alert.setContentText("Do you want to continue?");
+				ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+				ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
+				alert.getButtonTypes().setAll(okButton, noButton);
+				alert.showAndWait().ifPresent(type -> {
+				        if (type.getButtonData().toString() == "YES") 
+				        {
+				        	System.out.println(type);
+				    		Drawable.resetColors(busLines);
 							
-							for (Vehicle vehicle : busLine.getVehicles())
+							street.setOpen(false); // uzavre ulici
+							line.setStroke(Color.RED);
+							
+							for	(BusLine busLine : busLines)
 							{
-								vehicle.cancelDriving();
+								for	(Street street_busLines : busLine.getStreets())
+								{
+									if (street_busLines.getId() == street.getId()) // upozorneni, kterych ulic se uzavreni tyka
+									{
+										Alert alert1 = new Alert(Alert.AlertType.WARNING);
+										
+										DialogPane dialogPane1 = alert1.getDialogPane();
+										dialogPane1.getStylesheets().add("/style.css");
+										
+										alert1.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+										alert1.setTitle("Street closing information");
+										alert1.setHeaderText("Warning\nYou have closed street:  " + street.getId());
+										alert1.setContentText("Line:  " + busLine.getId() + "\nThe path has been edited.");
+										alert1.show();						
+										
+										for (Vehicle vehicle : busLine.getVehicles())
+										{
+											vehicle.cancelDriving();
+										}
+										
+										busLine.setEdit(true);
+										busLine.resetStreetsForEditing();
+									}
+								}
 							}
-							
-							busLine.setEdit(true);
-							busLine.resetStreetsForEditing();
-						}
-					}
-				}
+				        }
+				        else{}
+				});		
 			}
 			else
 			{
