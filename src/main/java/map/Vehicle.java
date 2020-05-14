@@ -343,6 +343,8 @@ public class Vehicle
 				coords2.add(nextStopY);
 				
 				this.setCurrentPosition(this.firstEntry.getStop().getCoordinate());
+				this.setCurrentStreet(this.firstEntry.getStop().getStreet());
+				
 				this.previousStop = this.firstEntry; // prvni zastavka
 				this.nextStop = this.timetable.nextStop(); // druha zastavka
 						
@@ -424,6 +426,7 @@ public class Vehicle
 				
 				// aktualni pozice je nasledujici zastavka
 				this.setCurrentPosition(this.nextStop.getStop().getCoordinate());
+				this.setCurrentStreet(this.previousStop.getStop().getStreet());
 				
 				this.previousStopTime = Integer.parseInt(this.nextStop.getTime().substring(3,5)) + (Integer.parseInt(this.nextStop.getTime().substring(0,2)) * 60);
 				this.previousStop = this.nextStop;
@@ -479,7 +482,7 @@ public class Vehicle
 					double street_size = round(this.distance(street.getEnd().getX(), street.getEnd().getY(), street.getStart().getX(), street.getStart().getY()), 0);
 					
 					// urceni pozice na aktualni ulici (
-					if(vehicle_distance - street_size >= -5.0 && vehicle_distance - street_size <= 5.0)
+					if(vehicle_distance - street_size >= -10.0 && vehicle_distance - street_size <= 10.0)
 					{					
 						try 
 						{
@@ -669,7 +672,7 @@ public class Vehicle
 				}
 				else
 				{
-					//this.nextStop = null;
+					this.nextStop = null;
 					this.ended = true;
 					return;
 				}
@@ -932,7 +935,7 @@ public class Vehicle
 				double street_size = round(this.distance(street.getEnd().getX(), street.getEnd().getY(), street.getStart().getX(), street.getStart().getY()), 0);
 				
 				// urceni pozice na aktualni ulici
-				if(vehicle_distance - street_size >= -5.0 && vehicle_distance - street_size <= 5.0)
+				if(vehicle_distance - street_size >= -10.0 && vehicle_distance - street_size <= 10.0)
 				{					
 					try 
 					{
@@ -1173,7 +1176,7 @@ public class Vehicle
 				double street_size = round(this.distance(street.getEnd().getX(), street.getEnd().getY(), street.getStart().getX(), street.getStart().getY()), 0);
 				
 				// urceni pozice na aktualni ulici (
-				if(vehicle_distance - street_size >= -5.0 && vehicle_distance - street_size <= 5.0)
+				if(vehicle_distance - street_size >= -10.0 && vehicle_distance - street_size <= 10.0)
 				{					
 					try 
 					{

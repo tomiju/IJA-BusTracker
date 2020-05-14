@@ -92,6 +92,9 @@ public class SceneController implements Initializable {
 	@FXML
 	private Button focusReset;
 	
+	@FXML
+	private Label lblCurrentSpeed;
+	
 	/**
 	 * Funkce se postara o zapnuti/vypnuti edit mode - pozastavi simulaci a prepne mod.
 	 * @param event event
@@ -240,6 +243,8 @@ public class SceneController implements Initializable {
 			if(txtTimeSpeed.getText() == "")
 			{
 				timeSpeed = 1;
+				lblCurrentSpeed.setText("Speed: " + timeSpeed);
+				txtTimeSpeed.setText("");
 				
 				this.mainClock.cancel();
 				
@@ -259,6 +264,8 @@ public class SceneController implements Initializable {
 				if (Integer.parseInt(txtTimeSpeed.getText()) >= 1 && Integer.parseInt(txtTimeSpeed.getText()) <= 5)
 				{
 					timeSpeed = Integer.parseInt(txtTimeSpeed.getText());
+					lblCurrentSpeed.setText("Speed: " + timeSpeed);
+					txtTimeSpeed.setText("");
 					
 					this.mainClock.cancel();
 					
@@ -276,6 +283,8 @@ public class SceneController implements Initializable {
 				else
 				{
 					timeSpeed = 1;
+					lblCurrentSpeed.setText("Speed: " + timeSpeed);
+					txtTimeSpeed.setText("");
 					
 					this.mainClock.cancel();
 					
@@ -295,6 +304,8 @@ public class SceneController implements Initializable {
 		else
 		{
 			timeSpeed = 1;
+			lblCurrentSpeed.setText("Speed: " + timeSpeed);
+			txtTimeSpeed.setText("");
 			
 			this.mainClock.cancel();
 			
@@ -323,9 +334,11 @@ public class SceneController implements Initializable {
 			if(txtTimeSpeed.getText() == "")
 			{
 				timeSpeed = 1;
+				lblCurrentSpeed.setText("Speed: " + timeSpeed);
+				txtTimeSpeed.clear();
 				
 				this.mainClock.cancel();
-
+				
 				if (btnPause.getText().equals("Resume"))
 				{
 					btnPause.setText("Pause");
@@ -342,6 +355,8 @@ public class SceneController implements Initializable {
 				if (Integer.parseInt(txtTimeSpeed.getText()) >= 1 && Integer.parseInt(txtTimeSpeed.getText()) <= 5)
 				{
 					timeSpeed = Integer.parseInt(txtTimeSpeed.getText());
+					lblCurrentSpeed.setText("Speed: " + timeSpeed);
+					txtTimeSpeed.clear();
 					
 					this.mainClock.cancel();
 					
@@ -359,6 +374,8 @@ public class SceneController implements Initializable {
 				else
 				{
 					timeSpeed = 1;
+					lblCurrentSpeed.setText("Speed: " + timeSpeed);
+					txtTimeSpeed.clear();
 					
 					this.mainClock.cancel();
 					
@@ -378,6 +395,8 @@ public class SceneController implements Initializable {
 		else
 		{
 			timeSpeed = 1;
+			lblCurrentSpeed.setText("Speed: " + timeSpeed);
+			txtTimeSpeed.clear();
 			
 			this.mainClock.cancel();
 			
@@ -405,6 +424,7 @@ public class SceneController implements Initializable {
 		{
 			this.mainClock.cancel();
 			timeSpeed = 1;
+			lblCurrentSpeed.setText("Speed: " + timeSpeed);
 			txtTimeSpeed.setText("");
 			
 			btnPause.setText("Pause");

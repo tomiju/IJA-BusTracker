@@ -66,11 +66,17 @@
             </VBox>
             <HBox prefHeight="41.0" prefWidth="183.0">
                <children>
-                  <Separator prefHeight="18.0" prefWidth="45.0" visible="false" />
-                  <Button fx:id="btnPause" mnemonicParsing="false" onAction="#pauseSimulation" style="-fx-background-color: #666666;" text="Pause" textFill="#dddddd">
+                  <Separator prefHeight="18.0" prefWidth="34.0" visible="false" />
+                  <Button fx:id="btnPause" mnemonicParsing="false" onAction="#pauseSimulation" prefHeight="23.0" prefWidth="65.0" scaleShape="false" style="-fx-background-color: #666666;" text="Pause" textFill="#dddddd">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font></Button>
+                  <Separator prefHeight="3.0" prefWidth="19.0" visible="false" />
+                  <Label fx:id="lblCurrentSpeed" prefHeight="26.0" prefWidth="60.0" text="Speed: 1" textFill="#dddddd">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Label>
                </children>
             </HBox>
             <HBox prefHeight="39.0" prefWidth="183.0">

@@ -140,39 +140,47 @@ public class Drawable
 					{
 						if(street.getStatus())
 						{
-							boolean inList = false;							
+							boolean inList = false;
+							boolean firstItem = false;
 							
 							if (streetList.getItems().isEmpty())
 							{
 								streetList.getItems().add(street.getId()); // pridani nakliknute ulice do seznamu
 								line.setStroke(Color.CYAN);
+								firstItem = true;
 								
 								busLine.addStreet(street);
 							}
 							
-							for (String item : streetList.getItems()) // lze pridat pouze ulice, ktere jiz v seznamu nejsou!
+							if(!firstItem)
 							{
-								if (street.getId() == item)
+								for (String item : streetList.getItems()) // lze pridat pouze ulice, ktere jiz v seznamu nejsou!
 								{
-									inList = true;
-									break;
-								}
-							}
-							
-							if (!inList) // lze pridat pouze ulice, ktere jiz v seznamu nejsou!
-							{
-								streetList.getItems().add(street.getId());
-								line.setStroke(Color.CYAN);
-								
-								if (busLine.getId() == editedBusLine)
-								{
-									busLine.addStreet(street);
-									//DEBUG
-									/*System.out.println("Debug edited streets:");
-									for (Street street1 : busLine.getStreets())
+									if (street.getId() == item)
 									{
-										System.out.println(street1.getId());
-									}*/
+										inList = true;
+										if (!streetList.getItems().isEmpty())
+										{
+											if(street.getId() == streetList.getItems().get(streetList.getItems().size() - 1))
+											{
+												streetList.getItems().remove(streetList.getItems().size() - 1);
+												busLine.getStreets().remove(busLine.getStreets().size() - 1);
+												line.setStroke(Color.GREY);
+											}
+										}
+										break;
+									}
+								}							
+								
+								if (!inList) // lze pridat pouze ulice, ktere jiz v seznamu nejsou!
+								{
+									streetList.getItems().add(street.getId());
+									line.setStroke(Color.CYAN);
+									
+									if (busLine.getId() == editedBusLine)
+									{
+										busLine.addStreet(street);
+									}
 								}
 							}
 						}
