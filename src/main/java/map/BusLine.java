@@ -1,3 +1,12 @@
+/**
+ *
+ * Reprezentace jedne autobusove linky.
+ * Linka ma sve ID, ma pocatecni a konecnou zastavku a obsahuje seznam vozidel a ulic, ze kterych se sklada.
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
+ *
+ */
+
 package map;
 
 import java.util.ArrayList;
@@ -10,14 +19,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
-/**
- * 
- * Reprezentace jedne autobusove linky.
- * Linka ma sve ID, ma pocatecni a konecnou zastavku a obsahuje seznam vozidel a ulic, ze kterych se sklada.
- * @author Tomas Julina (xjulin08)
- * @author Tomas Kantor (xkanto14)
- *
- */
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class BusLine implements Cloneable
 {
@@ -25,29 +26,29 @@ public class BusLine implements Cloneable
 	private Stop start, end;
 	private ArrayList<Street> streets;
 	private ArrayList<Vehicle> vehicles;
-	
+
 	private boolean edited = false;
-	
+
 	public BusLine(String id, ArrayList<Street> streets)
 	{
 		this.streets = streets;
 		this.id = id;
 		this.vehicles = new ArrayList<>();
 	}
-	
+
 	public BusLine() {
 		this.vehicles = new ArrayList<>();
 	}
-	
+
 	/**
      * Nastavi nazev linky.
      * @param name nazev
      */
 	public void setId(String name)
 	{
-		this.id = name; 
+		this.id = name;
 	}
-	
+
 	/**
      * Nastavi zacatek linky (pocatecni zastavku).
      * @param start start
@@ -56,7 +57,7 @@ public class BusLine implements Cloneable
 	{
 		this.start = start;
 	}
-	
+
 	/**
      * Nastavi konecnou stanici.
      * @param stop konecna zastavka
@@ -65,7 +66,7 @@ public class BusLine implements Cloneable
 	{
 		this.end = stop;
 	}
-	
+
 	/**
 	 * Nastavi aktualni linku jako editovanou
 	 * @param isEdited status linky
@@ -74,7 +75,7 @@ public class BusLine implements Cloneable
 	{
 		this.edited = isEdited;
 	}
-	
+
 	/**
 	 * Vymaze seznam ulic v pripade, ze se musi linka editovat
 	 */
@@ -82,7 +83,7 @@ public class BusLine implements Cloneable
 	{
 		this.streets = new ArrayList<Street>();
 	}
-	
+
 	/**
 	 * Nahraje puvodni stav ulic
 	 * @param backupStreets puvodni ulice
@@ -92,7 +93,7 @@ public class BusLine implements Cloneable
 		this.streets = new ArrayList<Street>();
 		this.streets = backupStreets;
 	}
-	
+
 	/**
      * Prida ulici do linky.
      * @param street ulice
@@ -101,7 +102,7 @@ public class BusLine implements Cloneable
 	{
 		this.streets.add(street);
 	}
-	
+
 	/**
      * Prida vozidlo patrici dane lince.
      * @param vehicle vozidlo
@@ -110,7 +111,7 @@ public class BusLine implements Cloneable
 	{
 		this.vehicles.add(vehicle);
 	}
-	
+
 	/**
      * Ziska nazev linky.
      * @return String nazev linky
@@ -119,7 +120,7 @@ public class BusLine implements Cloneable
 	{
 		return this.id;
 	}
-	
+
 	/**
      * Ziska pocatecni zastavku
      * @return Stop pocatecni zastavka
@@ -128,7 +129,7 @@ public class BusLine implements Cloneable
 	{
 		return this.start;
 	}
-	
+
 	/**
      * Ziska konecnou zastavku.
      * @return Stop konecna zastavka
@@ -137,7 +138,7 @@ public class BusLine implements Cloneable
 	{
 		return this.end;
 	}
-	
+
 	/**
      * Ziska seznam ulic.
      * @return ArrayList seznam ulic
@@ -146,7 +147,7 @@ public class BusLine implements Cloneable
 	{
 		return this.streets;
 	}
-	
+
 	/**
      * Ziska seznam vozidel.
      * @return ArrayList seznam vozidel
@@ -156,7 +157,7 @@ public class BusLine implements Cloneable
 	{
 		return this.vehicles;
 	}
-	
+
 	/**
 	 * Zjisti, zda aktualni linka byla editovana - kvuli uzavirce cesty
 	 * @return boolean stav linky
@@ -166,14 +167,14 @@ public class BusLine implements Cloneable
 	{
 		return this.edited;
 	}
-	
+
 	/**
      * Nastavi "focus" (zvyrazni) na celou linku.
      */
 	@JsonIgnore
 	public void setLineFocus()
 	{
-		for (Street street : this.streets) 
+		for (Street street : this.streets)
 		{
 			if (street.isOpen())
 			{
@@ -181,21 +182,21 @@ public class BusLine implements Cloneable
 				line.setStroke(Color.GREEN);
 			}
 		}
-		
+
 		for (Vehicle vehicle : this.vehicles)
 		{
 			Circle circle = vehicle.getVehicleView().getCircle();
 			circle.setFill(Color.GREEN);
 		}
 	}
-	
+
 	/**
      * Zrusi "focus" lince.
      */
 	@JsonIgnore
 	public void unsetLineFocus()
 	{
-		for (Street street : this.streets) 
+		for (Street street : this.streets)
 		{
 			if (street.isOpen())
 			{
@@ -203,20 +204,20 @@ public class BusLine implements Cloneable
 				line.setStroke(Color.GREY);
 			}
 		}
-		
+
 		for (Vehicle vehicle : this.vehicles)
 		{
 			Circle circle = vehicle.getVehicleView().getCircle();
 			circle.setFill(Color.BLUE);
 		}
 	}
-	
+
 	/**
 	 * Nastavi barvu trase vybraneho vozidla
 	 */
 	public void setVehicleInfoFocus()
 	{
-		for (Street street : this.streets) 
+		for (Street street : this.streets)
 		{
 			if (street.isOpen())
 			{
@@ -225,15 +226,15 @@ public class BusLine implements Cloneable
 			}
 		}
 	}
-	
+
 	/**
 	 * Funkce pro hlubokou kopii stavu linek nutna pro restart simulace (navrat do puvodniho stavu pred editacemi).
 	 */
 	@Override
-	public Object clone() throws CloneNotSupportedException 
+	public Object clone() throws CloneNotSupportedException
 	{
 
 	    return super.clone();
 	}
-	
+
 }

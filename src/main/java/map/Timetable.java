@@ -1,34 +1,35 @@
-package map;
-
-import java.util.ArrayList;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 /**
- * 
+ *
  * Trida reprezentujici jizdni rad.
  * Jizdni rad se sklada z jednotlivych zapisu.
  * @author Tomas Julina (xjulin08)
  * @author Tomas Kantor (xkanto14)
  *
  */
-public class Timetable 
+
+package map;
+
+import java.util.ArrayList;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+public class Timetable
 {
 	private ArrayList<TimetableEntry> entries; // ArrayList se zastavkami a casy, kdy na nich jsem
-	
+
 	@JsonIgnore
 	private int index = 0;
-	
+
 	@JsonIgnore
 	private TimetableEntry next;
-	
+
 	public Timetable(ArrayList<TimetableEntry> entries)
 	{
 		this.entries = entries;
 	}
-	
+
 	public Timetable() {}
-	
+
 	/**
 	 * Vrati seznam zapisu (obsah jizdniho radu).
 	 * @return ArrayList seznam zapisu
@@ -37,7 +38,7 @@ public class Timetable
 	{
 		return this.entries;
 	}
-	
+
 	/**
 	 * Vrati zaznam nasledujici zastavky.
 	 * @return TimetableEntry zaznam nasledujici zastavky
@@ -47,7 +48,7 @@ public class Timetable
 	{
 		this.index++;
 
-		if (this.index > entries.size() - 1) 
+		if (this.index > entries.size() - 1)
 		{
 			this.index = 0;
 		}
@@ -64,14 +65,14 @@ public class Timetable
 	{
 		this.index--;
 
-		if (this.index < 0) 
+		if (this.index < 0)
 		{
 			this.index = entries.size() - 1;
 		}
 
 		return (this.next = entries.get(this.index));
 	}
-	
+
 	/**
 	 * Pomocna funkce pro restart simulace
 	 */

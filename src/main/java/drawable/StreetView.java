@@ -1,28 +1,29 @@
-package drawable;
-
-import javafx.scene.shape.Line;
-import javafx.scene.text.Text;
-
 /**
- * 
+ *
  * Objekt reprezentujici ulici v mape (vykreslena)
  * @author Tomas Julina (xjulin08)
  * @author Tomas Kantor (xkanto14)
  *
  */
-public class StreetView 
+
+package drawable;
+
+import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
+
+public class StreetView
 {
 	private Line line;
 	private Text name;
-	
+
 	public StreetView(Line line, Text name)
 	{
 		this.line = line;
 		this.name = name;
 	}
-	
+
 	public StreetView() {}
-		
+
 	/**
      * Ziska objekt reprezentujici ulici.
      * @return Line graficka reprezentace ulice.
@@ -31,7 +32,7 @@ public class StreetView
 	{
 		return this.line;
 	}
-	
+
 	/**
      * Ziska nazev ulice.
      * @return Text nazev ulice.

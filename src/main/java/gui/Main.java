@@ -1,13 +1,12 @@
-package gui;
-
-
 /**
- * 
+ *
  * Vytvoreni okna a sceny
  * @author Tomas Julina (xjulin08)
  * @author Tomas Kantor (xkanto14)
  *
  */
+
+package gui;
 
 import gui.SceneController;
 import javafx.application.Application;
@@ -19,28 +18,28 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
- 
-public class Main extends Application 
+
+public class Main extends Application
 {
-	public static void main(String[] args) 
+	public static void main(String[] args)
 	{
 		launch(args);
 	}
-	
-	public void start(Stage primaryStage) throws Exception 
+
+	public void start(Stage primaryStage) throws Exception
 	{
 		FXMLLoader loader = new FXMLLoader();
         loader.setController(new SceneController());
         loader.setLocation(getClass().getResource("/scene.fxml"));
 		Parent root = loader.load();
-		
+
 	    Scene scene = new Scene(root, 1280, 800);
 	    scene.getStylesheets().add("/style.css");
 	    scene.setFill(Color.BLACK);
 	    primaryStage.setScene(scene);
 	    primaryStage.setTitle("Bus Tracker");
 	    primaryStage.setResizable(false);
-	    
+
 	    primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 	        @Override
 	        public void handle(WindowEvent t) {
@@ -49,7 +48,7 @@ public class Main extends Application
 	        }
 	    });
 
-		/*root.setOnMouseClicked(new EventHandler<MouseEvent>() 
+		/*root.setOnMouseClicked(new EventHandler<MouseEvent>()
 		{
 		  @Override
 		  public void handle(MouseEvent event) {
@@ -57,7 +56,7 @@ public class Main extends Application
 		    System.out.println(event.getSource().toString());
 		  }
 		});*/
-	    
+
 	    primaryStage.show();
 
 	}

@@ -1,3 +1,11 @@
+/**
+ *
+ * Ovladani uvodni sceny
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
+ *
+ */
+
 package gui;
 
 import java.io.File;
@@ -23,31 +31,24 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 
-/**
- * 
- * Ovladani uvodni sceny
- * @author Tomas Julina (xjulin08)
- * @author Tomas Kantor (xkanto14)
- *
- */
 public class InitWindowController implements Initializable {
-	
+
 	private Stage stage;
 	private InputData data;
-	
+
 	@FXML
 	private Button btnLoadMap;
-	
+
 	@FXML
 	private void loadFile(ActionEvent event) throws JsonGenerationException, JsonMappingException, IOException
 	{
 	    btnLoadMap.setDisable(true);
 		FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(null);
-        
-        if (file != null) 
+
+        if (file != null)
         {
-        	 try 
+        	 try
         	 {
         		 YAMLFactory factory = new  YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER);
 		         factory.enable(YAMLGenerator.Feature.INDENT_ARRAYS);
@@ -55,9 +56,9 @@ public class InitWindowController implements Initializable {
 		         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 		         mapper.registerModule(new JavaTimeModule());
 		         mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		             
-		     	 this.data = mapper.readValue(file, InputData.class); 
-        	 } 
+
+		     	 this.data = mapper.readValue(file, InputData.class);
+        	 }
         	 catch (Exception e)
         	 {
         		 //e.printStackTrace(); // debug
@@ -68,11 +69,11 @@ public class InitWindowController implements Initializable {
     			 alert.showAndWait();
  	             Platform.exit();
  	             System.exit(0);
-        	 }     		
+        	 }
         }
-        this.stage.close();	
+        this.stage.close();
 	}
-	
+
 	/**
      * Konstruktor uvodniho okna.
      * @param location location
@@ -89,7 +90,7 @@ public class InitWindowController implements Initializable {
     {
         this.stage = stage;
     }
-    
+
     /**
      * Nacte data ze souboru.
      * @return InputData zpracovane vstupni data

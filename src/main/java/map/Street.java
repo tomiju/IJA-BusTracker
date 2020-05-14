@@ -1,3 +1,12 @@
+/**
+ *
+ * Trida reprezentujici ulici.
+ * Ulice ma sve ID, ma promennou ukazujici, zda je otevrena, ci ne, obsahuje seznam zastavek a souradnice zacatku a konce, dale pak take uroven vytizeni.
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
+ *
+ */
+
 package map;
 
 import java.util.ArrayList;
@@ -8,14 +17,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import drawable.StreetView;
 
-/**
- * 
- * Trida reprezentujici ulici.
- * Ulice ma sve ID, ma promennou ukazujici, zda je otevrena, ci ne, obsahuje seznam zastavek a souradnice zacatku a konce, dale pak take uroven vytizeni.
- * @author Tomas Julina (xjulin08)
- * @author Tomas Kantor (xkanto14)
- *
- */
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Street
 {
@@ -24,22 +25,22 @@ public class Street
 	private boolean open = true; // otevrena / uzavrena ulice
 	private ArrayList<Stop> stops;
 	private Coordinate start, end;
-	
+
 	@JsonIgnore
 	private StreetView streetView;
-	
+
 	public Street(String name, Coordinate start, Coordinate end, ArrayList<Stop> stops)
 	{
 		this.id = name;
 		this.stops = stops;
 		this.start = start;
 		this.end = end;
-		
+
 		this.streetView = new StreetView();
 	}
-	
+
 	public Street() {}
-	
+
   /**
    * Vrati identifikator ulice.
    * @return String Identifikator ulice
@@ -48,16 +49,16 @@ public class Street
 	{
 		return this.id;
 	}
-	
+
 	/**
 	 * Vrati pocatecni souradnice ulice.
 	 * @return Coordinate souradnice ulice
 	 */
 	public Coordinate getStart()
-	{	
+	{
 		return this.start;
 	}
-	
+
 	/**
 	 * Vrati konecne souradnice ulice.
 	 * @return Coordinate souradnice ulice
@@ -75,7 +76,7 @@ public class Street
 	{
 		return this.stops;
 	}
-	
+
 	/**
 	 * Vrati status ulice.
 	 * @return boolean status ulice (open/closed)
@@ -85,7 +86,7 @@ public class Street
 	{
 		return this.open;
 	}
-	
+
 	/**
 	 * Nastavi zastavkam ulici, na ktere lezi.
 	 */
@@ -93,13 +94,13 @@ public class Street
 	{
 		if (this.stops != null)
 		{
-			for (Stop stop : this.stops) 
+			for (Stop stop : this.stops)
 			{
 				stop.setStreet(this);
 			}
 		}
 	}
-	
+
 	/**
 	 * Zjisti, status ulice.
 	 * @return status ulice
@@ -116,10 +117,10 @@ public class Street
 	public void addStop(Stop stop)
 	{
 		this.stops.add(stop);
-		
+
 		stop.setStreet(this);
 	}
-	
+
 	/**
 	 * Nastavi promennou obsahujici grafickou reprezentaci ulice.
 	 * @param view Objekt obsahujici grafickou reprezentaci ulice.
@@ -129,7 +130,7 @@ public class Street
 	{
 		this.streetView = view;
 	}
-	
+
 	/**
 	 * Vrati promennou obsahujici grafickou reprezentaci ulice.
 	 * @return StreetView Objekt obsahujici grafickou reprezentaci ulice.
@@ -139,7 +140,7 @@ public class Street
 	{
 		return this.streetView;
 	}
-	
+
 	/**
 	 * Nastavi status ulice
 	 * @param status status

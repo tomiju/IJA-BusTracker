@@ -1,25 +1,26 @@
-package map;
-
 /**
- * 
+ *
  * Reprezentuje pozici (souradnice) v mape.
  * Souradnice je dvojice (x,y).
  * @author Tomas Julina (xjulin08)
  * @author Tomas Kantor (xkanto14)
  *
  */
+
+package map;
+
 public class Coordinate
 {
 	private double x, y;
-	
+
 	public Coordinate(double X, double Y)
 	{
 		this.x = X;
 		this.y = Y;
 	}
-	
+
 	public Coordinate() {}
-	
+
   /**
    * Vraci hodnotu souradnice x.
    * @return double Souradnice x.
@@ -28,7 +29,7 @@ public class Coordinate
 	{
 		return this.x;
 	}
-	
+
   /**
    * Vraci hodnotu souradnice y.
    * @return double Souradnice y.
@@ -37,7 +38,7 @@ public class Coordinate
 	{
 		return this.y;
 	}
-	
+
 	/**
 	 * Umoznuje nastavi souradnici X
 	 * @param x souradnice x
@@ -46,7 +47,7 @@ public class Coordinate
 	{
 		this.x = x;
 	}
-	
+
 	/**
 	 * Umoznuje nastavi souradnici Y
 	 * @param y souradnice y
