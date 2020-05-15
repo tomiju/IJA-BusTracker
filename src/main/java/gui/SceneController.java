@@ -1,3 +1,10 @@
+/**
+ *
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
+ *
+ */
+
 package gui;
 
 import javafx.application.Platform;
@@ -37,8 +44,6 @@ import map.Vehicle;
 /**
  *
  * Ovladani scen.
- * @author Tomas Julina (xjulin08)
- * @author Tomas Kantor (xkanto14)
  *
  */
 public class SceneController implements Initializable {

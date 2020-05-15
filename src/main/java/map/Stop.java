@@ -1,3 +1,10 @@
+/**
+ *
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
+ *
+ */
+
 package map;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -8,8 +15,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  *
  * Trida reprezentujici zastavku.
  * Zastavka ma sve ID, souradnice umisteni a zna take ulici, na ktere je umistena.
- * @author Tomas Julina (xjulin08)
- * @author Tomas Kantor (xkanto14)
  *
  */
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")

@@ -1,3 +1,10 @@
+/**
+ *
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
+ *
+ */
+
 package gui;
 
 import java.util.ArrayList;
@@ -23,8 +30,6 @@ import map.Vehicle;
 /**
  *
  * Vykreslovani mapy
- * @author Tomas Julina (xjulin08)
- * @author Tomas Kantor (xkanto14)
  *
  */
 public class Drawable

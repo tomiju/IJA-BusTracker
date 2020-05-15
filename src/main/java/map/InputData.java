@@ -1,3 +1,10 @@
+/**
+ *
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
+ *
+ */
+
 package map;
 
 import java.util.ArrayList;
@@ -6,8 +13,6 @@ import java.util.ArrayList;
  *
  * Vstupni data ze souboru.
  * Obsahuje seznam zastavek, ulic, linek a vozidel.
- * @author Tomas Julina (xjulin08)
- * @author Tomas Kantor (xkanto14)
  *
  */
 public class InputData implements Cloneable // pomocna trida pro zpracovani input dat z YAML souboru

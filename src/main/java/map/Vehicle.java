@@ -1,3 +1,10 @@
+/**
+ *
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
+ *
+ */
+
 package map;
 
 import java.math.BigDecimal;
@@ -23,8 +30,6 @@ import java.util.Random;
  *
  * Trida reprezentujici vozidlo.
  * Sklada se z ID, linky, na ktere vozidlo jezdi, jizdniho radu, aktualni pozice a aktualni ulice, na ktere se vozidlo nachazi.
- * @author Tomas Julina (xjulin08)
- * @author Tomas Kantor (xkanto14)
  *
  */
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")

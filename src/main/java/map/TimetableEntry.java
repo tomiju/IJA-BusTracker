@@ -1,11 +1,16 @@
+/**
+ *
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
+ *
+ */
+
 package map;
 
 /**
  *
  * Trida reprezentujici obsah jizdniho radu.
  * Jizdni rad se sklada z nazvu zastavky a casoveho udaje prijezdu vozidla na zastavku.
- * @author Tomas Julina (xjulin08)
- * @author Tomas Kantor (xkanto14)
  *
  */
 public class TimetableEntry

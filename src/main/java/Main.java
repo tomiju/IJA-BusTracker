@@ -1,3 +1,10 @@
+/**
+ *
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
+ *
+ */
+
 import gui.SceneController;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -12,8 +19,6 @@ import javafx.stage.WindowEvent;
 /**
  *
  * Vytvoreni okna a sceny
- * @author Tomas Julina (xjulin08)
- * @author Tomas Kantor (xkanto14)
  *
  */
 public class Main extends Application

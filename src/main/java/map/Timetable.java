@@ -1,3 +1,10 @@
+/**
+ *
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
+ *
+ */
+
 package map;
 
 import java.util.ArrayList;
@@ -8,8 +15,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  * Trida reprezentujici jizdni rad.
  * Jizdni rad se sklada z jednotlivych zapisu.
- * @author Tomas Julina (xjulin08)
- * @author Tomas Kantor (xkanto14)
  *
  */
 public class Timetable

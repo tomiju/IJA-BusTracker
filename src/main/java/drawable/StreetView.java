@@ -1,3 +1,10 @@
+/**
+ *
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
+ *
+ */
+
 package drawable;
 
 import javafx.scene.shape.Line;
@@ -6,8 +13,6 @@ import javafx.scene.text.Text;
 /**
  *
  * Objekt reprezentujici ulici v mape (vykreslena)
- * @author Tomas Julina (xjulin08)
- * @author Tomas Kantor (xkanto14)
  *
  */
 public class StreetView

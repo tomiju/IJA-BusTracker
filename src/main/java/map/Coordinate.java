@@ -1,11 +1,16 @@
+/**
+ *
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
+ *
+ */
+
 package map;
 
 /**
  *
  * Reprezentuje pozici (souradnice) v mape.
  * Souradnice je dvojice (x,y).
- * @author Tomas Julina (xjulin08)
- * @author Tomas Kantor (xkanto14)
  *
  */
 public class Coordinate
