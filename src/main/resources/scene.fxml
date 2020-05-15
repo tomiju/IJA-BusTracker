@@ -16,15 +16,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #292929;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="800.0" minWidth="800.0" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #292929;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <ScrollPane fx:id="zoomMap" prefHeight="706.0" prefWidth="1001.0" style="-fx-background-color: #292929;" BorderPane.alignment="CENTER">
+      <ScrollPane fx:id="zoomMap" style="-fx-background-color: #292929;" BorderPane.alignment="CENTER">
          <content>
-            <StackPane onScroll="#onStackPaneScroll" prefHeight="744.0" prefWidth="1015.0" style="-fx-background-color: #292929;">
+            <StackPane onScroll="#onStackPaneScroll" style="-fx-background-color: #292929;">
                <children>
                   <Group fx:id="scroll" pickOnBounds="true">
                      <children>
-                        <Pane fx:id="map" cache="true" layoutX="-124.0" prefHeight="798.0" prefWidth="1095.0" style="-fx-background-color: #292929;">
+                        <Pane fx:id="map" cache="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="798.0" prefWidth="1095.0" style="-fx-background-color: #292929;">
                            <children>
                               <Label fx:id="lblEditMode" layoutX="-200.0" layoutY="450.0" prefHeight="85.0" prefWidth="918.0" text="EDIT MODE" textFill="#e80505" visible="false">
                                  <font>
@@ -66,8 +66,8 @@
             </VBox>
             <HBox prefHeight="41.0" prefWidth="183.0">
                <children>
-                  <Separator prefHeight="18.0" prefWidth="31.0" visible="false" />
-                  <Button fx:id="btnPause" mnemonicParsing="false" onAction="#pauseSimulation" prefHeight="23.0" prefWidth="61.0" scaleShape="false" style="-fx-background-color: #666666;" text="Pause" textFill="#dddddd">
+                  <Separator prefHeight="18.0" prefWidth="20.0" visible="false" />
+                  <Button fx:id="btnPause" mnemonicParsing="false" onAction="#pauseSimulation" prefHeight="23.0" prefWidth="65.0" scaleShape="false" style="-fx-background-color: #666666;" text="Pause" textFill="#dddddd">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font></Button>

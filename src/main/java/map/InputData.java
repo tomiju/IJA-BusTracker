@@ -1,3 +1,7 @@
+package map;
+
+import java.util.ArrayList;
+
 /**
  *
  * Vstupni data ze souboru.
@@ -6,11 +10,6 @@
  * @author Tomas Kantor (xkanto14)
  *
  */
-
-package map;
-
-import java.util.ArrayList;
-
 public class InputData implements Cloneable // pomocna trida pro zpracovani input dat z YAML souboru
 {
 	private ArrayList<Stop> stops;

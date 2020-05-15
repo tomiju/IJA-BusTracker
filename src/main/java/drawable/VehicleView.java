@@ -1,3 +1,8 @@
+package drawable;
+
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
+
 /**
  *
  * Objekt reprezentujici vozdilo v mape (vykreslene)
@@ -5,12 +10,6 @@
  * @author Tomas Kantor (xkanto14)
  *
  */
-
-package drawable;
-
-import javafx.scene.shape.Circle;
-import javafx.scene.text.Text;
-
 public class VehicleView
 {
 	private Circle circle;

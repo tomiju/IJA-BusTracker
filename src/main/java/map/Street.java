@@ -1,12 +1,3 @@
-/**
- *
- * Trida reprezentujici ulici.
- * Ulice ma sve ID, ma promennou ukazujici, zda je otevrena, ci ne, obsahuje seznam zastavek a souradnice zacatku a konce, dale pak take uroven vytizeni.
- * @author Tomas Julina (xjulin08)
- * @author Tomas Kantor (xkanto14)
- *
- */
-
 package map;
 
 import java.util.ArrayList;
@@ -17,6 +8,14 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import drawable.StreetView;
 
+/**
+ *
+ * Trida reprezentujici ulici.
+ * Ulice ma sve ID, ma promennou ukazujici, zda je otevrena, ci ne, obsahuje seznam zastavek a souradnice zacatku a konce, dale pak take uroven vytizeni.
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
+ *
+ */
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Street
 {

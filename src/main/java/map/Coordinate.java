@@ -1,3 +1,5 @@
+package map;
+
 /**
  *
  * Reprezentuje pozici (souradnice) v mape.
@@ -6,9 +8,6 @@
  * @author Tomas Kantor (xkanto14)
  *
  */
-
-package map;
-
 public class Coordinate
 {
 	private double x, y;

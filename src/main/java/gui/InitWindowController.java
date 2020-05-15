@@ -1,11 +1,3 @@
-/**
- *
- * Ovladani uvodni sceny
- * @author Tomas Julina (xjulin08)
- * @author Tomas Kantor (xkanto14)
- *
- */
-
 package gui;
 
 import java.io.File;
@@ -31,6 +23,13 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 
+/**
+ *
+ * Ovladani uvodni sceny
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
+ *
+ */
 public class InitWindowController implements Initializable {
 
 	private Stage stage;

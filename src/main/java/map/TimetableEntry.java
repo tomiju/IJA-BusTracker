@@ -1,3 +1,5 @@
+package map;
+
 /**
  *
  * Trida reprezentujici obsah jizdniho radu.
@@ -6,9 +8,6 @@
  * @author Tomas Kantor (xkanto14)
  *
  */
-
-package map;
-
 public class TimetableEntry
 {
 	private Stop stop; // na ktere zastavce jsem

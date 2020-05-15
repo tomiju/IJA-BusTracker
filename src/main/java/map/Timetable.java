@@ -1,3 +1,9 @@
+package map;
+
+import java.util.ArrayList;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * Trida reprezentujici jizdni rad.
@@ -6,13 +12,6 @@
  * @author Tomas Kantor (xkanto14)
  *
  */
-
-package map;
-
-import java.util.ArrayList;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class Timetable
 {
 	private ArrayList<TimetableEntry> entries; // ArrayList se zastavkami a casy, kdy na nich jsem

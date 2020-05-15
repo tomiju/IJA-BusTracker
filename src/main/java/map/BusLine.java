@@ -1,12 +1,3 @@
-/**
- *
- * Reprezentace jedne autobusove linky.
- * Linka ma sve ID, ma pocatecni a konecnou zastavku a obsahuje seznam vozidel a ulic, ze kterych se sklada.
- * @author Tomas Julina (xjulin08)
- * @author Tomas Kantor (xkanto14)
- *
- */
-
 package map;
 
 import java.util.ArrayList;
@@ -19,6 +10,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
+/**
+ *
+ * Reprezentace jedne autobusove linky.
+ * Linka ma sve ID, ma pocatecni a konecnou zastavku a obsahuje seznam vozidel a ulic, ze kterych se sklada.
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
+ *
+ */
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class BusLine implements Cloneable
 {

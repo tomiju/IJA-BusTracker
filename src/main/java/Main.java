@@ -1,13 +1,3 @@
-/**
- *
- * Vytvoreni okna a sceny
- * @author Tomas Julina (xjulin08)
- * @author Tomas Kantor (xkanto14)
- *
- */
-
-package gui;
-
 import gui.SceneController;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -19,6 +9,13 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+/**
+ *
+ * Vytvoreni okna a sceny
+ * @author Tomas Julina (xjulin08)
+ * @author Tomas Kantor (xkanto14)
+ *
+ */
 public class Main extends Application
 {
 	public static void main(String[] args)
@@ -38,7 +35,8 @@ public class Main extends Application
 	    scene.setFill(Color.BLACK);
 	    primaryStage.setScene(scene);
 	    primaryStage.setTitle("Bus Tracker");
-	    primaryStage.setResizable(false);
+	    primaryStage.setMinWidth(400);
+	    primaryStage.setMinHeight(800);
 
 	    primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 	        @Override
@@ -48,16 +46,6 @@ public class Main extends Application
 	        }
 	    });
 
-		/*root.setOnMouseClicked(new EventHandler<MouseEvent>()
-		{
-		  @Override
-		  public void handle(MouseEvent event) {
-		    System.out.println(event.getScreenX());
-		    System.out.println(event.getSource().toString());
-		  }
-		});*/
-
 	    primaryStage.show();
-
 	}
 }
