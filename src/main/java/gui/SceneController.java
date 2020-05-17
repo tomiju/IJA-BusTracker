@@ -478,6 +478,9 @@ public class SceneController implements Initializable {
 
 			    vehicle.getVehicleView().getCircle().setVisible(false);
 			    vehicle.getVehicleView().getText().setVisible(false);
+			    
+				vehicle.getVehicleView().getCircle().setMouseTransparent(false);
+				vehicle.getVehicleView().getText().setMouseTransparent(false);
 
 			    this.localTime = LocalTime.of(23, 59, 0, 0); // reset casu
 				this.txtTimer.setText(localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
@@ -969,7 +972,7 @@ public class SceneController implements Initializable {
 					{
 						localTime = localTime.plusMinutes(1);
 
-							txtTimer.setText(localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+						txtTimer.setText(localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
 
 						for (Vehicle vehicle : SceneController.data.getVehicles())
 						{

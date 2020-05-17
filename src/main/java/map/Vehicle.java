@@ -756,7 +756,6 @@ public class Vehicle
 				return;
 			}
 		}
-
 	}
 
 	/*
@@ -841,6 +840,7 @@ public class Vehicle
 	public void resetIndex()
 	{
 		this.index = 0;
+		this.delay = 0;
 		this.editPreviousCoord = new Coordinate(0,0);
 	}
 
@@ -912,12 +912,6 @@ public class Vehicle
 
 				// parsovani casu dalsi zastavky - kvuli delce jizdy
 				this.nextStopTime = (Integer.parseInt(this.nextStop.getTime().substring(3,5)) + (Integer.parseInt(this.nextStop.getTime().substring(0,2)) * 60) + this.delay);
-				System.out.println(this.id+ ":");
-				for(Coordinate test : this.vehiclePath)
-				{
-					System.out.println(test.getX());
-					System.out.println(test.getY());
-				}
 			}
 			else
 			{
