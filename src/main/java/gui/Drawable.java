@@ -141,54 +141,61 @@ public class Drawable
 	{
 		if (editMode)
 		{
-			for (BusLine busLine : lines)
+			if(!street.getStatus())
 			{
-				if (busLine.getId() == editedBusLine)
+				setStreetStatus(street, line, editMode, lines);
+			}
+			else
+			{
+				for (BusLine busLine : lines)
 				{
-					if (busLine.isEdited())
+					if (busLine.getId() == editedBusLine)
 					{
-						if(street.getStatus())
+						if (busLine.isEdited())
 						{
-							boolean inList = false;
-							boolean firstItem = false;
-
-							if (streetList.getItems().isEmpty())
+							if(street.getStatus())
 							{
-								streetList.getItems().add(street.getId()); // pridani nakliknute ulice do seznamu
-								line.setStroke(Color.CYAN);
-								firstItem = true;
+								boolean inList = false;
+								boolean firstItem = false;
 
-								busLine.addStreet(street);
-							}
-
-							if(!firstItem)
-							{
-								for (String item : streetList.getItems()) // lze pridat pouze ulice, ktere jiz v seznamu nejsou!
+								if (streetList.getItems().isEmpty())
 								{
-									if (street.getId() == item)
-									{
-										inList = true;
-										if (!streetList.getItems().isEmpty())
-										{
-											if(street.getId() == streetList.getItems().get(streetList.getItems().size() - 1))
-											{
-												streetList.getItems().remove(streetList.getItems().size() - 1);
-												busLine.getStreets().remove(busLine.getStreets().size() - 1);
-												line.setStroke(Color.GREY);
-											}
-										}
-										break;
-									}
+									streetList.getItems().add(street.getId()); // pridani nakliknute ulice do seznamu
+									line.setStroke(Color.CYAN);
+									firstItem = true;
+
+									busLine.addStreet(street);
 								}
 
-								if (!inList) // lze pridat pouze ulice, ktere jiz v seznamu nejsou!
+								if(!firstItem)
 								{
-									streetList.getItems().add(street.getId());
-									line.setStroke(Color.CYAN);
-
-									if (busLine.getId() == editedBusLine)
+									for (String item : streetList.getItems()) // lze pridat pouze ulice, ktere jiz v seznamu nejsou!
 									{
-										busLine.addStreet(street);
+										if (street.getId() == item)
+										{
+											inList = true;
+											if (!streetList.getItems().isEmpty())
+											{
+												if(street.getId() == streetList.getItems().get(streetList.getItems().size() - 1))
+												{
+													streetList.getItems().remove(streetList.getItems().size() - 1);
+													busLine.getStreets().remove(busLine.getStreets().size() - 1);
+													line.setStroke(Color.GREY);
+												}
+											}
+											break;
+										}
+									}
+
+									if (!inList) // lze pridat pouze ulice, ktere jiz v seznamu nejsou!
+									{
+										streetList.getItems().add(street.getId());
+										line.setStroke(Color.CYAN);
+
+										if (busLine.getId() == editedBusLine)
+										{
+											busLine.addStreet(street);
+										}
 									}
 								}
 							}
@@ -228,12 +235,12 @@ public class Drawable
 				alert.showAndWait().ifPresent(type -> {
 				        if (type.getButtonData().toString() == "YES")
 				        {
-				        	System.out.println(type);
-				    		Drawable.resetColors(busLines);
+				    		//Drawable.resetColors(busLines);
 
 							street.setOpen(false); // uzavre ulici
 							line.setStroke(Color.RED);
-
+							line.getStrokeDashArray().addAll(3.0,7.0,3.0,7.0);
+							
 							for	(BusLine busLine : busLines)
 							{
 								for	(Street street_busLines : busLine.getStreets())
@@ -268,7 +275,9 @@ public class Drawable
 			else
 			{
 				street.setOpen(true);
-				line.setStroke(Color.BLACK);
+				line.setStroke(Color.GREY);
+
+				line.getStrokeDashArray().clear();
 
 				boolean stillEdited = false;
 				BusLine pom = new BusLine();

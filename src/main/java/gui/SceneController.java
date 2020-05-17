@@ -43,12 +43,12 @@ import map.Vehicle;
 
 /**
  *
- * Ovladani scen.
+ * Hlavni ovladani sceny - rizeni programu (controller).
  *
  */
 public class SceneController implements Initializable {
 	private static InputData data;
-	private ArrayList<BusLine> dataBackup = new ArrayList<BusLine>();
+	private static ArrayList<BusLine> dataBackup = new ArrayList<BusLine>();
 	private LocalTime localTime = LocalTime.of(23, 59, 0, 0);
 	private int timeSpeed = 1;
 	private Timer mainClock;
@@ -191,7 +191,7 @@ public class SceneController implements Initializable {
 			for (BusLine line : SceneController.data.getLines()) // vycisti barvy ulic
 			{
 				line.unsetLineFocus();
-
+				
 				for (Street street : line.getStreets())
 				{
 					if (street != null)
@@ -209,10 +209,7 @@ public class SceneController implements Initializable {
 
 			for (Street street : SceneController.data.getStreets()) // zmeni barvu otevrenych ulic na cernou - zavrene zustanou cervene
 			{
-				if (street.getStatus())
-				{
-					street.getStreetView().getLine().setStroke(Color.GREY);
-				}
+				street.getStreetView().getLine().setStroke(Color.GREY);				
 			}
 		}
 	}
@@ -451,7 +448,7 @@ public class SceneController implements Initializable {
 			{
 				line.setEdit(false);
 
-				for (BusLine backupLine : this.dataBackup) // nacte zalohu puvodnich stavu linek
+				for (BusLine backupLine : SceneController.dataBackup) // nacte zalohu puvodnich stavu linek
 				{
 					if (backupLine.getId() == line.getId())
 					{
@@ -493,6 +490,7 @@ public class SceneController implements Initializable {
 					street.setOpen(true);
 				}
 				street.getStreetView().getLine().setStroke(Color.GREY);
+				street.getStreetView().getLine().getStrokeDashArray().clear();
 
 				street.getStreetView().getLine().setMouseTransparent(true); // nejde editovat trasa mimo editacni mod
  				street.getStreetView().getName().setMouseTransparent(true);
@@ -660,7 +658,7 @@ public class SceneController implements Initializable {
         {
         	try
         	{
-				this.dataBackup.add((BusLine)line.clone());
+				SceneController.dataBackup.add((BusLine)line.clone());
 			}
         	catch (CloneNotSupportedException e)
         	{
@@ -720,35 +718,68 @@ public class SceneController implements Initializable {
     					street.getStreetView().getLine().setMouseTransparent(false); // jde editovat trasa
      					street.getStreetView().getName().setMouseTransparent(false);
             		}
-
+            		
             		for (BusLine line : gui.SceneController.data.getLines())
             		{
                 		if (line != null)
-            			{
+            			{            			
                 			if(line.getId() == oldValue)
                 			{
-                				line.unsetLineFocus();
-
-                				for (Street street : gui.SceneController.data.getStreets())
+                				if(line.getStreets().isEmpty()) // kdyz jeste nebyla vybrana nova trasa, zvyrazni se puvodni
                 				{
-                					if (street.isOpen())
-                					{
-                						street.getStreetView().getLine().setStroke(Color.GREY);
-                					}
+                					for (BusLine line_backup : gui.SceneController.dataBackup)
+                            		{              						
+                						if(line.getId() == line_backup.getId())
+                            			{
+                							line_backup.unsetLineFocus();
+                            			}
+                            		}
+                				}
+                				else
+                				{
+                    				line.unsetLineFocus();
+
+                    				for (Street street : gui.SceneController.data.getStreets())
+                    				{
+                    					if (street.isOpen())
+                    					{
+                    						street.getStreetView().getLine().setStroke(Color.GREY);
+                    					}
+                    				}
                 				}
                 			}
-
+            			}
+            		}
+            		
+            		for (BusLine line : gui.SceneController.data.getLines())
+            		{
+                		if (line != null)
+            			{            
                 			if(line.getId() == newValue)
                     		{
-                    			 line.setLineFocus();
+                				if(line.getStreets().isEmpty()) // kdyz jeste nebyla vybrana nova trasa, zvyrazni se puvodni
+                				{
+                					for (BusLine line_backup : gui.SceneController.dataBackup)
+                            		{
+                						if(line.getId() == line_backup.getId())
+                            			{
+                							line_backup.setLineFocus();
+                            			}
+                            		}
+                				}
+                				else
+                				{
+                					line.setLineFocus();
 
-                    			for (Street street : line.getStreets())
-                     			{
-                     				if (street != null)
-                     				{
-                     					streetList.getItems().add(street.getId());
-                     				}
-                     			}
+                					for (Street street : line.getStreets())
+                					{
+                						if (street != null)
+                						{
+                							streetList.getItems().add(street.getId());
+                						}
+                					}
+                				}
+
                     		}
             			}
             		}
