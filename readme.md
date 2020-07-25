@@ -1,7 +1,9 @@
 # IJA - Projekt 2020
 ### Hodnocení: 75/80
 "Bus tracker - Aplikace pro zobrazeni linek hromadne dopravy a sledovani jejich pohybu"
-* Run with **ant**: ```ant compile```
+* Run with **ant**:   
+`ant compile`  
+`ant run`
 ____________________________
 ### Autori
 * Tomas Julina (xjulin08)
